@@ -1,34 +1,17 @@
-import time
-
 import src.utils.logger as logger
-from src.model.song import Song
-from src.player.console_player import ConsolePlayer
-from utils.json_loader import load_songs_from_json
+
+from fastapi import FastAPI
+from src.api.player import router as player_router
+from src.api.player_actions import router as player_actions_router
+from src.api.queue import router as queue_router
+from src.api.songs import router as songs_router
+from src.api.websocket import router as websocket_router
 
 
-def main():
-    music_player = ConsolePlayer()
-    songs: list[Song] = load_songs_from_json()
-    music_player.queue_songs(songs)
-    music_player.play()
-    print(music_player)
-    time.sleep(6)
-    # music_player.pause()
-    print(music_player)
-    time.sleep(2)
-    # music_player.play()
-    print(music_player)
-    time.sleep(1)
-    # music_player.stop()
-    print(music_player)
-    time.sleep(1)
-    music_player.next_track()
-    print(music_player)
-    time.sleep(5)
-    # music_player.pause()
-    print(music_player)
-
-
-if __name__ == '__main__':
-    logger.initialize()
-    main()
+logger.initialize()
+app = FastAPI()
+app.include_router(player_router)
+app.include_router(player_actions_router)
+app.include_router(queue_router)
+app.include_router(songs_router)
+app.include_router(websocket_router)

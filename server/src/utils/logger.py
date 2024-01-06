@@ -17,6 +17,11 @@
 
 import sys
 import logging
+import os
+
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.join(CURRENT_DIR, "..", "..")
 
 
 # Logging formatter supporting colorized output
@@ -107,7 +112,7 @@ def initialize():
     logging.root.handlers = []
     succeeded = _setup_logging(
         console_log_output="stdout", console_log_level="debug", console_log_color=True,
-        logfile_file=f"../server.log", logfile_log_level="warning", logfile_log_color=False,
+        logfile_file=os.path.join(ROOT_PATH, "server.log"), logfile_log_level="warning", logfile_log_color=False,
         log_line_template=f"%(asctime)s %(color_on)s%(levelname).1s (%(module)s) %(message)s%(color_off)s")
 
     if not succeeded:

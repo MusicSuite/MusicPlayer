@@ -1,3 +1,4 @@
+import json
 import logging
 import threading
 import time
@@ -79,12 +80,20 @@ class ConsolePlayer(BasePlayer):
         if not self._stop_event.is_set():
             self.next_track()
 
-    def __str__(self) -> str:
-        return str({
-            "State": self.state,
+    def __getstate__(self) -> json:
+        return {
+            "State": self.state.name,
             "Song position": self.song_position,
             "Queue": self.queue._queue
-        })
+        }
+
+    def __str__(self) -> str:
+        return str(self.__getstate__())
 
     def __del__(self):
         self._stop_timer()
+
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super(ConsolePlayer, cls).__new__(cls)
+        return cls._instance

@@ -1,3 +1,5 @@
+import json
+import threading
 from abc import ABC, abstractmethod
 import logging
 
@@ -10,6 +12,8 @@ class BasePlayer(ABC):
     state: State = State.STOPPED
     queue: MusicQueue = MusicQueue()
     volume: int = 60
+    _instance = None
+    _lock: threading.Lock = threading.Lock()
 
     @abstractmethod
     def play(self) -> None:
@@ -30,11 +34,6 @@ class BasePlayer(ABC):
     def next_track(self) -> None:
         logging.info("NEXT TRACK")
         self.queue.get()
-
-    # @abstractmethod
-    # def previous_track(self):
-    #     """Switch to the previous track."""
-    #     pass
 
     def set_volume(self, volume: int) -> None:
         volume = int(max(0, min(volume, 100)))
@@ -69,5 +68,17 @@ class BasePlayer(ABC):
         self.queue = MusicQueue()
 
     @abstractmethod
+    def __getstate__(self) -> json:
+        pass
+
+    @abstractmethod
     def __str__(self) -> str:
         pass
+
+    @abstractmethod
+    def __new__(cls, *args, **kwargs):
+        with cls._lock:
+            if not cls._instance:
+                cls._instance = super(BasePlayer, cls).__new__(cls)
+                cls._instance._stop_event = threading.Event()
+        return cls._instance

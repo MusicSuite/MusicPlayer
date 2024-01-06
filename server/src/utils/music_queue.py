@@ -29,11 +29,14 @@ class MusicQueue:
     def is_empty(self) -> bool:
         return len(self) == 0
 
+    def __getstate__(self):
+        return [song.__getstate__() for song in self._queue]
+
     def __len__(self) -> int:
         return len(self._queue)
 
     def __str__(self) -> str:
-        return str(self._queue)
+        return str(self.__getstate__())
 
     def __repr__(self) -> str:
         return str(self)
