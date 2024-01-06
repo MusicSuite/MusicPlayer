@@ -1,12 +1,11 @@
 import time
 
 from src.model.song import Song
-from src.player.console_player import ConsolePlayer
+from src.player.console_player import console_player as music_player
 from src.utils.json_loader import load_songs_from_json
 
 
 def play_songs():
-    music_player = ConsolePlayer()
     songs: list[Song] = load_songs_from_json()
     music_player.queue_songs(songs)
     music_player.play()
@@ -29,10 +28,10 @@ def play_songs():
 
 
 def create_players():
-    music_player = ConsolePlayer()
-    print(music_player)
+    print(music_player.model_dump_json())
+    # print(music_player)
 
 
 if __name__ == "__main__":
     create_players()
-    play_songs()
+    # play_songs()

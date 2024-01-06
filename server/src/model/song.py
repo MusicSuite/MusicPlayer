@@ -1,39 +1,34 @@
 import json
+from pydantic import BaseModel
 
 SONG_ID = 0
 
 
-class Song:
-    def __init__(self, title: str, duration: float) -> None:
+class Song(BaseModel):
+    id: int
+    title: str
+    duration: float
+
+    def __init__(self, title: str, duration: float):
         global SONG_ID
-        self.id: int = SONG_ID
+        super().__init__(id=SONG_ID, title=title, duration=duration)
         SONG_ID += 1
-        self.title: str = title
-        self.duration: float = duration
-
-    @staticmethod
-    def from_json(song_json: json):
-        return Song(song_json["title"], song_json["duration"])
-
-    @staticmethod
-    def to_json(song):
-        if not song:
-            return {}
-        return song.__getstate__()
-
-    def __getstate__(self):
-        return {
-            # "id": self.id,
-            "title": self.title,
-            "duration": self.duration
-        }
 
     def __eq__(self, other):
         assert isinstance(other, Song), "Must compare with a song"
         return self.title == other.title and self.duration == other.duration
 
     def __str__(self) -> str:
-        return str(self.__getstate__())
+        return str(self.model_dump_json())
 
     def __repr__(self) -> str:
         return str(self)
+
+
+if __name__ == "__main__":
+    song1 = Song(1, "Test", 0)
+    song2 = Song(1, "Test", 0)
+    song3 = Song(1, "Test", 0)
+    print(song1.model_dump_json())
+    print(song2.model_dump_json())
+    print(song3.model_dump_json())

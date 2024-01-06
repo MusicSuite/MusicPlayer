@@ -1,28 +1,24 @@
 from fastapi import APIRouter
 
 from src.model.song import Song
-from src.player.console_player import ConsolePlayer
+from src.player.console_player import console_player as music_player
 
 router = APIRouter()
-music_player = ConsolePlayer()
 
 
 @router.get("/queue")
 async def queue():
-    return music_player.queue.__getstate__()
+    return music_player.queue
 
 
 @router.get("/queue/add")
-async def add(song_json: dict):
-    song = Song.from_json(song_json)
+async def add(song: Song):
     music_player.queue_song(song)
-    return Song.to_json(song)
 
 
 @router.get("/queue/peek")
 async def peek():
-    song = music_player.queue.peek()
-    return Song.to_json(song)
+    return music_player.queue.peek()
 
 
 @router.get("/queue/shuffle")

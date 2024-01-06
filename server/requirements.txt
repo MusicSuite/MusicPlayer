@@ -1,4 +1,4 @@
-fastapi
+fastapi~=0.108.0
 python-socketio
 uvicorn
-# setuptools
+pydantic~=2.5.3

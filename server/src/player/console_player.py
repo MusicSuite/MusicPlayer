@@ -1,4 +1,3 @@
-import json
 import logging
 import threading
 import time
@@ -9,11 +8,13 @@ from src.model.song import Song
 
 
 class ConsolePlayer(BasePlayer):
-    thread: threading.Thread = None
+    _thread: threading.Thread = None
+    _stop_event: threading.Event = None
     song_position: int = 0
 
     def __init__(self):
         super().__init__()
+        # NOTE: DO NOT INIT THE variable above, if initiated it cannot pickle
         self._stop_event = threading.Event()
 
     def play(self) -> None:
@@ -58,11 +59,11 @@ class ConsolePlayer(BasePlayer):
     def _start_timer(self, duration):
         self._stop_timer()
         self._stop_event.clear()
-        self.thread = threading.Thread(target=self._timer_thread, args=(duration,))
-        self.thread.start()
+        self._thread = threading.Thread(target=self._timer_thread, args=(duration,))
+        self._thread.start()
 
     def _stop_timer(self):
-        if self.thread is not None and self.thread.is_alive():
+        if self._thread is not None and self._thread.is_alive():
             self._stop_event.set()
             # TODO: Check whether thread needs to be joined or can be ignored
             # self.thread.join()
@@ -80,20 +81,11 @@ class ConsolePlayer(BasePlayer):
         if not self._stop_event.is_set():
             self.next_track()
 
-    def __getstate__(self) -> json:
-        return {
-            "State": self.state.name,
-            "Song position": self.song_position,
-            "Queue": self.queue._queue
-        }
-
     def __str__(self) -> str:
-        return str(self.__getstate__())
+        return str(self.model_dump_json())
 
     def __del__(self):
         self._stop_timer()
 
-    def __new__(cls):
-        if not cls._instance:
-            cls._instance = super(ConsolePlayer, cls).__new__(cls)
-        return cls._instance
+
+console_player = ConsolePlayer()

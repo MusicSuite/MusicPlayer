@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 
-from src.player.console_player import ConsolePlayer
+from src.player.console_player import console_player as music_player
 
 router = APIRouter()
-music_player = ConsolePlayer()
 
 
 @router.get("/player/actions/play")

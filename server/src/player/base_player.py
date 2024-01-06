@@ -1,19 +1,20 @@
-import json
 import threading
 from abc import ABC, abstractmethod
 import logging
+from typing import ClassVar
+
+from pydantic import BaseModel
 
 from src.model.song import Song
 from src.model.state import State
 from src.utils.music_queue import MusicQueue
 
 
-class BasePlayer(ABC):
+class BasePlayer(ABC, BaseModel):
     state: State = State.STOPPED
     queue: MusicQueue = MusicQueue()
     volume: int = 60
-    _instance = None
-    _lock: threading.Lock = threading.Lock()
+    _instance: None = None
 
     @abstractmethod
     def play(self) -> None:
@@ -68,17 +69,5 @@ class BasePlayer(ABC):
         self.queue = MusicQueue()
 
     @abstractmethod
-    def __getstate__(self) -> json:
-        pass
-
-    @abstractmethod
     def __str__(self) -> str:
         pass
-
-    @abstractmethod
-    def __new__(cls, *args, **kwargs):
-        with cls._lock:
-            if not cls._instance:
-                cls._instance = super(BasePlayer, cls).__new__(cls)
-                cls._instance._stop_event = threading.Event()
-        return cls._instance

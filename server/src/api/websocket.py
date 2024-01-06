@@ -1,11 +1,9 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 import socketio
 
-from src.player.console_player import ConsolePlayer
 
 router = APIRouter()
 sio = socketio.Server()
-music_player = ConsolePlayer()
 
 
 @router.websocket("/ws/{client_id}")
