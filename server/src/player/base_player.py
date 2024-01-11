@@ -11,10 +11,15 @@ from src.utils.music_queue import MusicQueue
 
 
 class BasePlayer(ABC, BaseModel):
-    state: State = State.STOPPED
+    state: State = None
     queue: MusicQueue = MusicQueue()
     volume: int = 60
     _instance: None = None
+
+    def __init__(self):
+        super().__init__()
+        # NOTE: DO NOT INIT THE variable above, if initiated it cannot generate the dio code (because enum)
+        self.state = State.STOPPED
 
     @abstractmethod
     def play(self) -> None:

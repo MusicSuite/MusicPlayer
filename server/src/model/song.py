@@ -26,9 +26,9 @@ class Song(BaseModel):
 
 
 if __name__ == "__main__":
-    song1 = Song(1, "Test", 0)
-    song2 = Song(1, "Test", 0)
-    song3 = Song(1, "Test", 0)
+    song1 = Song("Test", 5)
+    song2 = Song("Test", 5)
+    song3 = Song("Test", 5)
     print(song1.model_dump_json())
     print(song2.model_dump_json())
     print(song3.model_dump_json())

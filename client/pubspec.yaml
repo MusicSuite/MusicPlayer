@@ -1,0 +1,39 @@
+name: client
+description: "A new Flutter project."
+
+# Prevent accidental publishing to pub.dev.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  socket_io_client: 2.0.3+1
+  openapi_generator_annotations: ^4.13.1
+  music_server_api:
+    path: ./api/music_server_api
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.1
+  flutter_localized_locales: ^2.0.5
+
+dev_dependencies:
+  openapi_generator: ^4.13.1
+  build_runner: 
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 3.0.1
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  assets:
+    # Add assets from the images directory to the application.
+    - assets/images/

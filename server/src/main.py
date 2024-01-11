@@ -1,4 +1,8 @@
 import json
+import logging
+
+import yaml
+import argparse
 
 import src.utils.logger as logger
 import uvicorn
@@ -13,21 +17,40 @@ HOST_IP = "127.0.0.1"
 PORT = 8000
 
 
-def run_server():
-    app = FastAPI(title="CustomTitle")
+def parse_args():
+    parser = argparse.ArgumentParser(description="Music Server")
+    parser.add_argument("--run", type=lambda x: x.lower() == 'true', default=True, help="Whether to run the server (default: True)")
+    return parser.parse_args()
+
+
+def create_app() -> FastAPI:
+    app = FastAPI(title="Music Server")
+    app.openapi_version = "3.0.3"
     app.include_router(player_router)
     app.include_router(player_actions_router)
     app.include_router(queue_router)
     app.include_router(songs_router)
     app.include_router(websocket_router)
+    return app
 
-    # Write most recent openapi file
+
+def generate_json(app: FastAPI):
     with open('../data/openapi.json', 'w') as f:
         json.dump(app.openapi(), f, indent=2)
 
-    uvicorn.run(app, host=HOST_IP, port=PORT)
+
+def generate_yaml(app: FastAPI):
+    with open('../data/openapi.yaml', 'w') as f:
+        yaml.dump(app.openapi(), f)
 
 
 if __name__ == "__main__":
+    args = parse_args()
     logger.initialize()
-    run_server()
+    music_app = create_app()
+    generate_json(music_app)
+
+    if args.run:
+        uvicorn.run(music_app, host=HOST_IP, port=PORT)
+    else:
+        logging.info("Completed.. (only generated)")

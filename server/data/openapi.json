@@ -1,7 +1,7 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.3",
   "info": {
-    "title": "CustomTitle",
+    "title": "Music Server",
     "version": "0.1.0"
   },
   "paths": {
@@ -14,7 +14,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/ConsolePlayer"
+                }
               }
             }
           }
@@ -30,7 +32,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
               }
             }
           }
@@ -110,7 +114,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Song"
+                  },
+                  "type": "array",
+                  "title": "Response Queue Queue Get"
+                }
               }
             }
           }
@@ -118,9 +128,9 @@
       }
     },
     "/queue/add": {
-      "get": {
+      "post": {
         "summary": "Add",
-        "operationId": "add_queue_add_get",
+        "operationId": "add_queue_add_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -162,7 +172,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
               }
             }
           }
@@ -194,7 +206,13 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Song"
+                  },
+                  "type": "array",
+                  "title": "Response Songs Songs Get"
+                }
               }
             }
           }
@@ -237,20 +255,21 @@
         }
       }
     },
-    "/songs/remove": {
+    "/songs/remove/{song_id}": {
       "delete": {
         "summary": "Remove",
-        "operationId": "remove_songs_remove_delete",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Song"
-              }
+        "operationId": "remove_songs_remove__song_id__delete",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Song Id"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -328,6 +347,39 @@
         ],
         "title": "Body_rename_songs_replace_put"
       },
+      "ConsolePlayer": {
+        "properties": {
+          "state": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/State"
+              }
+            ]
+          },
+          "queue": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MusicQueue"
+              }
+            ],
+            "default": {
+              "queue": []
+            }
+          },
+          "volume": {
+            "type": "integer",
+            "title": "Volume",
+            "default": 60
+          },
+          "song_position": {
+            "type": "integer",
+            "title": "Song Position",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "ConsolePlayer"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -340,6 +392,20 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "MusicQueue": {
+        "properties": {
+          "queue": {
+            "items": {
+              "$ref": "#/components/schemas/Song"
+            },
+            "type": "array",
+            "title": "Queue",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "MusicQueue"
       },
       "Song": {
         "properties": {
@@ -363,6 +429,15 @@
           "duration"
         ],
         "title": "Song"
+      },
+      "State": {
+        "type": "string",
+        "enum": [
+          "PLAYING",
+          "PAUSED",
+          "STOPPED"
+        ],
+        "title": "State"
       },
       "ValidationError": {
         "properties": {

@@ -9,20 +9,16 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(CURRENT_DIR, "..", "..", "data", "songs.json")
 
 
-def songs_json() -> json:
+def load_songs_from_json() -> list[Song]:
     abs_path = os.path.abspath(FILE_PATH)
     with open(abs_path, 'r') as file:
         songs_data = json.load(file)
 
-    return songs_data
-
-
-def load_songs_from_json() -> list[Song]:
-    return [Song.from_json(song_data) for song_data in songs_json()]
+    return [Song(**song_data) for song_data in songs_data]
 
 
 def _write_songs_to_json(songs: list[Song]) -> None:
-    json_songs = [Song.to_json(song) for song in songs]
+    json_songs = [song.model_dump_json() for song in songs]
 
     with open(FILE_PATH, 'w') as file:
         json.dump(json_songs, file, indent=2)
@@ -35,18 +31,17 @@ def add_song_to_json(new_song: Song) -> None:
     _write_songs_to_json(songs)
 
 
-def remove_song(del_song: Song) -> bool:
+def remove_song(song_id: int) -> bool:
     songs = load_songs_from_json()
-    old_len = len(songs)
-    songs.remove(del_song)
-    new_len = len(songs)
+    song = next((song for song in songs if song.id == song_id), None)
 
-    if old_len != new_len:
-        logging.info(f"Remove song from json: {del_song}")
+    if song:
+        songs.remove(song)
+        logging.info(f"Remove song from json (id={song_id})")
         _write_songs_to_json(songs)
         return True
 
-    logging.warning(f"Remove failed, song not found ({del_song})")
+    logging.warning(f"Remove failed, song with id not found (id={song_id})")
     return False
 
 
