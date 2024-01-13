@@ -64,13 +64,13 @@ class BodyRenameSongsReplacePutBuilder
         Builder<BodyRenameSongsReplacePut, BodyRenameSongsReplacePutBuilder> {
   _$BodyRenameSongsReplacePut? _$v;
 
-  SongBuilder? _oldSong;
-  SongBuilder get oldSong => _$this._oldSong ??= new SongBuilder();
-  set oldSong(SongBuilder? oldSong) => _$this._oldSong = oldSong;
+  Song? _oldSong;
+  Song? get oldSong => _$this._oldSong;
+  set oldSong(Song? oldSong) => _$this._oldSong = oldSong;
 
-  SongBuilder? _newSong;
-  SongBuilder get newSong => _$this._newSong ??= new SongBuilder();
-  set newSong(SongBuilder? newSong) => _$this._newSong = newSong;
+  Song? _newSong;
+  Song? get newSong => _$this._newSong;
+  set newSong(Song? newSong) => _$this._newSong = newSong;
 
   BodyRenameSongsReplacePutBuilder() {
     BodyRenameSongsReplacePut._defaults(this);
@@ -79,8 +79,8 @@ class BodyRenameSongsReplacePutBuilder
   BodyRenameSongsReplacePutBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _oldSong = $v.oldSong.toBuilder();
-      _newSong = $v.newSong.toBuilder();
+      _oldSong = $v.oldSong;
+      _newSong = $v.newSong;
       _$v = null;
     }
     return this;
@@ -101,24 +101,12 @@ class BodyRenameSongsReplacePutBuilder
   BodyRenameSongsReplacePut build() => _build();
 
   _$BodyRenameSongsReplacePut _build() {
-    _$BodyRenameSongsReplacePut _$result;
-    try {
-      _$result = _$v ??
-          new _$BodyRenameSongsReplacePut._(
-              oldSong: oldSong.build(), newSong: newSong.build());
-    } catch (_) {
-      late String _$failedField;
-      try {
-        _$failedField = 'oldSong';
-        oldSong.build();
-        _$failedField = 'newSong';
-        newSong.build();
-      } catch (e) {
-        throw new BuiltValueNestedFieldError(
-            r'BodyRenameSongsReplacePut', _$failedField, e.toString());
-      }
-      rethrow;
-    }
+    final _$result = _$v ??
+        new _$BodyRenameSongsReplacePut._(
+            oldSong: BuiltValueNullFieldError.checkNotNull(
+                oldSong, r'BodyRenameSongsReplacePut', 'oldSong'),
+            newSong: BuiltValueNullFieldError.checkNotNull(
+                newSong, r'BodyRenameSongsReplacePut', 'newSong'));
     replace(_$result);
     return _$result;
   }

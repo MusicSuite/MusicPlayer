@@ -1,59 +1,62 @@
-import threading
-from abc import ABC, abstractmethod
 import logging
-from typing import ClassVar
+from abc import ABC, abstractmethod
+from typing import TypeVar, Annotated
 
-from pydantic import BaseModel
-
+from pydantic import BaseModel, Field
+from src.model.playerstate import PlayerState
 from src.model.song import Song
-from src.model.state import State
 from src.utils.music_queue import MusicQueue
+
+T = TypeVar("T")
+ExcludedField = Annotated[T, Field(exclude=True)]
 
 
 class BasePlayer(ABC, BaseModel):
-    state: State = None
-    queue: MusicQueue = MusicQueue()
+    state: PlayerState = None
     volume: int = 60
-    _instance: None = None
+    current_song: Song = None
+    queue: ExcludedField[MusicQueue] = MusicQueue()
 
     def __init__(self):
         super().__init__()
-        # NOTE: DO NOT INIT THE variable above, if initiated it cannot generate the dio code (because enum)
-        self.state = State.STOPPED
+        assert not self.state, "DO NOT INIT THE variable above, if initiated it cannot generate the dio code (because enum)"
+        self.state = PlayerState.STOPPED
 
     @abstractmethod
     def play(self) -> None:
+        assert self.current_song, "There must be a song to be playing"
         logging.info("PLAY")
-        self.state = State.PLAYING
+        self.state = PlayerState.PLAYING
 
     @abstractmethod
     def pause(self) -> None:
+        assert self.current_song, "There must be a song to pause"
         logging.info("PAUSE")
-        self.state = State.PAUSED
+        self.state = PlayerState.PAUSED
 
     @abstractmethod
     def stop(self) -> None:
         logging.info("STOP")
-        self.state = State.STOPPED
+        self.state = PlayerState.STOPPED
+        self.current_song = None
 
     @abstractmethod
     def next_track(self) -> None:
         logging.info("NEXT TRACK")
-        self.queue.get()
+        self.current_song = self.queue.get()
 
     def set_volume(self, volume: int) -> None:
         volume = int(max(0, min(volume, 100)))
+        if volume == self.volume:
+            return
+
         self.volume = volume
 
-    def current_song(self) -> Song:
-        return self.queue.peek()
-
     def current_song_duration(self) -> float:
-        song = self.current_song()
-        if not song:
+        if not self.current_song:
             return 0
 
-        return song.duration
+        return self.current_song.duration
 
     @abstractmethod
     def current_song_elapsed_time(self) -> float:
@@ -62,16 +65,6 @@ class BasePlayer(ABC, BaseModel):
     @abstractmethod
     def set_song_position(self, position: float) -> None:
         pass
-
-    def queue_songs(self, songs: list[Song]) -> None:
-        for song in songs:
-            self.queue_song(song)
-
-    def queue_song(self, song: Song) -> None:
-        self.queue.add(song)
-
-    def clear_queue(self) -> None:
-        self.queue = MusicQueue()
 
     @abstractmethod
     def __str__(self) -> str:

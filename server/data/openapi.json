@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Music Server",
-    "version": "0.1.0"
+    "version": "0.0.1"
   },
   "paths": {
     "/player": {
@@ -16,24 +16,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ConsolePlayer"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/player/playing": {
-      "get": {
-        "summary": "Playing",
-        "operationId": "playing_player_playing_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Song"
                 }
               }
             }
@@ -127,20 +109,21 @@
         }
       }
     },
-    "/queue/add": {
+    "/queue/{song_id}": {
       "post": {
         "summary": "Add",
-        "operationId": "add_queue_add_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Song"
-              }
+        "operationId": "add_queue__song_id__post",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Song Id"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -156,24 +139,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/queue/peek": {
-      "get": {
-        "summary": "Peek",
-        "operationId": "peek_queue_peek_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Song"
                 }
               }
             }
@@ -219,6 +184,45 @@
         }
       }
     },
+    "/songs/{song_id}": {
+      "get": {
+        "summary": "Song",
+        "operationId": "song_songs__song_id__get",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Song Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/songs/add": {
       "post": {
         "summary": "Add",
@@ -238,7 +242,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
               }
             }
           },
@@ -352,24 +358,21 @@
           "state": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/State"
+                "$ref": "#/components/schemas/PlayerState"
               }
             ]
-          },
-          "queue": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MusicQueue"
-              }
-            ],
-            "default": {
-              "queue": []
-            }
           },
           "volume": {
             "type": "integer",
             "title": "Volume",
             "default": 60
+          },
+          "current_song": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Song"
+              }
+            ]
           },
           "song_position": {
             "type": "integer",
@@ -393,19 +396,14 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
-      "MusicQueue": {
-        "properties": {
-          "queue": {
-            "items": {
-              "$ref": "#/components/schemas/Song"
-            },
-            "type": "array",
-            "title": "Queue",
-            "default": []
-          }
-        },
-        "type": "object",
-        "title": "MusicQueue"
+      "PlayerState": {
+        "type": "string",
+        "enum": [
+          "PLAYING",
+          "PAUSED",
+          "STOPPED"
+        ],
+        "title": "PlayerState"
       },
       "Song": {
         "properties": {
@@ -429,15 +427,6 @@
           "duration"
         ],
         "title": "Song"
-      },
-      "State": {
-        "type": "string",
-        "enum": [
-          "PLAYING",
-          "PAUSED",
-          "STOPPED"
-        ],
-        "title": "State"
       },
       "ValidationError": {
         "properties": {

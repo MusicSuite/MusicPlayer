@@ -2,9 +2,8 @@ import logging
 import threading
 import time
 
-from src.model.state import State
+from src.model.playerstate import PlayerState
 from src.player.base_player import BasePlayer
-from src.model.song import Song
 
 
 class ConsolePlayer(BasePlayer):
@@ -18,31 +17,38 @@ class ConsolePlayer(BasePlayer):
         self._stop_event = threading.Event()
 
     def play(self) -> None:
-        current: Song = self.queue.peek()
-        if not current:
+        if self.state == PlayerState.PLAYING:
             return
 
+        if not self.current_song:
+            self.current_song = self.queue.get()
+            if not self.current_song:
+                return
+
+            self.song_position = 0
+
         super().play()
-        duration_left = current.duration - self.song_position
+        duration_left = self.current_song.duration - self.song_position
         self._start_timer(duration_left)
-        print("ConsolePlayer - Custom play implementation.")
 
     def pause(self) -> None:
+        if not self.current_song or self.state == PlayerState.PAUSED:
+            return
+
         super().pause()
         self._stop_timer()
-        print("ConsolePlayer - Custom pause implementation.")
 
     def stop(self) -> None:
+        if not self.current_song and self.state == PlayerState.STOPPED:
+            return
+
         super().stop()
         self._stop_timer()
-        print("ConsolePlayer - Custom stop implementation.")
 
     def next_track(self) -> None:
-        super().next_track()
         self.stop()
-        self.song_position = 0
+        super().next_track()
         self.play()
-        print("ConsolePlayer - Custom next track implementation.")
 
     def current_song_elapsed_time(self) -> float:
         return self.song_position
@@ -74,7 +80,7 @@ class ConsolePlayer(BasePlayer):
         while time.time() - start_time < duration and not self._stop_event.is_set():
             time.sleep(1)
 
-            if self.state == State.PLAYING:
+            if self.state == PlayerState.PLAYING:
                 self.song_position += 1
                 logging.debug("+1")
 

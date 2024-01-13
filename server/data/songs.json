@@ -1,14 +1,22 @@
 [
   {
-    "title": "Song 1",
-    "duration": 5
+    "id": 0,
+    "title": "TestSong 0",
+    "duration": 10.0
   },
   {
-    "title": "Song 2",
-    "duration": 6
+    "id": 1,
+    "title": "TestSong 1",
+    "duration": 10.0
   },
   {
-    "title": "Song 3",
-    "duration": 3
+    "id": 2,
+    "title": "TestSong 2",
+    "duration": 10.0
+  },
+  {
+    "id": 4,
+    "title": "TestSong 3",
+    "duration": 10.0
   }
 ]

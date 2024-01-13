@@ -1,11 +1,13 @@
-// Openapi Generator last run: : 2024-01-13T12:17:24.183742
+// Openapi Generator last run: : 2024-01-14T21:33:49.255150
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:music_server_api/music_server_api.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
-import 'song_feature/song_item_details_view.dart';
-import 'song_feature/song_item_list_view.dart';
+import 'song_feature/player_view.dart';
+import 'song_feature/song_view.dart';
+import 'song_feature/song_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -23,12 +25,19 @@ import 'settings/settings_view.dart';
   outputDirectory: 'api/music_server_api',
 )
 class MyApp extends StatelessWidget {
-  const MyApp({
+  MyApp({
     super.key,
     required this.settingsController,
   });
 
   final SettingsController settingsController;
+  final DefaultApi api = getDefaultApi();
+
+  static DefaultApi getDefaultApi() {
+    MusicServerApi musicServerApi =
+        MusicServerApi(basePathOverride: 'http://localhost:8000');
+    return musicServerApi.getDefaultApi();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +92,14 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SongItemDetailsView.routeName:
-                    return const SongItemDetailsView();
-                  case SongItemListView.routeName:
+                  case SongView.routeName:
+                    // return SongView(
+                    //   api: api
+                    // );
+                    return PlayerView(api: api);
+                  case SongListView.routeName:
                   default:
-                    return const SongItemListView();
+                    return SongListView(api: api);
                 }
               },
             );

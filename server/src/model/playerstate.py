@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class State(Enum):
+class PlayerState(Enum):
     PLAYING = "PLAYING"
     PAUSED = "PAUSED"
     STOPPED = "STOPPED"

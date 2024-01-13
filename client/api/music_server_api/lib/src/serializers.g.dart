@@ -7,24 +7,17 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add($MusicQueue.serializer)
+      ..add($Song.serializer)
       ..add(BodyRenameSongsReplacePut.serializer)
       ..add(ConsolePlayer.serializer)
-      ..add(ConsolePlayerQueue.serializer)
+      ..add(ConsolePlayerCurrentSong.serializer)
       ..add(HTTPValidationError.serializer)
       ..add(LocationInner.serializer)
-      ..add(Song.serializer)
-      ..add(State.serializer)
+      ..add(PlayerState.serializer)
       ..add(ValidationError.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(LocationInner)]),
           () => new ListBuilder<LocationInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Song)]),
-          () => new ListBuilder<Song>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Song)]),
-          () => new ListBuilder<Song>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(ValidationError)]),
           () => new ListBuilder<ValidationError>()))

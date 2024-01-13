@@ -9,24 +9,23 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addQueueAddPost**](DefaultApi.md#addqueueaddpost) | **POST** /queue/add | Add
+[**addQueueSongIdPost**](DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [**addSongsAddPost**](DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
 [**nextTrackPlayerActionsNextTrackGet**](DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [**pausePlayerActionsPauseGet**](DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause
-[**peekQueuePeekGet**](DefaultApi.md#peekqueuepeekget) | **GET** /queue/peek | Peek
 [**playPlayerActionsPlayGet**](DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [**playerPlayerGet**](DefaultApi.md#playerplayerget) | **GET** /player | Player
-[**playingPlayerPlayingGet**](DefaultApi.md#playingplayerplayingget) | **GET** /player/playing | Playing
 [**queueQueueGet**](DefaultApi.md#queuequeueget) | **GET** /queue | Queue
 [**removeSongsRemoveSongIdDelete**](DefaultApi.md#removesongsremovesongiddelete) | **DELETE** /songs/remove/{song_id} | Remove
 [**renameSongsReplacePut**](DefaultApi.md#renamesongsreplaceput) | **PUT** /songs/replace | Rename
 [**shuffleQueueShuffleGet**](DefaultApi.md#shufflequeueshuffleget) | **GET** /queue/shuffle | Shuffle
+[**songSongsSongIdGet**](DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [**songsSongsGet**](DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [**stopPlayerActionsStopGet**](DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop
 
 
-# **addQueueAddPost**
-> JsonObject addQueueAddPost(song)
+# **addQueueSongIdPost**
+> JsonObject addQueueSongIdPost(songId)
 
 Add
 
@@ -35,13 +34,13 @@ Add
 import 'package:music_server_api/api.dart';
 
 final api = MusicServerApi().getDefaultApi();
-final Song song = ; // Song | 
+final int songId = 56; // int | 
 
 try {
-    final response = api.addQueueAddPost(song);
+    final response = api.addQueueSongIdPost(songId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->addQueueAddPost: $e\n');
+    print('Exception when calling DefaultApi->addQueueSongIdPost: $e\n');
 }
 ```
 
@@ -49,7 +48,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **song** | [**Song**](Song.md)|  | 
+ **songId** | **int**|  | 
 
 ### Return type
 
@@ -61,13 +60,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **addSongsAddPost**
-> JsonObject addSongsAddPost(song)
+> Song addSongsAddPost(song)
 
 Add
 
@@ -94,7 +93,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+[**Song**](Song.md)
 
 ### Authorization
 
@@ -181,43 +180,6 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **peekQueuePeekGet**
-> Song peekQueuePeekGet()
-
-Peek
-
-### Example
-```dart
-import 'package:music_server_api/api.dart';
-
-final api = MusicServerApi().getDefaultApi();
-
-try {
-    final response = api.peekQueuePeekGet();
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling DefaultApi->peekQueuePeekGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Song**](Song.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **playPlayerActionsPlayGet**
 > JsonObject playPlayerActionsPlayGet()
 
@@ -280,43 +242,6 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**ConsolePlayer**](ConsolePlayer.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **playingPlayerPlayingGet**
-> Song playingPlayerPlayingGet()
-
-Playing
-
-### Example
-```dart
-import 'package:music_server_api/api.dart';
-
-final api = MusicServerApi().getDefaultApi();
-
-try {
-    final response = api.playingPlayerPlayingGet();
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling DefaultApi->playingPlayerPlayingGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Song**](Song.md)
 
 ### Authorization
 
@@ -473,6 +398,47 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**JsonObject**](JsonObject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **songSongsSongIdGet**
+> Song songSongsSongIdGet(songId)
+
+Song
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final int songId = 56; // int | 
+
+try {
+    final response = api.songSongsSongIdGet(songId);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->songSongsSongIdGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **songId** | **int**|  | 
+
+### Return type
+
+[**Song**](Song.md)
 
 ### Authorization
 

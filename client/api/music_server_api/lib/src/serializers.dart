@@ -16,12 +16,11 @@ import 'package:music_server_api/src/model/date.dart';
 
 import 'package:music_server_api/src/model/body_rename_songs_replace_put.dart';
 import 'package:music_server_api/src/model/console_player.dart';
-import 'package:music_server_api/src/model/console_player_queue.dart';
+import 'package:music_server_api/src/model/console_player_current_song.dart';
 import 'package:music_server_api/src/model/http_validation_error.dart';
 import 'package:music_server_api/src/model/location_inner.dart';
-import 'package:music_server_api/src/model/music_queue.dart';
+import 'package:music_server_api/src/model/player_state.dart';
 import 'package:music_server_api/src/model/song.dart';
-import 'package:music_server_api/src/model/state.dart';
 import 'package:music_server_api/src/model/validation_error.dart';
 
 part 'serializers.g.dart';
@@ -29,13 +28,12 @@ part 'serializers.g.dart';
 @SerializersFor([
   BodyRenameSongsReplacePut,
   ConsolePlayer,
-  ConsolePlayerQueue,
+  ConsolePlayerCurrentSong,
   HTTPValidationError,
   LocationInner,
-  MusicQueue,
-  $MusicQueue,
+  PlayerState,
   Song,
-  State,
+  $Song,
   ValidationError,
 ])
 Serializers serializers = (_$serializers.toBuilder()
@@ -43,7 +41,7 @@ Serializers serializers = (_$serializers.toBuilder()
         const FullType(BuiltList, [FullType(Song)]),
         () => ListBuilder<Song>(),
       )
-      ..add(MusicQueue.serializer)
+      ..add(Song.serializer)
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

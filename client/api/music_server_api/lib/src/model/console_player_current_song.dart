@@ -7,69 +7,70 @@ import 'package:music_server_api/src/model/song.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_rename_songs_replace_put.g.dart';
+part 'console_player_current_song.g.dart';
 
-/// BodyRenameSongsReplacePut
+/// ConsolePlayerCurrentSong
 ///
 /// Properties:
-/// * [oldSong]
-/// * [newSong]
+/// * [id]
+/// * [title]
+/// * [duration]
 @BuiltValue()
-abstract class BodyRenameSongsReplacePut
+abstract class ConsolePlayerCurrentSong
     implements
-        Built<BodyRenameSongsReplacePut, BodyRenameSongsReplacePutBuilder> {
-  @BuiltValueField(wireName: r'old_song')
-  Song get oldSong;
+        Song,
+        Built<ConsolePlayerCurrentSong, ConsolePlayerCurrentSongBuilder> {
+  ConsolePlayerCurrentSong._();
 
-  @BuiltValueField(wireName: r'new_song')
-  Song get newSong;
-
-  BodyRenameSongsReplacePut._();
-
-  factory BodyRenameSongsReplacePut(
-          [void updates(BodyRenameSongsReplacePutBuilder b)]) =
-      _$BodyRenameSongsReplacePut;
+  factory ConsolePlayerCurrentSong(
+          [void updates(ConsolePlayerCurrentSongBuilder b)]) =
+      _$ConsolePlayerCurrentSong;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyRenameSongsReplacePutBuilder b) => b;
+  static void _defaults(ConsolePlayerCurrentSongBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyRenameSongsReplacePut> get serializer =>
-      _$BodyRenameSongsReplacePutSerializer();
+  static Serializer<ConsolePlayerCurrentSong> get serializer =>
+      _$ConsolePlayerCurrentSongSerializer();
 }
 
-class _$BodyRenameSongsReplacePutSerializer
-    implements PrimitiveSerializer<BodyRenameSongsReplacePut> {
+class _$ConsolePlayerCurrentSongSerializer
+    implements PrimitiveSerializer<ConsolePlayerCurrentSong> {
   @override
   final Iterable<Type> types = const [
-    BodyRenameSongsReplacePut,
-    _$BodyRenameSongsReplacePut
+    ConsolePlayerCurrentSong,
+    _$ConsolePlayerCurrentSong
   ];
 
   @override
-  final String wireName = r'BodyRenameSongsReplacePut';
+  final String wireName = r'ConsolePlayerCurrentSong';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyRenameSongsReplacePut object, {
+    ConsolePlayerCurrentSong object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'old_song';
+    yield r'duration';
     yield serializers.serialize(
-      object.oldSong,
-      specifiedType: const FullType(Song),
+      object.duration,
+      specifiedType: const FullType(num),
     );
-    yield r'new_song';
+    yield r'title';
     yield serializers.serialize(
-      object.newSong,
-      specifiedType: const FullType(Song),
+      object.title,
+      specifiedType: const FullType(String),
+    );
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BodyRenameSongsReplacePut object, {
+    ConsolePlayerCurrentSong object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -82,26 +83,33 @@ class _$BodyRenameSongsReplacePutSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyRenameSongsReplacePutBuilder result,
+    required ConsolePlayerCurrentSongBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'old_song':
+        case r'duration':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(Song),
-          ) as Song;
-          result.oldSong = valueDes;
+            specifiedType: const FullType(num),
+          ) as num;
+          result.duration = valueDes;
           break;
-        case r'new_song':
+        case r'title':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(Song),
-          ) as Song;
-          result.newSong = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.title = valueDes;
+          break;
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -112,12 +120,12 @@ class _$BodyRenameSongsReplacePutSerializer
   }
 
   @override
-  BodyRenameSongsReplacePut deserialize(
+  ConsolePlayerCurrentSong deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyRenameSongsReplacePutBuilder();
+    final result = ConsolePlayerCurrentSongBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

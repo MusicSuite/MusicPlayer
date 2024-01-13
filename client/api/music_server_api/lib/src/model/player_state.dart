@@ -7,22 +7,22 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'state.g.dart';
+part 'player_state.g.dart';
 
-class State extends EnumClass {
+class PlayerState extends EnumClass {
   @BuiltValueEnumConst(wireName: r'PLAYING')
-  static const State PLAYING = _$PLAYING;
+  static const PlayerState PLAYING = _$PLAYING;
   @BuiltValueEnumConst(wireName: r'PAUSED')
-  static const State PAUSED = _$PAUSED;
+  static const PlayerState PAUSED = _$PAUSED;
   @BuiltValueEnumConst(wireName: r'STOPPED')
-  static const State STOPPED = _$STOPPED;
+  static const PlayerState STOPPED = _$STOPPED;
 
-  static Serializer<State> get serializer => _$stateSerializer;
+  static Serializer<PlayerState> get serializer => _$playerStateSerializer;
 
-  const State._(String name) : super(name);
+  const PlayerState._(String name) : super(name);
 
-  static BuiltSet<State> get values => _$values;
-  static State valueOf(String name) => _$valueOf(name);
+  static BuiltSet<PlayerState> get values => _$values;
+  static PlayerState valueOf(String name) => _$valueOf(name);
 }
 
 /// Optionally, enum_class can generate a mixin to go with your enum for use
@@ -31,4 +31,4 @@ class State extends EnumClass {
 /// corresponding Angular template.
 ///
 /// Trigger mixin generation by writing a line like this one next to your enum.
-abstract class StateMixin = Object with _$StateMixin;
+abstract class PlayerStateMixin = Object with _$PlayerStateMixin;

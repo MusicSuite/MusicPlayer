@@ -1,16 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'state.dart';
+part of 'player_state.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-const State _$PLAYING = const State._('PLAYING');
-const State _$PAUSED = const State._('PAUSED');
-const State _$STOPPED = const State._('STOPPED');
+const PlayerState _$PLAYING = const PlayerState._('PLAYING');
+const PlayerState _$PAUSED = const PlayerState._('PAUSED');
+const PlayerState _$STOPPED = const PlayerState._('STOPPED');
 
-State _$valueOf(String name) {
+PlayerState _$valueOf(String name) {
   switch (name) {
     case 'PLAYING':
       return _$PLAYING;
@@ -23,29 +23,30 @@ State _$valueOf(String name) {
   }
 }
 
-final BuiltSet<State> _$values = new BuiltSet<State>(const <State>[
+final BuiltSet<PlayerState> _$values =
+    new BuiltSet<PlayerState>(const <PlayerState>[
   _$PLAYING,
   _$PAUSED,
   _$STOPPED,
 ]);
 
-class _$StateMeta {
-  const _$StateMeta();
-  State get PLAYING => _$PLAYING;
-  State get PAUSED => _$PAUSED;
-  State get STOPPED => _$STOPPED;
-  State valueOf(String name) => _$valueOf(name);
-  BuiltSet<State> get values => _$values;
+class _$PlayerStateMeta {
+  const _$PlayerStateMeta();
+  PlayerState get PLAYING => _$PLAYING;
+  PlayerState get PAUSED => _$PAUSED;
+  PlayerState get STOPPED => _$STOPPED;
+  PlayerState valueOf(String name) => _$valueOf(name);
+  BuiltSet<PlayerState> get values => _$values;
 }
 
-abstract class _$StateMixin {
+abstract class _$PlayerStateMixin {
   // ignore: non_constant_identifier_names
-  _$StateMeta get State => const _$StateMeta();
+  _$PlayerStateMeta get PlayerState => const _$PlayerStateMeta();
 }
 
-Serializer<State> _$stateSerializer = new _$StateSerializer();
+Serializer<PlayerState> _$playerStateSerializer = new _$PlayerStateSerializer();
 
-class _$StateSerializer implements PrimitiveSerializer<State> {
+class _$PlayerStateSerializer implements PrimitiveSerializer<PlayerState> {
   static const Map<String, Object> _toWire = const <String, Object>{
     'PLAYING': 'PLAYING',
     'PAUSED': 'PAUSED',
@@ -58,19 +59,19 @@ class _$StateSerializer implements PrimitiveSerializer<State> {
   };
 
   @override
-  final Iterable<Type> types = const <Type>[State];
+  final Iterable<Type> types = const <Type>[PlayerState];
   @override
-  final String wireName = 'State';
+  final String wireName = 'PlayerState';
 
   @override
-  Object serialize(Serializers serializers, State object,
+  Object serialize(Serializers serializers, PlayerState object,
           {FullType specifiedType = FullType.unspecified}) =>
       _toWire[object.name] ?? object.name;
 
   @override
-  State deserialize(Serializers serializers, Object serialized,
+  PlayerState deserialize(Serializers serializers, Object serialized,
           {FullType specifiedType = FullType.unspecified}) =>
-      State.valueOf(
+      PlayerState.valueOf(
           _fromWire[serialized] ?? (serialized is String ? serialized : ''));
 }
 

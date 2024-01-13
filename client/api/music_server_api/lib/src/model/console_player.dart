@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:music_server_api/src/model/console_player_queue.dart';
-import 'package:music_server_api/src/model/state.dart';
+import 'package:music_server_api/src/model/player_state.dart';
+import 'package:music_server_api/src/model/console_player_current_song.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,21 +14,21 @@ part 'console_player.g.dart';
 ///
 /// Properties:
 /// * [state]
-/// * [queue]
 /// * [volume]
+/// * [currentSong]
 /// * [songPosition]
 @BuiltValue()
 abstract class ConsolePlayer
     implements Built<ConsolePlayer, ConsolePlayerBuilder> {
   @BuiltValueField(wireName: r'state')
-  State? get state;
+  PlayerState? get state;
   // enum stateEnum {  PLAYING,  PAUSED,  STOPPED,  };
-
-  @BuiltValueField(wireName: r'queue')
-  ConsolePlayerQueue? get queue;
 
   @BuiltValueField(wireName: r'volume')
   int? get volume;
+
+  @BuiltValueField(wireName: r'current_song')
+  ConsolePlayerCurrentSong? get currentSong;
 
   @BuiltValueField(wireName: r'song_position')
   int? get songPosition;
@@ -64,14 +64,7 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
       yield r'state';
       yield serializers.serialize(
         object.state,
-        specifiedType: const FullType(State),
-      );
-    }
-    if (object.queue != null) {
-      yield r'queue';
-      yield serializers.serialize(
-        object.queue,
-        specifiedType: const FullType(ConsolePlayerQueue),
+        specifiedType: const FullType(PlayerState),
       );
     }
     if (object.volume != null) {
@@ -79,6 +72,13 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
       yield serializers.serialize(
         object.volume,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.currentSong != null) {
+      yield r'current_song';
+      yield serializers.serialize(
+        object.currentSong,
+        specifiedType: const FullType(ConsolePlayerCurrentSong),
       );
     }
     if (object.songPosition != null) {
@@ -116,16 +116,9 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
         case r'state':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(State),
-          ) as State;
+            specifiedType: const FullType(PlayerState),
+          ) as PlayerState;
           result.state = valueDes;
-          break;
-        case r'queue':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(ConsolePlayerQueue),
-          ) as ConsolePlayerQueue;
-          result.queue.replace(valueDes);
           break;
         case r'volume':
           final valueDes = serializers.deserialize(
@@ -133,6 +126,13 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
             specifiedType: const FullType(int),
           ) as int;
           result.volume = valueDes;
+          break;
+        case r'current_song':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(ConsolePlayerCurrentSong),
+          ) as ConsolePlayerCurrentSong;
+          result.currentSong.replace(valueDes);
           break;
         case r'song_position':
           final valueDes = serializers.deserialize(
