@@ -9,12 +9,16 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(CURRENT_DIR, "..", "..", "data", "songs.json")
 
 
-def get_songs() -> list[Song]:
+def get_songs_json() -> dict:
     abs_path = os.path.abspath(FILE_PATH)
     with open(abs_path, 'r') as file:
         songs_data = json.load(file)
 
-    return [Song(**song_data) for song_data in songs_data]
+    return songs_data
+
+
+def get_songs() -> list[Song]:
+    return [Song(**song_data) for song_data in get_songs_json()]
 
 
 def _write_songs_to_json(songs: list[Song]) -> None:
