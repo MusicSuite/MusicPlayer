@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Music Server",
-    "version": "0.0.1"
+    "version": "0.1.0"
   },
   "paths": {
     "/player": {
@@ -140,22 +140,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/queue/shuffle": {
-      "get": {
-        "summary": "Shuffle",
-        "operationId": "shuffle_queue_shuffle_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
               }
             }
           }

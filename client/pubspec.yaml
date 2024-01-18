@@ -14,13 +14,13 @@ dependencies:
   openapi_generator_annotations: ^4.13.1
   music_server_api:
     path: ./api/music_server_api
+  web_socket_channel: ^2.4.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.1
   built_collection: ^5.1.1
-  # http: ^1.1.2
   flutter_localized_locales: ^2.0.5
 
 dev_dependencies:

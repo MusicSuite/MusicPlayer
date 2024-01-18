@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/queue")
 async def queue() -> list[Song]:
-    return music_player.queue
+    return music_player.queue.queue
 
 
 @router.post("/queue/{song_id}")
@@ -17,8 +17,3 @@ async def add(song_id: int) -> None:
     song = json_loader.get_song(song_id)
     if song:
         music_player.queue.add(song)
-
-
-@router.get("/queue/shuffle")
-async def shuffle() -> None:
-    music_player.queue.shuffle()

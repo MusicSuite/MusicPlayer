@@ -5,7 +5,7 @@
     "duration": 10.0
   },
   {
-    "id": 1,
+    "id": 4,
     "title": "TestSong 1",
     "duration": 10.0
   },
@@ -15,8 +15,13 @@
     "duration": 10.0
   },
   {
-    "id": 4,
+    "id": 3,
     "title": "TestSong 3",
     "duration": 10.0
+  },
+  {
+    "id": 1,
+    "title": "Test ID",
+    "duration": 1000.0
   }
 ]

@@ -31,13 +31,8 @@ class MyApp extends StatelessWidget {
   });
 
   final SettingsController settingsController;
-  final DefaultApi api = getDefaultApi();
-
-  static DefaultApi getDefaultApi() {
-    MusicServerApi musicServerApi =
-        MusicServerApi(basePathOverride: 'http://localhost:8000');
-    return musicServerApi.getDefaultApi();
-  }
+  final MusicServerApi api =
+      MusicServerApi(basePathOverride: 'http://localhost:8000');
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +88,11 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SongView.routeName:
-                    // return SongView(
-                    //   api: api
-                    // );
-                    return PlayerView(api: api);
+                    return SongView(api: api);
                   case SongListView.routeName:
                   default:
-                    return SongListView(api: api);
+                    return PlayerView(api: api);
+                  // return SongListView(api: api);
                 }
               },
             );

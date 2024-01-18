@@ -8,10 +8,10 @@ class SongView extends StatelessWidget {
   const SongView({super.key, required this.api});
 
   static const routeName = '/song';
-  final DefaultApi api;
+  final MusicServerApi api;
 
   Future<Song> fetchSongDetails(int songId) async {
-    var response = await api.songSongsSongIdGet(songId: songId);
+    var response = await api.getDefaultApi().songSongsSongIdGet(songId: songId);
 
     if (response.statusCode != 200) {
       throw Exception("Song not found");

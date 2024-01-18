@@ -52,20 +52,6 @@ class BasePlayer(ABC, BaseModel):
 
         self.volume = volume
 
-    def current_song_duration(self) -> float:
-        if not self.current_song:
-            return 0
-
-        return self.current_song.duration
-
-    @abstractmethod
-    def current_song_elapsed_time(self) -> float:
-        pass
-
-    @abstractmethod
-    def set_song_position(self, position: float) -> None:
-        pass
-
     @abstractmethod
     def __str__(self) -> str:
         pass

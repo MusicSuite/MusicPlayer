@@ -1,5 +1,3 @@
-from typing import Union
-
 from pydantic import BaseModel
 from src.model.song import Song
 
@@ -7,7 +5,7 @@ from src.model.song import Song
 class MusicQueue(BaseModel):
     queue: list[Song] = []
 
-    def get(self) -> Union[Song, None]:
+    def get(self) -> Song | None:
         if self.is_empty():
             return None
 
