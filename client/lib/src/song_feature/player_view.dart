@@ -21,7 +21,10 @@ class PlayerView extends StatefulWidget {
 }
 
 class _PlayerViewState extends State<PlayerView> {
-  ConsolePlayer consolePlayer = ConsolePlayer();
+  ConsolePlayer consolePlayer = ConsolePlayer((b) => b
+    ..state = PlayerState.STOPPED
+    ..songPosition = 0.0);
+
   final channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8000/ws'));
 
   @override
@@ -51,7 +54,6 @@ class _PlayerViewState extends State<PlayerView> {
   }
 
   // TODO: Close channel when leaving page
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

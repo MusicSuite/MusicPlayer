@@ -8,20 +8,27 @@ part of 'console_player.dart';
 
 class _$ConsolePlayer extends ConsolePlayer {
   @override
-  final PlayerState? state;
+  final PlayerState state;
+  @override
+  final num songPosition;
   @override
   final int? volume;
   @override
   final ConsolePlayerCurrentSong? currentSong;
-  @override
-  final int? songPosition;
 
   factory _$ConsolePlayer([void Function(ConsolePlayerBuilder)? updates]) =>
       (new ConsolePlayerBuilder()..update(updates))._build();
 
   _$ConsolePlayer._(
-      {this.state, this.volume, this.currentSong, this.songPosition})
-      : super._();
+      {required this.state,
+      required this.songPosition,
+      this.volume,
+      this.currentSong})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(state, r'ConsolePlayer', 'state');
+    BuiltValueNullFieldError.checkNotNull(
+        songPosition, r'ConsolePlayer', 'songPosition');
+  }
 
   @override
   ConsolePlayer rebuild(void Function(ConsolePlayerBuilder) updates) =>
@@ -35,18 +42,18 @@ class _$ConsolePlayer extends ConsolePlayer {
     if (identical(other, this)) return true;
     return other is ConsolePlayer &&
         state == other.state &&
+        songPosition == other.songPosition &&
         volume == other.volume &&
-        currentSong == other.currentSong &&
-        songPosition == other.songPosition;
+        currentSong == other.currentSong;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, state.hashCode);
+    _$hash = $jc(_$hash, songPosition.hashCode);
     _$hash = $jc(_$hash, volume.hashCode);
     _$hash = $jc(_$hash, currentSong.hashCode);
-    _$hash = $jc(_$hash, songPosition.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -55,9 +62,9 @@ class _$ConsolePlayer extends ConsolePlayer {
   String toString() {
     return (newBuiltValueToStringHelper(r'ConsolePlayer')
           ..add('state', state)
+          ..add('songPosition', songPosition)
           ..add('volume', volume)
-          ..add('currentSong', currentSong)
-          ..add('songPosition', songPosition))
+          ..add('currentSong', currentSong))
         .toString();
   }
 }
@@ -70,6 +77,10 @@ class ConsolePlayerBuilder
   PlayerState? get state => _$this._state;
   set state(PlayerState? state) => _$this._state = state;
 
+  num? _songPosition;
+  num? get songPosition => _$this._songPosition;
+  set songPosition(num? songPosition) => _$this._songPosition = songPosition;
+
   int? _volume;
   int? get volume => _$this._volume;
   set volume(int? volume) => _$this._volume = volume;
@@ -80,10 +91,6 @@ class ConsolePlayerBuilder
   set currentSong(ConsolePlayerCurrentSongBuilder? currentSong) =>
       _$this._currentSong = currentSong;
 
-  int? _songPosition;
-  int? get songPosition => _$this._songPosition;
-  set songPosition(int? songPosition) => _$this._songPosition = songPosition;
-
   ConsolePlayerBuilder() {
     ConsolePlayer._defaults(this);
   }
@@ -92,9 +99,9 @@ class ConsolePlayerBuilder
     final $v = _$v;
     if ($v != null) {
       _state = $v.state;
+      _songPosition = $v.songPosition;
       _volume = $v.volume;
       _currentSong = $v.currentSong?.toBuilder();
-      _songPosition = $v.songPosition;
       _$v = null;
     }
     return this;
@@ -119,10 +126,12 @@ class ConsolePlayerBuilder
     try {
       _$result = _$v ??
           new _$ConsolePlayer._(
-              state: state,
+              state: BuiltValueNullFieldError.checkNotNull(
+                  state, r'ConsolePlayer', 'state'),
+              songPosition: BuiltValueNullFieldError.checkNotNull(
+                  songPosition, r'ConsolePlayer', 'songPosition'),
               volume: volume,
-              currentSong: _currentSong?.build(),
-              songPosition: songPosition);
+              currentSong: _currentSong?.build());
     } catch (_) {
       late String _$failedField;
       try {

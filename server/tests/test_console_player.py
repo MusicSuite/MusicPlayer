@@ -27,7 +27,7 @@ class TestConsolePlayer(unittest.TestCase):
         self.console_player.queue.add(SONGS[song_index])
         return SONGS[song_index]
 
-    def test_play_song(self):
+    async def test_play_song(self):
         song_index = random.choice(range(len(SONGS)))
         song = self._add_song(song_index)
         self.assertIsNone(self.console_player.current_song)
@@ -38,7 +38,7 @@ class TestConsolePlayer(unittest.TestCase):
         self.assertGreaterEqual(self.console_player.song_position, 2)
         self.assertEqual(0, len(self.console_player.queue))
 
-    def test_pause_song(self):
+    async def test_pause_song(self):
         song_index = random.choice(range(len(SONGS)))
         song = self._add_song(song_index)
         self.console_player.play()
@@ -46,7 +46,7 @@ class TestConsolePlayer(unittest.TestCase):
         self.assertEqual(PlayerState.PAUSED, self.console_player.state)
         self.assertEqual(song, self.console_player.current_song)
 
-    def test_stop_song(self):
+    async def test_stop_song(self):
         song_index = random.choice(range(len(SONGS)))
         self._add_song(song_index)
         self.console_player.play()
@@ -54,7 +54,7 @@ class TestConsolePlayer(unittest.TestCase):
         self.assertEqual(PlayerState.STOPPED, self.console_player.state)
         self.assertIsNone(self.console_player.current_song)
 
-    def test_next_song(self):
+    async def test_next_song(self):
         song_indices = random.sample(range(len(SONGS)), 2)
         self._add_song(song_indices[0])
         self._add_song(song_indices[1])
@@ -65,7 +65,7 @@ class TestConsolePlayer(unittest.TestCase):
         time.sleep(3)
         self.assertGreaterEqual(self.console_player.song_position, 2)
 
-    def test_stop_song_stops_timer(self):
+    async def test_stop_song_stops_timer(self):
         song_index = random.choice(range(len(SONGS)))
         self._add_song(song_index)
         self.console_player.play()

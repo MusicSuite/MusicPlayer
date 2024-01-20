@@ -18,10 +18,5 @@
     "id": 3,
     "title": "TestSong 3",
     "duration": 10.0
-  },
-  {
-    "id": 1,
-    "title": "Test ID",
-    "duration": 1000.0
   }
 ]

@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-01-14T21:33:49.255150
+// Openapi Generator last run: : 2024-01-20T17:53:46.575079
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

@@ -339,13 +339,6 @@
       },
       "ConsolePlayer": {
         "properties": {
-          "state": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PlayerState"
-              }
-            ]
-          },
           "volume": {
             "type": "integer",
             "title": "Volume",
@@ -358,13 +351,25 @@
               }
             ]
           },
+          "state": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PlayerState"
+              }
+            ],
+            "readOnly": true
+          },
           "song_position": {
-            "type": "integer",
+            "type": "number",
             "title": "Song Position",
-            "default": 0
+            "readOnly": true
           }
         },
         "type": "object",
+        "required": [
+          "state",
+          "song_position"
+        ],
         "title": "ConsolePlayer"
       },
       "HTTPValidationError": {

@@ -1,8 +1,8 @@
 import unittest
 
 from fastapi.testclient import TestClient
-from src.api.websocket import WebSocketMessageType
 from src.main import create_app
+from src.model.websocket_message_type import WebSocketMessageType
 from src.player.console_player import console_player as music_player
 from src.utils import json_loader
 

@@ -18,7 +18,6 @@ Method | HTTP request | Description
 [**queueQueueGet**](DefaultApi.md#queuequeueget) | **GET** /queue | Queue
 [**removeSongsRemoveSongIdDelete**](DefaultApi.md#removesongsremovesongiddelete) | **DELETE** /songs/remove/{song_id} | Remove
 [**renameSongsReplacePut**](DefaultApi.md#renamesongsreplaceput) | **PUT** /songs/replace | Rename
-[**shuffleQueueShuffleGet**](DefaultApi.md#shufflequeueshuffleget) | **GET** /queue/shuffle | Shuffle
 [**songSongsSongIdGet**](DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [**songsSongsGet**](DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [**stopPlayerActionsStopGet**](DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop
@@ -369,43 +368,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **shuffleQueueShuffleGet**
-> JsonObject shuffleQueueShuffleGet()
-
-Shuffle
-
-### Example
-```dart
-import 'package:music_server_api/api.dart';
-
-final api = MusicServerApi().getDefaultApi();
-
-try {
-    final response = api.shuffleQueueShuffleGet();
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling DefaultApi->shuffleQueueShuffleGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**JsonObject**](JsonObject.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

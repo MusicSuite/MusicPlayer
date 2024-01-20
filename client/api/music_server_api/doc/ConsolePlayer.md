@@ -8,10 +8,10 @@ import 'package:music_server_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**state** | [**PlayerState**](PlayerState.md) |  | [optional] 
+**state** | [**PlayerState**](PlayerState.md) |  | 
+**songPosition** | **num** |  | 
 **volume** | **int** |  | [optional] [default to 60]
 **currentSong** | [**ConsolePlayerCurrentSong**](ConsolePlayerCurrentSong.md) |  | [optional] 
-**songPosition** | **int** |  | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

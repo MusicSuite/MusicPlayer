@@ -1,8 +1,7 @@
-import logging
 from abc import ABC, abstractmethod
 from typing import TypeVar, Annotated
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 from src.model.playerstate import PlayerState
 from src.model.song import Song
 from src.utils.music_queue import MusicQueue
@@ -12,38 +11,35 @@ ExcludedField = Annotated[T, Field(exclude=True)]
 
 
 class BasePlayer(ABC, BaseModel):
-    state: PlayerState = None
     volume: int = 60
     current_song: Song = None
     queue: ExcludedField[MusicQueue] = MusicQueue()
 
-    def __init__(self):
-        super().__init__()
-        assert not self.state, "DO NOT INIT THE variable above, if initiated it cannot generate the dio code (because enum)"
-        self.state = PlayerState.STOPPED
+    @computed_field
+    @abstractmethod
+    def state(self) -> PlayerState:
+        pass
+
+    @computed_field
+    @abstractmethod
+    def song_position(self) -> float:
+        pass
 
     @abstractmethod
     def play(self) -> None:
-        assert self.current_song, "There must be a song to be playing"
-        logging.info("PLAY")
-        self.state = PlayerState.PLAYING
+        pass
 
     @abstractmethod
     def pause(self) -> None:
-        assert self.current_song, "There must be a song to pause"
-        logging.info("PAUSE")
-        self.state = PlayerState.PAUSED
+        pass
 
     @abstractmethod
     def stop(self) -> None:
-        logging.info("STOP")
-        self.state = PlayerState.STOPPED
-        self.current_song = None
+        pass
 
     @abstractmethod
     def next_track(self) -> None:
-        logging.info("NEXT TRACK")
-        self.current_song = self.queue.get()
+        pass
 
     def set_volume(self, volume: int) -> None:
         volume = int(max(0, min(volume, 100)))

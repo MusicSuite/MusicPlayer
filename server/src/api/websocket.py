@@ -7,4 +7,4 @@ router = APIRouter()
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    music_player._handle_connection(websocket)
+    await music_player._handle_connection(websocket)
