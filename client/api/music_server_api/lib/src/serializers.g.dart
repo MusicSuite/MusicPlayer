@@ -8,7 +8,6 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add($Song.serializer)
-      ..add(BodyRenameSongsReplacePut.serializer)
       ..add(ConsolePlayer.serializer)
       ..add(ConsolePlayerCurrentSong.serializer)
       ..add(HTTPValidationError.serializer)

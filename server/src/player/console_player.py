@@ -26,6 +26,10 @@ class ConsolePlayer(BasePlayer):
     def song_position(self) -> float:
         return self._song_timer.get_song_timer()
 
+    @song_position.setter
+    def song_position(self, value: float) -> None:
+        raise NotImplementedError("Cannot set")
+
     def __init__(self):
         super().__init__()
         # NOTE: DO NOT INIT THE variables below earlier, if initiated it cannot pickle
@@ -129,7 +133,7 @@ class ConsolePlayer(BasePlayer):
 
     def __str__(self) -> str:
         return str(self.model_dump_json())
-    #
+
     # def __del__(self):
     #     self.stop()
 

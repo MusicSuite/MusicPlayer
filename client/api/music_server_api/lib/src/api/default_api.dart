@@ -9,9 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
-import 'package:music_server_api/src/model/body_rename_songs_replace_put.dart';
 import 'package:music_server_api/src/model/console_player.dart';
-import 'package:music_server_api/src/model/http_validation_error.dart';
 import 'package:music_server_api/src/model/song.dart';
 
 class DefaultApi {
@@ -577,7 +575,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> removeSongsRemoveSongIdDelete({
+  Future<Response<JsonObject>> removeSongsSongIdRemoveDelete({
     required int songId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -586,7 +584,7 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/songs/remove/{song_id}'
+    final _path = r'/songs/{song_id}/remove'
         .replaceAll('{' r'song_id' '}', songId.toString());
     final _options = Options(
       method: r'DELETE',
@@ -644,7 +642,8 @@ class DefaultApi {
   ///
   ///
   /// Parameters:
-  /// * [bodyRenameSongsReplacePut]
+  /// * [songId]
+  /// * [song]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -654,8 +653,9 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> renameSongsReplacePut({
-    required BodyRenameSongsReplacePut bodyRenameSongsReplacePut,
+  Future<Response<JsonObject>> renameSongsSongIdReplacePut({
+    required int songId,
+    required Song song,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -663,7 +663,8 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/songs/replace';
+    final _path = r'/songs/{song_id}/replace'
+        .replaceAll('{' r'song_id' '}', songId.toString());
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
@@ -680,9 +681,8 @@ class DefaultApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BodyRenameSongsReplacePut);
-      _bodyData = _serializers.serialize(bodyRenameSongsReplacePut,
-          specifiedType: _type);
+      const _type = FullType(Song);
+      _bodyData = _serializers.serialize(song, specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _options.compose(

@@ -11,7 +11,6 @@ ExcludedField = Annotated[T, Field(exclude=True)]
 
 
 class BasePlayer(ABC, BaseModel):
-    volume: int = 60
     current_song: Song = None
     queue: ExcludedField[MusicQueue] = MusicQueue()
 
@@ -40,13 +39,6 @@ class BasePlayer(ABC, BaseModel):
     @abstractmethod
     def next_track(self) -> None:
         pass
-
-    def set_volume(self, volume: int) -> None:
-        volume = int(max(0, min(volume, 100)))
-        if volume == self.volume:
-            return
-
-        self.volume = volume
 
     @abstractmethod
     def __str__(self) -> str:

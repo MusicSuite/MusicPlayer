@@ -12,18 +12,13 @@ class _$ConsolePlayer extends ConsolePlayer {
   @override
   final num songPosition;
   @override
-  final int? volume;
-  @override
   final ConsolePlayerCurrentSong? currentSong;
 
   factory _$ConsolePlayer([void Function(ConsolePlayerBuilder)? updates]) =>
       (new ConsolePlayerBuilder()..update(updates))._build();
 
   _$ConsolePlayer._(
-      {required this.state,
-      required this.songPosition,
-      this.volume,
-      this.currentSong})
+      {required this.state, required this.songPosition, this.currentSong})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(state, r'ConsolePlayer', 'state');
     BuiltValueNullFieldError.checkNotNull(
@@ -43,7 +38,6 @@ class _$ConsolePlayer extends ConsolePlayer {
     return other is ConsolePlayer &&
         state == other.state &&
         songPosition == other.songPosition &&
-        volume == other.volume &&
         currentSong == other.currentSong;
   }
 
@@ -52,7 +46,6 @@ class _$ConsolePlayer extends ConsolePlayer {
     var _$hash = 0;
     _$hash = $jc(_$hash, state.hashCode);
     _$hash = $jc(_$hash, songPosition.hashCode);
-    _$hash = $jc(_$hash, volume.hashCode);
     _$hash = $jc(_$hash, currentSong.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -63,7 +56,6 @@ class _$ConsolePlayer extends ConsolePlayer {
     return (newBuiltValueToStringHelper(r'ConsolePlayer')
           ..add('state', state)
           ..add('songPosition', songPosition)
-          ..add('volume', volume)
           ..add('currentSong', currentSong))
         .toString();
   }
@@ -81,10 +73,6 @@ class ConsolePlayerBuilder
   num? get songPosition => _$this._songPosition;
   set songPosition(num? songPosition) => _$this._songPosition = songPosition;
 
-  int? _volume;
-  int? get volume => _$this._volume;
-  set volume(int? volume) => _$this._volume = volume;
-
   ConsolePlayerCurrentSongBuilder? _currentSong;
   ConsolePlayerCurrentSongBuilder get currentSong =>
       _$this._currentSong ??= new ConsolePlayerCurrentSongBuilder();
@@ -100,7 +88,6 @@ class ConsolePlayerBuilder
     if ($v != null) {
       _state = $v.state;
       _songPosition = $v.songPosition;
-      _volume = $v.volume;
       _currentSong = $v.currentSong?.toBuilder();
       _$v = null;
     }
@@ -130,7 +117,6 @@ class ConsolePlayerBuilder
                   state, r'ConsolePlayer', 'state'),
               songPosition: BuiltValueNullFieldError.checkNotNull(
                   songPosition, r'ConsolePlayer', 'songPosition'),
-              volume: volume,
               currentSong: _currentSong?.build());
     } catch (_) {
       late String _$failedField;

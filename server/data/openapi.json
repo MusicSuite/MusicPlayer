@@ -245,10 +245,10 @@
         }
       }
     },
-    "/songs/remove/{song_id}": {
+    "/songs/{song_id}/remove": {
       "delete": {
         "summary": "Remove",
-        "operationId": "remove_songs_remove__song_id__delete",
+        "operationId": "remove_songs__song_id__remove_delete",
         "parameters": [
           {
             "name": "song_id",
@@ -282,19 +282,30 @@
         }
       }
     },
-    "/songs/replace": {
+    "/songs/{song_id}/replace": {
       "put": {
         "summary": "Rename",
-        "operationId": "rename_songs_replace_put",
+        "operationId": "rename_songs__song_id__replace_put",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Song Id"
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Body_rename_songs_replace_put"
+                "$ref": "#/components/schemas/Song"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -321,29 +332,8 @@
   },
   "components": {
     "schemas": {
-      "Body_rename_songs_replace_put": {
-        "properties": {
-          "old_song": {
-            "$ref": "#/components/schemas/Song"
-          },
-          "new_song": {
-            "$ref": "#/components/schemas/Song"
-          }
-        },
-        "type": "object",
-        "required": [
-          "old_song",
-          "new_song"
-        ],
-        "title": "Body_rename_songs_replace_put"
-      },
       "ConsolePlayer": {
         "properties": {
-          "volume": {
-            "type": "integer",
-            "title": "Volume",
-            "default": 60
-          },
           "current_song": {
             "allOf": [
               {

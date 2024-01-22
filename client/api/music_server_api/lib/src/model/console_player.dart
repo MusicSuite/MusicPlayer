@@ -15,7 +15,6 @@ part 'console_player.g.dart';
 /// Properties:
 /// * [state]
 /// * [songPosition]
-/// * [volume]
 /// * [currentSong]
 @BuiltValue()
 abstract class ConsolePlayer
@@ -27,9 +26,6 @@ abstract class ConsolePlayer
   @BuiltValueField(wireName: r'song_position')
   num get songPosition;
 
-  @BuiltValueField(wireName: r'volume')
-  int? get volume;
-
   @BuiltValueField(wireName: r'current_song')
   ConsolePlayerCurrentSong? get currentSong;
 
@@ -39,7 +35,7 @@ abstract class ConsolePlayer
       _$ConsolePlayer;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ConsolePlayerBuilder b) => b..volume = 60;
+  static void _defaults(ConsolePlayerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ConsolePlayer> get serializer =>
@@ -68,13 +64,6 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
       object.songPosition,
       specifiedType: const FullType(num),
     );
-    if (object.volume != null) {
-      yield r'volume';
-      yield serializers.serialize(
-        object.volume,
-        specifiedType: const FullType(int),
-      );
-    }
     if (object.currentSong != null) {
       yield r'current_song';
       yield serializers.serialize(
@@ -120,13 +109,6 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
             specifiedType: const FullType(num),
           ) as num;
           result.songPosition = valueDes;
-          break;
-        case r'volume':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.volume = valueDes;
           break;
         case r'current_song':
           final valueDes = serializers.deserialize(

@@ -1,7 +1,6 @@
 .gitignore
 README.md
 analysis_options.yaml
-doc/BodyRenameSongsReplacePut.md
 doc/ConsolePlayer.md
 doc/ConsolePlayerCurrentSong.md
 doc/DefaultApi.md
@@ -20,7 +19,6 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
-lib/src/model/body_rename_songs_replace_put.dart
 lib/src/model/console_player.dart
 lib/src/model/console_player_current_song.dart
 lib/src/model/date.dart

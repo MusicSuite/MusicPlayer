@@ -71,8 +71,8 @@ Class | Method | HTTP request | Description
 [*DefaultApi*](doc\DefaultApi.md) | [**playPlayerActionsPlayGet**](doc\DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [*DefaultApi*](doc\DefaultApi.md) | [**playerPlayerGet**](doc\DefaultApi.md#playerplayerget) | **GET** /player | Player
 [*DefaultApi*](doc\DefaultApi.md) | [**queueQueueGet**](doc\DefaultApi.md#queuequeueget) | **GET** /queue | Queue
-[*DefaultApi*](doc\DefaultApi.md) | [**removeSongsRemoveSongIdDelete**](doc\DefaultApi.md#removesongsremovesongiddelete) | **DELETE** /songs/remove/{song_id} | Remove
-[*DefaultApi*](doc\DefaultApi.md) | [**renameSongsReplacePut**](doc\DefaultApi.md#renamesongsreplaceput) | **PUT** /songs/replace | Rename
+[*DefaultApi*](doc\DefaultApi.md) | [**removeSongsSongIdRemoveDelete**](doc\DefaultApi.md#removesongssongidremovedelete) | **DELETE** /songs/{song_id}/remove | Remove
+[*DefaultApi*](doc\DefaultApi.md) | [**renameSongsSongIdReplacePut**](doc\DefaultApi.md#renamesongssongidreplaceput) | **PUT** /songs/{song_id}/replace | Rename
 [*DefaultApi*](doc\DefaultApi.md) | [**songSongsSongIdGet**](doc\DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [*DefaultApi*](doc\DefaultApi.md) | [**songsSongsGet**](doc\DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [*DefaultApi*](doc\DefaultApi.md) | [**stopPlayerActionsStopGet**](doc\DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop
@@ -80,7 +80,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [BodyRenameSongsReplacePut](doc\BodyRenameSongsReplacePut.md)
  - [ConsolePlayer](doc\ConsolePlayer.md)
  - [ConsolePlayerCurrentSong](doc\ConsolePlayerCurrentSong.md)
  - [HTTPValidationError](doc\HTTPValidationError.md)

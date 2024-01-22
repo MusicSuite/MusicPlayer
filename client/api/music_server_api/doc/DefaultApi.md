@@ -16,8 +16,8 @@ Method | HTTP request | Description
 [**playPlayerActionsPlayGet**](DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [**playerPlayerGet**](DefaultApi.md#playerplayerget) | **GET** /player | Player
 [**queueQueueGet**](DefaultApi.md#queuequeueget) | **GET** /queue | Queue
-[**removeSongsRemoveSongIdDelete**](DefaultApi.md#removesongsremovesongiddelete) | **DELETE** /songs/remove/{song_id} | Remove
-[**renameSongsReplacePut**](DefaultApi.md#renamesongsreplaceput) | **PUT** /songs/replace | Rename
+[**removeSongsSongIdRemoveDelete**](DefaultApi.md#removesongssongidremovedelete) | **DELETE** /songs/{song_id}/remove | Remove
+[**renameSongsSongIdReplacePut**](DefaultApi.md#renamesongssongidreplaceput) | **PUT** /songs/{song_id}/replace | Rename
 [**songSongsSongIdGet**](DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [**songsSongsGet**](DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [**stopPlayerActionsStopGet**](DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop
@@ -290,8 +290,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **removeSongsRemoveSongIdDelete**
-> JsonObject removeSongsRemoveSongIdDelete(songId)
+# **removeSongsSongIdRemoveDelete**
+> JsonObject removeSongsSongIdRemoveDelete(songId)
 
 Remove
 
@@ -303,10 +303,10 @@ final api = MusicServerApi().getDefaultApi();
 final int songId = 56; // int | 
 
 try {
-    final response = api.removeSongsRemoveSongIdDelete(songId);
+    final response = api.removeSongsSongIdRemoveDelete(songId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->removeSongsRemoveSongIdDelete: $e\n');
+    print('Exception when calling DefaultApi->removeSongsSongIdRemoveDelete: $e\n');
 }
 ```
 
@@ -331,8 +331,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **renameSongsReplacePut**
-> JsonObject renameSongsReplacePut(bodyRenameSongsReplacePut)
+# **renameSongsSongIdReplacePut**
+> JsonObject renameSongsSongIdReplacePut(songId, song)
 
 Rename
 
@@ -341,13 +341,14 @@ Rename
 import 'package:music_server_api/api.dart';
 
 final api = MusicServerApi().getDefaultApi();
-final BodyRenameSongsReplacePut bodyRenameSongsReplacePut = ; // BodyRenameSongsReplacePut | 
+final int songId = 56; // int | 
+final Song song = ; // Song | 
 
 try {
-    final response = api.renameSongsReplacePut(bodyRenameSongsReplacePut);
+    final response = api.renameSongsSongIdReplacePut(songId, song);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->renameSongsReplacePut: $e\n');
+    print('Exception when calling DefaultApi->renameSongsSongIdReplacePut: $e\n');
 }
 ```
 
@@ -355,7 +356,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bodyRenameSongsReplacePut** | [**BodyRenameSongsReplacePut**](BodyRenameSongsReplacePut.md)|  | 
+ **songId** | **int**|  | 
+ **song** | [**Song**](Song.md)|  | 
 
 ### Return type
 

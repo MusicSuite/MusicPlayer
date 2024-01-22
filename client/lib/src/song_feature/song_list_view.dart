@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:built_collection/built_collection.dart';
+import 'package:client/src/connection/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
 
@@ -6,13 +10,12 @@ import 'song_view.dart';
 
 /// Displays a list of SongItems.
 class SongListView extends StatefulWidget {
-  const SongListView({
-    super.key,
-    required this.api,
-  });
+  const SongListView(
+      {super.key, required this.api, required this.webSocketManager});
 
   static const routeName = '/';
-  final DefaultApi api;
+  final MusicServerApi api;
+  final WebSocketManager webSocketManager;
 
   @override
   State<SongListView> createState() => _SongListViewState();
@@ -24,24 +27,31 @@ class _SongListViewState extends State<SongListView> {
   @override
   void initState() {
     super.initState();
-    loadSongs();
-  }
 
-  Future<void> loadSongs() async {
-    final currentSongs = await getSongs();
-    setState(() {
-      songs = currentSongs;
+    widget.api.getDefaultApi().songsSongsGet().then((value) {
+      setState(() {
+        songs = value.data!.toList();
+      });
     });
-  }
 
-  Future<List<Song>> getSongs() async {
-    final response = await widget.api.songsSongsGet();
+    widget.webSocketManager.messageStream.listen((message) {
+      var parsedMessage = json.decode(message);
 
-    if (response.statusCode != 200) {
-      return List.empty();
-    }
+      if (parsedMessage is Map<String, dynamic> &&
+          parsedMessage.containsKey("songs")) {
+        List<dynamic> songsJson = parsedMessage["songs"];
+        BuiltList<Song> songs = BuiltList<Song>.from(
+          songsJson.map((songJson) => widget.api.serializers
+              .deserializeWith(Song.serializer, songJson)),
+        );
 
-    return response.data!.toList();
+        print(songs);
+
+        setState(() {
+          this.songs = songs.toList();
+        });
+      }
+    });
   }
 
   @override

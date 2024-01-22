@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import os.path
+from typing import Optional
 
 from src.model.song import Song
 
@@ -29,7 +30,7 @@ def _write_songs_to_json(songs: list[Song]) -> None:
         json.dump(model_json, file, indent=2)
 
 
-def get_song(song_id: int) -> Song:
+def get_song(song_id: int) -> Optional[Song]:
     assert isinstance(song_id, int), "Must search based on ID"
     songs = get_songs()
     return next((song for song in songs if song.id == song_id), None)
@@ -50,10 +51,10 @@ def add_song(new_song: Song) -> Song:
 
 def remove_song(song_id: int) -> bool:
     assert isinstance(song_id, int), "Remove song based on id"
-    song = get_song(song_id)
+    song: Song = get_song(song_id)
 
     if not song:
-        logging.warning(f"Remove failed, song with id not found (id={song_id})")
+        logging.warning(f"Remove failed, song with id={song_id} not found")
         return False
 
     songs = get_songs()
@@ -63,15 +64,16 @@ def remove_song(song_id: int) -> bool:
     return True
 
 
-def replace_song(old_song: Song, new_song: Song) -> bool:
-    songs = get_songs()
+def replace_song(song_id: int, new_song: Song) -> bool:
+    if song_id != new_song.id:
+        logging.warning(f"Tried to replace a song with a song of a different ID")
+        return False
 
-    for i, song in enumerate(songs):
-        if song == old_song:
-            logging.info(f"Replacing song in json {old_song} --> {new_song}")
-            songs[i] = new_song
-            _write_songs_to_json(songs)
-            return True
+    if remove_song(song_id):
+        logging.warning(f"Replacement failed, song not found (id={song_id})")
+        return False
 
-    logging.warning(f"Replacement failed, song not found ({old_song})")
-    return False
+    songs: list[Song] = get_songs()
+    songs.append(new_song)
+    _write_songs_to_json(songs)
+    return True

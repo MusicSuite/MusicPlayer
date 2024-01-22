@@ -11,7 +11,7 @@ class Song(BaseModel):
 
     def __eq__(self, other):
         assert isinstance(other, Song), "Must compare with a song"
-        return self.title == other.title and self.duration == other.duration
+        return self.id == other.id
 
     def __str__(self) -> str:
         return str(self.model_dump_json())

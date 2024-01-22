@@ -1,20 +1,24 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+
+import 'package:client/src/common.dart';
+import 'package:client/src/connection/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status;
 import 'dart:convert';
 
-import 'package:built_value/serializer.dart';
-import 'package:built_value/json_object.dart';
 
 import '../settings/settings_view.dart';
 
 /// Displays detailed information about a SongItem.
 class PlayerView extends StatefulWidget {
-  const PlayerView({super.key, required this.api});
+  const PlayerView(
+      {super.key, required this.api, required this.webSocketManager});
 
   static const routeName = '/player';
   final MusicServerApi api;
+  final WebSocketManager webSocketManager;
 
   @override
   State<PlayerView> createState() => _PlayerViewState();
@@ -25,7 +29,9 @@ class _PlayerViewState extends State<PlayerView> {
     ..state = PlayerState.STOPPED
     ..songPosition = 0.0);
 
-  final channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8000/ws'));
+  // Define a variable to hold the timer
+  late Timer _sliderTimer;
+  num currentSongPosition = 0;
 
   @override
   void initState() {
@@ -34,10 +40,27 @@ class _PlayerViewState extends State<PlayerView> {
     widget.api.getDefaultApi().playerPlayerGet().then((value) {
       setState(() {
         consolePlayer = value.data!;
+        currentSongPosition = consolePlayer.songPosition;
       });
     });
 
-    channel.stream.listen((message) {
+    _sliderTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      // Do not update the state in these cases
+      if (consolePlayer.currentSong == null) {
+        return;
+      } else if (consolePlayer.state != PlayerState.PLAYING) {
+        return;
+      }
+
+      num newSongPosition = min(
+          currentSongPosition + 1, consolePlayer.currentSong?.duration ?? 0);
+
+      setState(() {
+        currentSongPosition = newSongPosition;
+      });
+    });
+
+    widget.webSocketManager.messageStream.listen((message) {
       var parsedMessage = json.decode(message);
       if (parsedMessage["player"] == null) {
         return;
@@ -47,18 +70,26 @@ class _PlayerViewState extends State<PlayerView> {
 
       ConsolePlayer consolePlayer = widget.api.serializers.fromJson(
           widget.api.serializers.serializerForType(ConsolePlayer)!, playerData);
+
       setState(() {
         this.consolePlayer = consolePlayer;
+        currentSongPosition = consolePlayer.songPosition;
       });
     });
   }
 
-  // TODO: Close channel when leaving page
+  // Don't forget to cancel the timer when the widget is disposed
+  @override
+  void dispose() {
+    _sliderTimer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detailed view'),
+        title: const Text('Player view'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -78,23 +109,44 @@ class _PlayerViewState extends State<PlayerView> {
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsetsDirectional.symmetric(
+                            horizontal: 15, vertical: 5),
                         child: Center(
-                            // child:
-                            //     Image.network(metadata.artUri.toString()),
+                            child: Image.file(File(
+                                "C:/Users/gerard/Pictures/Rapunzel_Pascal.png"))
+                            // Image.network(metadata.artUri.toString()),
                             ),
                       ),
                     ),
                     Text(
-                      consolePlayer.currentSong?.title ?? "Unknown title",
-                      style: Theme.of(context).textTheme.titleLarge,
+                      consolePlayer.currentSong?.title ?? "[Title placeholder]",
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     // When the text isnt immediately fetched it has a temporary value
-                    Text(consolePlayer.currentSong?.title ?? "Unknown title")
+                    Text(consolePlayer.currentSong?.title ??
+                        "[Artist placeholder]")
                   ],
                 ),
+              ),
+            ),
+            Slider(
+                min: 0,
+                max: consolePlayer.currentSong?.duration.toDouble() ?? 0,
+                value: currentSongPosition.toDouble(),
+                onChanged: (value) {
+                  // Note: Cannot set position for LP
+                }),
+            Container(
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(secondsString(currentSongPosition)),
+                  Text(secondsString(
+                      consolePlayer.currentSong?.duration.toInt() ?? 0)),
+                ],
               ),
             ),
             Row(
@@ -137,7 +189,7 @@ class _PlayerViewState extends State<PlayerView> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.skip_next),
-                  onPressed: () => widget.api
+                  onPressed: widget.api
                       .getDefaultApi()
                       .nextTrackPlayerActionsNextTrackGet,
                 ),

@@ -1,3 +1,19 @@
+String secondsString(num nrSeconds) {
+  return _durationString(Duration(seconds: nrSeconds.toInt()));
+}
+
+String _durationString(Duration duration) {
+  String formattedString = "";
+  if (duration.inHours > 0) {
+    formattedString += "${duration.inHours}:";
+  }
+  formattedString += "${duration.inMinutes.remainder(60)}:";
+  formattedString +=
+      duration.inSeconds.remainder(60).toString().padLeft(2, "0");
+  return formattedString;
+}
+
+
 // import 'dart:math';
 
 // import 'package:flutter/material.dart';

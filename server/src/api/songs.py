@@ -1,8 +1,11 @@
-from fastapi import APIRouter
+import logging
 
+from fastapi import APIRouter
 from src.model.song import Song
+from src.model.websocket_message_type import WebSocketMessageType
+from src.player.console_player import console_player as music_player
 from src.utils import json_loader
-from src.utils.json_loader import get_songs
+from src.utils.json_loader import get_songs, get_songs_json
 
 router = APIRouter()
 
@@ -19,14 +22,25 @@ async def song(song_id: int) -> Song:
 
 @router.post("/songs/add")
 async def add(song: Song) -> Song:
-    return json_loader.add_song(song)
+    new_song = json_loader.add_song(song)
+    await broadcast_song_list()
+    return new_song
 
 
-@router.delete("/songs/remove/{song_id}")
+@router.delete("/songs/{song_id}/remove")
 async def remove(song_id: int) -> None:
-    json_loader.remove_song(song_id)
+    if json_loader.remove_song(song_id):
+        await broadcast_song_list()
 
 
-@router.put("/songs/replace")
-async def rename(old_song: Song, new_song: Song) -> None:
-    json_loader.replace_song(old_song, new_song)
+@router.put("/songs/{song_id}/replace")
+async def rename(song_id: int, new_song: Song) -> None:
+    if json_loader.replace_song(song_id, new_song):
+        await broadcast_song_list()
+
+
+async def broadcast_song_list() -> None:
+    json_response: dict = dict()
+    json_response[WebSocketMessageType.Songs.value] = get_songs_json()
+    logging.info(f"Broadcast: {json_response}")
+    await music_player._manager.broadcast(json_response)
