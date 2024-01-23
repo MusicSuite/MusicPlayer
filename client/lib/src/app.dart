@@ -1,12 +1,13 @@
 // Openapi Generator last run: : 2024-01-22T22:48:21.571549
 import 'package:client/src/connection/websocket_manager.dart';
+import 'package:client/src/song_feature/player_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:music_server_api/music_server_api.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
-import 'song_feature/song_view.dart';
+import 'song_feature/song_edit_view.dart';
 import 'song_feature/song_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   final SettingsController settingsController;
   final MusicServerApi api =
       MusicServerApi(basePathOverride: 'http://localhost:8000');
-  WebSocketManager webSocketManager = WebSocketManager();
+  final WebSocketManager webSocketManager = WebSocketManager();
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +89,15 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SongView.routeName:
-                    return SongView(api: api);
+                  case SongEditView.routeName:
+                    return SongEditView(api: api);
                   case SongListView.routeName:
                   default:
                     // return PlayerView(
                     //     api: api, webSocketManager: webSocketManager);
-                    return SongListView(
-                        api: api, webSocketManager: webSocketManager);
+                    // return SongListView(
+                    //     api: api, webSocketManager: webSocketManager);
+                    return SongEditView(api: api);
                 }
               },
             );

@@ -5,12 +5,7 @@
     "duration": 10.0
   },
   {
-    "id": 1,
-    "title": "Test ID",
-    "duration": 1000.0
-  },
-  {
-    "id": 0,
+    "id": 4,
     "title": "Test ID",
     "duration": 2.0
   },
@@ -20,12 +15,12 @@
     "duration": 2.0
   },
   {
-    "id": 4,
+    "id": 6,
     "title": "Test ID",
     "duration": 2.0
   },
   {
-    "id": 5,
+    "id": 7,
     "title": "Test ID",
     "duration": 2.0
   }
