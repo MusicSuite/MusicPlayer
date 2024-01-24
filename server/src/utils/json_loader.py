@@ -69,7 +69,7 @@ def replace_song(song_id: int, new_song: Song) -> bool:
         logging.warning(f"Tried to replace a song with a song of a different ID")
         return False
 
-    if remove_song(song_id):
+    if not remove_song(song_id):
         logging.warning(f"Replacement failed, song not found (id={song_id})")
         return False
 

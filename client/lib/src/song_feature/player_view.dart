@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:client/src/common.dart';
-import 'package:client/src/connection/websocket_manager.dart';
+import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
 import 'dart:convert';

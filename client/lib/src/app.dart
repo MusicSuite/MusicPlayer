@@ -1,5 +1,5 @@
 // Openapi Generator last run: : 2024-01-22T22:48:21.571549
-import 'package:client/src/connection/websocket_manager.dart';
+import 'package:client/src/utils/websocket_manager.dart';
 import 'package:client/src/song_feature/player_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -95,9 +95,8 @@ class MyApp extends StatelessWidget {
                   default:
                     // return PlayerView(
                     //     api: api, webSocketManager: webSocketManager);
-                    // return SongListView(
-                    //     api: api, webSocketManager: webSocketManager);
-                    return SongEditView(api: api);
+                    return SongListView(
+                        api: api, webSocketManager: webSocketManager);
                 }
               },
             );

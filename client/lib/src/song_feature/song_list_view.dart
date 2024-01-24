@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:client/src/common.dart';
-import 'package:client/src/connection/websocket_manager.dart';
+import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
 
@@ -67,7 +67,15 @@ class _SongListViewState extends State<SongListView> {
     }
 
     items.addAll([
-      IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+      IconButton(
+          onPressed: () {
+            Navigator.restorablePushNamed(
+              context,
+              SongEditView.routeName,
+              arguments: song.id,
+            );
+          },
+          icon: const Icon(Icons.edit)),
       IconButton(
           onPressed: () {
             widget.api
@@ -105,8 +113,13 @@ class _SongListViewState extends State<SongListView> {
           if (index == songs.length) {
             return ListTile(
                 leading: const Icon(Icons.add),
-                title: Text("Add another song"),
-                onTap: () {});
+                title: const Text("Create new song"),
+                onTap: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    SongEditView.routeName,
+                  );
+                });
           }
 
           final song = songs[index];
@@ -122,11 +135,9 @@ class _SongListViewState extends State<SongListView> {
               children: _getItemButtons(song),
             ),
             onTap: () {
-              Navigator.restorablePushNamed(
-                context,
-                SongEditView.routeName,
-                arguments: song.id,
-              );
+              if (!editing) {
+                widget.api.getDefaultApi().addQueueSongIdPost(songId: song.id);
+              }
             },
           );
         },
