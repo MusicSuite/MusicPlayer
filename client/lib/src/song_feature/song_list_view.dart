@@ -61,12 +61,17 @@ class _SongListViewState extends State<SongListView> {
   }
 
   List<Widget> _getItemButtons(Song song) {
-    List<Widget> items = [Text(secondsString(song.duration))];
+    Container durationContainer = Container(
+      alignment: AlignmentDirectional.centerEnd,
+      constraints: const BoxConstraints(minWidth: 40),
+      child: Text(secondsString(song.duration)),
+    );
+
     if (!editing) {
-      return items;
+      return [durationContainer];
     }
 
-    items.addAll([
+    List<Widget> items = [
       IconButton(
           onPressed: () {
             Navigator.restorablePushNamed(
@@ -83,7 +88,8 @@ class _SongListViewState extends State<SongListView> {
                 .removeSongsSongIdRemoveDelete(songId: song.id);
           },
           icon: const Icon(Icons.delete)),
-    ]);
+      durationContainer,
+    ];
 
     return items;
   }
@@ -94,6 +100,15 @@ class _SongListViewState extends State<SongListView> {
       appBar: AppBar(
         title: const Text('Songs'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.restorablePushNamed(
+                context,
+                SongEditView.routeName,
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: _toggleEdit,
@@ -106,41 +121,31 @@ class _SongListViewState extends State<SongListView> {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: ListView(
         restorationId: 'songItemListView',
-        itemCount: editing ? songs.length + 1 : songs.length,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == songs.length) {
-            return ListTile(
-                leading: const Icon(Icons.add),
-                title: const Text("Create new song"),
-                onTap: () {
-                  Navigator.restorablePushNamed(
-                    context,
-                    SongEditView.routeName,
-                  );
-                });
-          }
-
-          final song = songs[index];
-
-          return ListTile(
-            title: Text("${song.title} (id=${song.id})"),
-            subtitle: const Text("[Artist placeholder]"),
-            leading: const CircleAvatar(
-              foregroundImage: AssetImage('assets/images/flutter_logo.png'),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: _getItemButtons(song),
-            ),
-            onTap: () {
-              if (!editing) {
-                widget.api.getDefaultApi().addQueueSongIdPost(songId: song.id);
-              }
-            },
-          );
-        },
+        children: [
+          for (Song song in songs)
+            ListTile(
+              dense: true,
+              title: Text("${song.title} (id=${song.id})"),
+              subtitle: const Text("[Artist placeholder]"),
+              leading: const CircleAvatar(
+                foregroundImage: AssetImage('assets/images/flutter_logo.png'),
+              ),
+              trailing: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: _getItemButtons(song),
+              ),
+              onTap: () {
+                if (!editing) {
+                  widget.api
+                      .getDefaultApi()
+                      .addQueueSongIdPost(songId: song.id);
+                }
+              },
+            )
+        ],
       ),
     );
   }

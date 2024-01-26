@@ -77,3 +77,4 @@ def replace_song(song_id: int, new_song: Song) -> bool:
     songs.append(new_song)
     _write_songs_to_json(songs)
     return True
+

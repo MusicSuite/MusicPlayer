@@ -12,8 +12,16 @@ class MusicQueue(BaseModel):
         return self.queue.pop(0)
 
     def add(self, song: Song) -> None:
-        assert song, "Must put a valid song in"
         self.queue.append(song)
+
+    def remove(self, index: int) -> None:
+        self.queue.pop(index)
+
+    def move(self, old_index: int, new_index: int) -> None:
+        temp: Song = self.queue.pop(old_index)
+
+        # Note inserts before the new index, we don't need to minus 1 if it moves up
+        self.queue.insert(new_index, temp)
 
     def is_empty(self) -> bool:
         return len(self) == 0

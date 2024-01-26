@@ -11,11 +11,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addQueueSongIdPost**](DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [**addSongsAddPost**](DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
+[**moveQueueOldIndexNewIndexPut**](DefaultApi.md#movequeueoldindexnewindexput) | **PUT** /queue/{old_index}/{new_index} | Move
 [**nextTrackPlayerActionsNextTrackGet**](DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [**pausePlayerActionsPauseGet**](DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause
 [**playPlayerActionsPlayGet**](DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [**playerPlayerGet**](DefaultApi.md#playerplayerget) | **GET** /player | Player
 [**queueQueueGet**](DefaultApi.md#queuequeueget) | **GET** /queue | Queue
+[**removeQueueIndexDelete**](DefaultApi.md#removequeueindexdelete) | **DELETE** /queue/{index} | Remove
 [**removeSongsSongIdRemoveDelete**](DefaultApi.md#removesongssongidremovedelete) | **DELETE** /songs/{song_id}/remove | Remove
 [**renameSongsSongIdReplacePut**](DefaultApi.md#renamesongssongidreplaceput) | **PUT** /songs/{song_id}/replace | Rename
 [**songSongsSongIdGet**](DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
@@ -101,6 +103,49 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **moveQueueOldIndexNewIndexPut**
+> JsonObject moveQueueOldIndexNewIndexPut(oldIndex, newIndex)
+
+Move
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final int oldIndex = 56; // int | 
+final int newIndex = 56; // int | 
+
+try {
+    final response = api.moveQueueOldIndexNewIndexPut(oldIndex, newIndex);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->moveQueueOldIndexNewIndexPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **oldIndex** | **int**|  | 
+ **newIndex** | **int**|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -278,6 +323,47 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**BuiltList&lt;Song&gt;**](Song.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeQueueIndexDelete**
+> JsonObject removeQueueIndexDelete(index)
+
+Remove
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final int index = 56; // int | 
+
+try {
+    final response = api.removeQueueIndexDelete(index);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->removeQueueIndexDelete: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **index** | **int**|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
 
 ### Authorization
 
