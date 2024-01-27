@@ -12,21 +12,33 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
   @override
   final String title;
   @override
+  final String artist;
+  @override
   final num duration;
+  @override
+  final String thumbnailFileName;
 
   factory _$ConsolePlayerCurrentSong(
           [void Function(ConsolePlayerCurrentSongBuilder)? updates]) =>
       (new ConsolePlayerCurrentSongBuilder()..update(updates))._build();
 
   _$ConsolePlayerCurrentSong._(
-      {required this.id, required this.title, required this.duration})
+      {required this.id,
+      required this.title,
+      required this.artist,
+      required this.duration,
+      required this.thumbnailFileName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         id, r'ConsolePlayerCurrentSong', 'id');
     BuiltValueNullFieldError.checkNotNull(
         title, r'ConsolePlayerCurrentSong', 'title');
     BuiltValueNullFieldError.checkNotNull(
+        artist, r'ConsolePlayerCurrentSong', 'artist');
+    BuiltValueNullFieldError.checkNotNull(
         duration, r'ConsolePlayerCurrentSong', 'duration');
+    BuiltValueNullFieldError.checkNotNull(
+        thumbnailFileName, r'ConsolePlayerCurrentSong', 'thumbnailFileName');
   }
 
   @override
@@ -44,7 +56,9 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
     return other is ConsolePlayerCurrentSong &&
         id == other.id &&
         title == other.title &&
-        duration == other.duration;
+        artist == other.artist &&
+        duration == other.duration &&
+        thumbnailFileName == other.thumbnailFileName;
   }
 
   @override
@@ -52,7 +66,9 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, artist.hashCode);
     _$hash = $jc(_$hash, duration.hashCode);
+    _$hash = $jc(_$hash, thumbnailFileName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -62,7 +78,9 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
     return (newBuiltValueToStringHelper(r'ConsolePlayerCurrentSong')
           ..add('id', id)
           ..add('title', title)
-          ..add('duration', duration))
+          ..add('artist', artist)
+          ..add('duration', duration)
+          ..add('thumbnailFileName', thumbnailFileName))
         .toString();
   }
 }
@@ -81,9 +99,18 @@ class ConsolePlayerCurrentSongBuilder
   String? get title => _$this._title;
   set title(covariant String? title) => _$this._title = title;
 
+  String? _artist;
+  String? get artist => _$this._artist;
+  set artist(covariant String? artist) => _$this._artist = artist;
+
   num? _duration;
   num? get duration => _$this._duration;
   set duration(covariant num? duration) => _$this._duration = duration;
+
+  String? _thumbnailFileName;
+  String? get thumbnailFileName => _$this._thumbnailFileName;
+  set thumbnailFileName(covariant String? thumbnailFileName) =>
+      _$this._thumbnailFileName = thumbnailFileName;
 
   ConsolePlayerCurrentSongBuilder() {
     ConsolePlayerCurrentSong._defaults(this);
@@ -94,7 +121,9 @@ class ConsolePlayerCurrentSongBuilder
     if ($v != null) {
       _id = $v.id;
       _title = $v.title;
+      _artist = $v.artist;
       _duration = $v.duration;
+      _thumbnailFileName = $v.thumbnailFileName;
       _$v = null;
     }
     return this;
@@ -121,8 +150,14 @@ class ConsolePlayerCurrentSongBuilder
                 id, r'ConsolePlayerCurrentSong', 'id'),
             title: BuiltValueNullFieldError.checkNotNull(
                 title, r'ConsolePlayerCurrentSong', 'title'),
+            artist: BuiltValueNullFieldError.checkNotNull(
+                artist, r'ConsolePlayerCurrentSong', 'artist'),
             duration: BuiltValueNullFieldError.checkNotNull(
-                duration, r'ConsolePlayerCurrentSong', 'duration'));
+                duration, r'ConsolePlayerCurrentSong', 'duration'),
+            thumbnailFileName: BuiltValueNullFieldError.checkNotNull(
+                thumbnailFileName,
+                r'ConsolePlayerCurrentSong',
+                'thumbnailFileName'));
     replace(_$result);
     return _$result;
   }

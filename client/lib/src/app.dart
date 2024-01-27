@@ -1,4 +1,6 @@
-// Openapi Generator last run: : 2024-01-26T20:36:51.776816
+// Openapi Generator last run: : 2024-01-27T00:51:30.500994
+import 'package:client/src/common.dart';
+import 'package:client/src/view/song_queue_view.dart';
 import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,8 +8,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:music_server_api/music_server_api.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
-import 'song_feature/song_edit_view.dart';
-import 'song_feature/song_list_view.dart';
+import 'view/song_edit_view.dart';
+import 'view/song_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -31,8 +33,7 @@ class MyApp extends StatelessWidget {
   });
 
   final SettingsController settingsController;
-  final MusicServerApi api =
-      MusicServerApi(basePathOverride: 'http://localhost:8000');
+  final MusicServerApi api = MusicServerApi(basePathOverride: httpServerURL);
   final WebSocketManager webSocketManager = WebSocketManager();
 
   @override
@@ -92,12 +93,11 @@ class MyApp extends StatelessWidget {
                     return SongEditView(api: api);
                   case SongListView.routeName:
                   default:
-                    // return PlayerView(
-                    //     api: api, webSocketManager: webSocketManager);
                     return SongListView(
                         api: api, webSocketManager: webSocketManager);
-                  // return SongQueueView(
-                  //     api: api, webSocketManager: webSocketManager);
+                    return SongQueueView(
+                        api: api, webSocketManager: webSocketManager);
+                    return SongEditView(api: api);
                 }
               },
             );

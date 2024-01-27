@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:client/src/common.dart';
+import 'package:client/src/utils/time_parser_converter.dart';
+import 'package:client/src/widget/square_image.dart';
 import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
@@ -95,14 +96,12 @@ class _SongQueueViewState extends State<SongQueueView> {
                 key: ValueKey(index),
                 dense: true,
                 title: Text("${song.title} (id=${song.id})"),
-                subtitle: const Text("[Artist placeholder]"),
-                leading: const CircleAvatar(
-                  foregroundImage: AssetImage('assets/images/flutter_logo.png'),
-                ),
+                subtitle: Text(song.artist),
+                leading: SquareImage(song.thumbnailFileName),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(secondsString(song.duration)),
+                    Text(TimeParserConverter(song.duration).toString()),
                     deleting
                         ? IconButton(
                             onPressed: () {

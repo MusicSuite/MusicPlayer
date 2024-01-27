@@ -15,8 +15,14 @@ abstract class SongBuilder {
   String? get title;
   set title(String? title);
 
+  String? get artist;
+  set artist(String? artist);
+
   num? get duration;
   set duration(num? duration);
+
+  String? get thumbnailFileName;
+  set thumbnailFileName(String? thumbnailFileName);
 }
 
 class _$$Song extends $Song {
@@ -25,16 +31,28 @@ class _$$Song extends $Song {
   @override
   final String title;
   @override
+  final String artist;
+  @override
   final num duration;
+  @override
+  final String thumbnailFileName;
 
   factory _$$Song([void Function($SongBuilder)? updates]) =>
       (new $SongBuilder()..update(updates))._build();
 
-  _$$Song._({required this.id, required this.title, required this.duration})
+  _$$Song._(
+      {required this.id,
+      required this.title,
+      required this.artist,
+      required this.duration,
+      required this.thumbnailFileName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'$Song', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'$Song', 'title');
+    BuiltValueNullFieldError.checkNotNull(artist, r'$Song', 'artist');
     BuiltValueNullFieldError.checkNotNull(duration, r'$Song', 'duration');
+    BuiltValueNullFieldError.checkNotNull(
+        thumbnailFileName, r'$Song', 'thumbnailFileName');
   }
 
   @override
@@ -50,7 +68,9 @@ class _$$Song extends $Song {
     return other is $Song &&
         id == other.id &&
         title == other.title &&
-        duration == other.duration;
+        artist == other.artist &&
+        duration == other.duration &&
+        thumbnailFileName == other.thumbnailFileName;
   }
 
   @override
@@ -58,7 +78,9 @@ class _$$Song extends $Song {
     var _$hash = 0;
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, artist.hashCode);
     _$hash = $jc(_$hash, duration.hashCode);
+    _$hash = $jc(_$hash, thumbnailFileName.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -68,7 +90,9 @@ class _$$Song extends $Song {
     return (newBuiltValueToStringHelper(r'$Song')
           ..add('id', id)
           ..add('title', title)
-          ..add('duration', duration))
+          ..add('artist', artist)
+          ..add('duration', duration)
+          ..add('thumbnailFileName', thumbnailFileName))
         .toString();
   }
 }
@@ -84,9 +108,18 @@ class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
   String? get title => _$this._title;
   set title(covariant String? title) => _$this._title = title;
 
+  String? _artist;
+  String? get artist => _$this._artist;
+  set artist(covariant String? artist) => _$this._artist = artist;
+
   num? _duration;
   num? get duration => _$this._duration;
   set duration(covariant num? duration) => _$this._duration = duration;
+
+  String? _thumbnailFileName;
+  String? get thumbnailFileName => _$this._thumbnailFileName;
+  set thumbnailFileName(covariant String? thumbnailFileName) =>
+      _$this._thumbnailFileName = thumbnailFileName;
 
   $SongBuilder() {
     $Song._defaults(this);
@@ -97,7 +130,9 @@ class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
     if ($v != null) {
       _id = $v.id;
       _title = $v.title;
+      _artist = $v.artist;
       _duration = $v.duration;
+      _thumbnailFileName = $v.thumbnailFileName;
       _$v = null;
     }
     return this;
@@ -123,8 +158,12 @@ class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
             id: BuiltValueNullFieldError.checkNotNull(id, r'$Song', 'id'),
             title:
                 BuiltValueNullFieldError.checkNotNull(title, r'$Song', 'title'),
+            artist: BuiltValueNullFieldError.checkNotNull(
+                artist, r'$Song', 'artist'),
             duration: BuiltValueNullFieldError.checkNotNull(
-                duration, r'$Song', 'duration'));
+                duration, r'$Song', 'duration'),
+            thumbnailFileName: BuiltValueNullFieldError.checkNotNull(
+                thumbnailFileName, r'$Song', 'thumbnailFileName'));
     replace(_$result);
     return _$result;
   }

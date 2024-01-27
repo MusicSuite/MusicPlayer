@@ -411,10 +411,103 @@
           }
         }
       }
+    },
+    "/images/{filename}": {
+      "get": {
+        "summary": "Image",
+        "operationId": "image_images__filename__get",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Filename"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/": {
+      "post": {
+        "summary": "Image",
+        "operationId": "image_images__post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_image_images__post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Image Images  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Body_image_images__post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_image_images__post"
+      },
       "ConsolePlayer": {
         "properties": {
           "current_song": {
@@ -477,16 +570,26 @@
             "type": "string",
             "title": "Title"
           },
+          "artist": {
+            "type": "string",
+            "title": "Artist"
+          },
           "duration": {
             "type": "number",
             "title": "Duration"
+          },
+          "thumbnail_file_name": {
+            "type": "string",
+            "title": "Thumbnail File Name"
           }
         },
         "type": "object",
         "required": [
           "id",
           "title",
-          "duration"
+          "artist",
+          "duration",
+          "thumbnail_file_name"
         ],
         "title": "Song"
       },

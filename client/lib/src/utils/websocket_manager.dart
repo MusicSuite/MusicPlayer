@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:client/src/common.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebSocketManager {
@@ -15,7 +16,7 @@ class WebSocketManager {
   }
 
   void _connectToWebSocket() {
-    _channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8000/ws'));
+    _channel = WebSocketChannel.connect(Uri.parse('$wsServerURL/ws'));
 
     _channel.stream.listen(
       (message) {

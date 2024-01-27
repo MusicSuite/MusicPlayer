@@ -14,7 +14,9 @@ part 'console_player_current_song.g.dart';
 /// Properties:
 /// * [id]
 /// * [title]
+/// * [artist]
 /// * [duration]
+/// * [thumbnailFileName]
 @BuiltValue()
 abstract class ConsolePlayerCurrentSong
     implements
@@ -55,15 +57,25 @@ class _$ConsolePlayerCurrentSongSerializer
       object.duration,
       specifiedType: const FullType(num),
     );
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     yield r'title';
     yield serializers.serialize(
       object.title,
       specifiedType: const FullType(String),
     );
-    yield r'id';
+    yield r'artist';
     yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
+      object.artist,
+      specifiedType: const FullType(String),
+    );
+    yield r'thumbnail_file_name';
+    yield serializers.serialize(
+      object.thumbnailFileName,
+      specifiedType: const FullType(String),
     );
   }
 
@@ -97,6 +109,13 @@ class _$ConsolePlayerCurrentSongSerializer
           ) as num;
           result.duration = valueDes;
           break;
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
         case r'title':
           final valueDes = serializers.deserialize(
             value,
@@ -104,12 +123,19 @@ class _$ConsolePlayerCurrentSongSerializer
           ) as String;
           result.title = valueDes;
           break;
-        case r'id':
+        case r'artist':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.artist = valueDes;
+          break;
+        case r'thumbnail_file_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.thumbnailFileName = valueDes;
           break;
         default:
           unhandled.add(key);

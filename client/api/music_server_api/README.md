@@ -66,6 +66,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*DefaultApi*](doc\DefaultApi.md) | [**addQueueSongIdPost**](doc\DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [*DefaultApi*](doc\DefaultApi.md) | [**addSongsAddPost**](doc\DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
+[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesFilenameGet**](doc\DefaultApi.md#imageimagesfilenameget) | **GET** /images/{filename} | Image
+[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesPost**](doc\DefaultApi.md#imageimagespost) | **POST** /images/ | Image
 [*DefaultApi*](doc\DefaultApi.md) | [**moveQueueOldIndexNewIndexPut**](doc\DefaultApi.md#movequeueoldindexnewindexput) | **PUT** /queue/{old_index}/{new_index} | Move
 [*DefaultApi*](doc\DefaultApi.md) | [**nextTrackPlayerActionsNextTrackGet**](doc\DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [*DefaultApi*](doc\DefaultApi.md) | [**pausePlayerActionsPauseGet**](doc\DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause

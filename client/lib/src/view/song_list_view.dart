@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:client/src/common.dart';
+import 'package:client/src/utils/time_parser_converter.dart';
 import 'package:client/src/utils/websocket_manager.dart';
+import 'package:client/src/widget/square_image.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
 
@@ -63,8 +64,8 @@ class _SongListViewState extends State<SongListView> {
   List<Widget> _getItemButtons(Song song) {
     Container durationContainer = Container(
       alignment: AlignmentDirectional.centerEnd,
-      constraints: const BoxConstraints(minWidth: 40),
-      child: Text(secondsString(song.duration)),
+      constraints: const BoxConstraints(minWidth: 30),
+      child: Text(TimeParserConverter(song.duration).toString()),
     );
 
     if (!editing) {
@@ -126,12 +127,12 @@ class _SongListViewState extends State<SongListView> {
         children: [
           for (Song song in songs)
             ListTile(
+              contentPadding: const EdgeInsets.only(
+                  left: 16, right: 12), // To allign the icons!
               dense: true,
               title: Text("${song.title} (id=${song.id})"),
-              subtitle: const Text("[Artist placeholder]"),
-              leading: const CircleAvatar(
-                foregroundImage: AssetImage('assets/images/flutter_logo.png'),
-              ),
+              subtitle: Text(song.artist),
+              leading: SquareImage(song.thumbnailFileName),
               trailing: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,

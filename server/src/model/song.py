@@ -4,10 +4,9 @@ from pydantic import BaseModel
 class Song(BaseModel):
     id: int
     title: str
+    artist: str
     duration: float
-
-    def __init__(self, id: int, title: str, duration: float):
-        super().__init__(id=id, title=title, duration=duration)
+    thumbnail_file_name: str
 
     def __eq__(self, other):
         assert isinstance(other, Song), "Must compare with a song"

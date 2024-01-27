@@ -13,7 +13,9 @@ part 'song.g.dart';
 /// Properties:
 /// * [id]
 /// * [title]
+/// * [artist]
 /// * [duration]
+/// * [thumbnailFileName]
 @BuiltValue(instantiable: false)
 abstract class Song {
   @BuiltValueField(wireName: r'id')
@@ -22,8 +24,14 @@ abstract class Song {
   @BuiltValueField(wireName: r'title')
   String get title;
 
+  @BuiltValueField(wireName: r'artist')
+  String get artist;
+
   @BuiltValueField(wireName: r'duration')
   num get duration;
+
+  @BuiltValueField(wireName: r'thumbnail_file_name')
+  String get thumbnailFileName;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Song> get serializer => _$SongSerializer();
@@ -51,10 +59,20 @@ class _$SongSerializer implements PrimitiveSerializer<Song> {
       object.title,
       specifiedType: const FullType(String),
     );
+    yield r'artist';
+    yield serializers.serialize(
+      object.artist,
+      specifiedType: const FullType(String),
+    );
     yield r'duration';
     yield serializers.serialize(
       object.duration,
       specifiedType: const FullType(num),
+    );
+    yield r'thumbnail_file_name';
+    yield serializers.serialize(
+      object.thumbnailFileName,
+      specifiedType: const FullType(String),
     );
   }
 
@@ -136,12 +154,26 @@ class _$$SongSerializer implements PrimitiveSerializer<$Song> {
           ) as String;
           result.title = valueDes;
           break;
+        case r'artist':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.artist = valueDes;
+          break;
         case r'duration':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(num),
           ) as num;
           result.duration = valueDes;
+          break;
+        case r'thumbnail_file_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.thumbnailFileName = valueDes;
           break;
         default:
           unhandled.add(key);

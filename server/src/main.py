@@ -1,12 +1,12 @@
+import argparse
 import json
 import logging
 
-import yaml
-import argparse
-
 import src.utils.logger as logger
 import uvicorn
+import yaml
 from fastapi import FastAPI
+from src.api.images import router as thumbnail_router
 from src.api.player import router as player_router
 from src.api.player_actions import router as player_actions_router
 from src.api.queue import router as queue_router
@@ -31,6 +31,7 @@ def create_app() -> FastAPI:
     app.include_router(queue_router)
     app.include_router(songs_router)
     app.include_router(websocket_router)
+    app.include_router(thumbnail_router)
     return app
 
 

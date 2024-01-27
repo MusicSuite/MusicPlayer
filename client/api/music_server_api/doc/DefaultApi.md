@@ -11,6 +11,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addQueueSongIdPost**](DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [**addSongsAddPost**](DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
+[**imageImagesFilenameGet**](DefaultApi.md#imageimagesfilenameget) | **GET** /images/{filename} | Image
+[**imageImagesPost**](DefaultApi.md#imageimagespost) | **POST** /images/ | Image
 [**moveQueueOldIndexNewIndexPut**](DefaultApi.md#movequeueoldindexnewindexput) | **PUT** /queue/{old_index}/{new_index} | Move
 [**nextTrackPlayerActionsNextTrackGet**](DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [**pausePlayerActionsPauseGet**](DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause
@@ -103,6 +105,88 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **imageImagesFilenameGet**
+> JsonObject imageImagesFilenameGet(filename)
+
+Image
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final String filename = filename_example; // String | 
+
+try {
+    final response = api.imageImagesFilenameGet(filename);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->imageImagesFilenameGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filename** | **String**|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **imageImagesPost**
+> BuiltMap<String, String> imageImagesPost(file)
+
+Image
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
+
+try {
+    final response = api.imageImagesPost(file);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->imageImagesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **MultipartFile**|  | 
+
+### Return type
+
+**BuiltMap&lt;String, String&gt;**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

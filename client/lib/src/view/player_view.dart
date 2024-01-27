@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 
-import 'package:client/src/common.dart';
+import 'package:client/src/utils/time_parser_converter.dart';
+import 'package:client/src/widget/square_image.dart';
 import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
@@ -30,7 +30,7 @@ class _PlayerViewState extends State<PlayerView> {
 
   // Define a variable to hold the timer
   late Timer _sliderTimer;
-  num currentSongPosition = 0;
+  TimeParserConverter songPositionConverter = TimeParserConverter(0);
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _PlayerViewState extends State<PlayerView> {
     widget.api.getDefaultApi().playerPlayerGet().then((value) {
       setState(() {
         consolePlayer = value.data!;
-        currentSongPosition = consolePlayer.songPosition;
+        songPositionConverter.nrSeconds = consolePlayer.songPosition;
       });
     });
 
@@ -51,11 +51,11 @@ class _PlayerViewState extends State<PlayerView> {
         return;
       }
 
-      num newSongPosition = min(
-          currentSongPosition + 1, consolePlayer.currentSong?.duration ?? 0);
+      num newSongPosition = min(songPositionConverter.nrSeconds! + 1,
+          consolePlayer.currentSong?.duration ?? 0);
 
       setState(() {
-        currentSongPosition = newSongPosition;
+        songPositionConverter.nrSeconds = newSongPosition;
       });
     });
 
@@ -72,7 +72,7 @@ class _PlayerViewState extends State<PlayerView> {
 
       setState(() {
         this.consolePlayer = consolePlayer;
-        currentSongPosition = consolePlayer.songPosition;
+        songPositionConverter.nrSeconds = consolePlayer.songPosition;
       });
     });
   }
@@ -113,10 +113,9 @@ class _PlayerViewState extends State<PlayerView> {
                         padding: const EdgeInsetsDirectional.symmetric(
                             horizontal: 15, vertical: 5),
                         child: Center(
-                            child: Image.file(File(
-                                "C:/Users/gerard/Pictures/Rapunzel_Pascal.png"))
-                            // Image.network(metadata.artUri.toString()),
-                            ),
+                          child: SquareImage(
+                              consolePlayer.currentSong?.thumbnailFileName),
+                        ),
                       ),
                     ),
                     Text(
@@ -124,7 +123,7 @@ class _PlayerViewState extends State<PlayerView> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     // When the text isnt immediately fetched it has a temporary value
-                    Text(consolePlayer.currentSong?.title ??
+                    Text(consolePlayer.currentSong?.artist ??
                         "[Artist placeholder]")
                   ],
                 ),
@@ -133,7 +132,7 @@ class _PlayerViewState extends State<PlayerView> {
             Slider(
                 min: 0,
                 max: consolePlayer.currentSong?.duration.toDouble() ?? 0,
-                value: currentSongPosition.toDouble(),
+                value: songPositionConverter.nrSeconds!.toDouble(),
                 onChanged: (value) {
                   // Note: Cannot set position for LP
                 }),
@@ -142,9 +141,10 @@ class _PlayerViewState extends State<PlayerView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(secondsString(currentSongPosition)),
-                  Text(secondsString(
-                      consolePlayer.currentSong?.duration.toInt() ?? 0)),
+                  Text(songPositionConverter.toString()),
+                  Text(TimeParserConverter(
+                          consolePlayer.currentSong?.duration.toInt())
+                      .toString())
                 ],
               ),
             ),

@@ -1,4 +1,4 @@
-import 'package:client/src/utils/song_edit_form.dart';
+import 'package:client/src/widget/song_edit_form.dart';
 import 'package:flutter/material.dart';
 import 'package:music_server_api/music_server_api.dart';
 
