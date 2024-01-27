@@ -84,9 +84,7 @@ class _SongListViewState extends State<SongListView> {
           icon: const Icon(Icons.edit)),
       IconButton(
           onPressed: () {
-            widget.api
-                .getDefaultApi()
-                .removeSongsSongIdRemoveDelete(songId: song.id);
+            widget.api.getDefaultApi().removeSongsSongIdDelete(songId: song.id);
           },
           icon: const Icon(Icons.delete)),
       durationContainer,
@@ -132,7 +130,7 @@ class _SongListViewState extends State<SongListView> {
               dense: true,
               title: Text("${song.title} (id=${song.id})"),
               subtitle: Text(song.artist),
-              leading: SquareImage(song.thumbnailFileName),
+              leading: SquareImage.fromSongId(songId: song.id),
               trailing: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,

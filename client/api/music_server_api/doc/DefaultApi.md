@@ -11,17 +11,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addQueueSongIdPost**](DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [**addSongsAddPost**](DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
-[**imageImagesFilenameGet**](DefaultApi.md#imageimagesfilenameget) | **GET** /images/{filename} | Image
-[**imageImagesPost**](DefaultApi.md#imageimagespost) | **POST** /images/ | Image
-[**moveQueueOldIndexNewIndexPut**](DefaultApi.md#movequeueoldindexnewindexput) | **PUT** /queue/{old_index}/{new_index} | Move
+[**createImagesPost**](DefaultApi.md#createimagespost) | **POST** /images | Create
+[**imageImagesFileFileNameGet**](DefaultApi.md#imageimagesfilefilenameget) | **GET** /images/file/{file_name} | Image
+[**imageImagesSongSongIdGet**](DefaultApi.md#imageimagessongsongidget) | **GET** /images/song/{song_id} | Image
+[**moveQueueIndexNewIndexPut**](DefaultApi.md#movequeueindexnewindexput) | **PUT** /queue/{index}/{new_index} | Move
 [**nextTrackPlayerActionsNextTrackGet**](DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [**pausePlayerActionsPauseGet**](DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause
 [**playPlayerActionsPlayGet**](DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [**playerPlayerGet**](DefaultApi.md#playerplayerget) | **GET** /player | Player
 [**queueQueueGet**](DefaultApi.md#queuequeueget) | **GET** /queue | Queue
 [**removeQueueIndexDelete**](DefaultApi.md#removequeueindexdelete) | **DELETE** /queue/{index} | Remove
-[**removeSongsSongIdRemoveDelete**](DefaultApi.md#removesongssongidremovedelete) | **DELETE** /songs/{song_id}/remove | Remove
-[**renameSongsSongIdReplacePut**](DefaultApi.md#renamesongssongidreplaceput) | **PUT** /songs/{song_id}/replace | Rename
+[**removeSongsSongIdDelete**](DefaultApi.md#removesongssongiddelete) | **DELETE** /songs/{song_id} | Remove
+[**renameSongsSongIdPut**](DefaultApi.md#renamesongssongidput) | **PUT** /songs/{song_id} | Rename
 [**songSongsSongIdGet**](DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [**songsSongsGet**](DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [**stopPlayerActionsStopGet**](DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop
@@ -109,8 +110,49 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **imageImagesFilenameGet**
-> JsonObject imageImagesFilenameGet(filename)
+# **createImagesPost**
+> JsonObject createImagesPost(file)
+
+Create
+
+### Example
+```dart
+import 'package:music_server_api/api.dart';
+
+final api = MusicServerApi().getDefaultApi();
+final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
+
+try {
+    final response = api.createImagesPost(file);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling DefaultApi->createImagesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **MultipartFile**|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **imageImagesFileFileNameGet**
+> JsonObject imageImagesFileFileNameGet(fileName)
 
 Image
 
@@ -119,13 +161,13 @@ Image
 import 'package:music_server_api/api.dart';
 
 final api = MusicServerApi().getDefaultApi();
-final String filename = filename_example; // String | 
+final String fileName = fileName_example; // String | 
 
 try {
-    final response = api.imageImagesFilenameGet(filename);
+    final response = api.imageImagesFileFileNameGet(fileName);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->imageImagesFilenameGet: $e\n');
+    print('Exception when calling DefaultApi->imageImagesFileFileNameGet: $e\n');
 }
 ```
 
@@ -133,7 +175,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filename** | **String**|  | 
+ **fileName** | **String**|  | 
 
 ### Return type
 
@@ -150,8 +192,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **imageImagesPost**
-> BuiltMap<String, String> imageImagesPost(file)
+# **imageImagesSongSongIdGet**
+> JsonObject imageImagesSongSongIdGet(songId)
 
 Image
 
@@ -160,13 +202,13 @@ Image
 import 'package:music_server_api/api.dart';
 
 final api = MusicServerApi().getDefaultApi();
-final MultipartFile file = BINARY_DATA_HERE; // MultipartFile | 
+final int songId = 56; // int | 
 
 try {
-    final response = api.imageImagesPost(file);
+    final response = api.imageImagesSongSongIdGet(songId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->imageImagesPost: $e\n');
+    print('Exception when calling DefaultApi->imageImagesSongSongIdGet: $e\n');
 }
 ```
 
@@ -174,11 +216,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **MultipartFile**|  | 
+ **songId** | **int**|  | 
 
 ### Return type
 
-**BuiltMap&lt;String, String&gt;**
+[**JsonObject**](JsonObject.md)
 
 ### Authorization
 
@@ -186,13 +228,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **moveQueueOldIndexNewIndexPut**
-> JsonObject moveQueueOldIndexNewIndexPut(oldIndex, newIndex)
+# **moveQueueIndexNewIndexPut**
+> JsonObject moveQueueIndexNewIndexPut(index, newIndex)
 
 Move
 
@@ -201,14 +243,14 @@ Move
 import 'package:music_server_api/api.dart';
 
 final api = MusicServerApi().getDefaultApi();
-final int oldIndex = 56; // int | 
+final int index = 56; // int | 
 final int newIndex = 56; // int | 
 
 try {
-    final response = api.moveQueueOldIndexNewIndexPut(oldIndex, newIndex);
+    final response = api.moveQueueIndexNewIndexPut(index, newIndex);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->moveQueueOldIndexNewIndexPut: $e\n');
+    print('Exception when calling DefaultApi->moveQueueIndexNewIndexPut: $e\n');
 }
 ```
 
@@ -216,7 +258,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **oldIndex** | **int**|  | 
+ **index** | **int**|  | 
  **newIndex** | **int**|  | 
 
 ### Return type
@@ -460,8 +502,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **removeSongsSongIdRemoveDelete**
-> JsonObject removeSongsSongIdRemoveDelete(songId)
+# **removeSongsSongIdDelete**
+> JsonObject removeSongsSongIdDelete(songId)
 
 Remove
 
@@ -473,10 +515,10 @@ final api = MusicServerApi().getDefaultApi();
 final int songId = 56; // int | 
 
 try {
-    final response = api.removeSongsSongIdRemoveDelete(songId);
+    final response = api.removeSongsSongIdDelete(songId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->removeSongsSongIdRemoveDelete: $e\n');
+    print('Exception when calling DefaultApi->removeSongsSongIdDelete: $e\n');
 }
 ```
 
@@ -501,8 +543,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **renameSongsSongIdReplacePut**
-> JsonObject renameSongsSongIdReplacePut(songId, song)
+# **renameSongsSongIdPut**
+> JsonObject renameSongsSongIdPut(songId, song)
 
 Rename
 
@@ -515,10 +557,10 @@ final int songId = 56; // int |
 final Song song = ; // Song | 
 
 try {
-    final response = api.renameSongsSongIdReplacePut(songId, song);
+    final response = api.renameSongsSongIdPut(songId, song);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling DefaultApi->renameSongsSongIdReplacePut: $e\n');
+    print('Exception when calling DefaultApi->renameSongsSongIdPut: $e\n');
 }
 ```
 

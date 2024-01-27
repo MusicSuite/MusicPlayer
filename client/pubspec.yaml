@@ -10,8 +10,10 @@ environment:
   sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
+  dio: '^5.4.0'
   socket_io_client: 2.0.3+1
   openapi_generator_annotations: ^4.13.1
+  image_picker: ^1.0.7
   music_server_api:
     path: ./api/music_server_api
   web_socket_channel: ^2.4.0

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:client/src/common.dart';
 
 class SquareImage extends StatelessWidget {
-  final String? thumbnailFileName;
+  const SquareImage.fromSongId({super.key, required num? songId})
+      : networkImageURL =
+            songId == null ? "" : "$httpServerURL/images/song/$songId";
+  const SquareImage.fromFromFileName({super.key, required String? fileName})
+      : networkImageURL =
+            fileName == null ? "" : "$httpServerURL/images/file/$fileName";
 
-  const SquareImage(this.thumbnailFileName);
-
-  String? toUrl() {
-    return "$httpServerURL/images/$thumbnailFileName";
-  }
+  final String networkImageURL;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,7 @@ class SquareImage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1.0,
       child: Image.network(
-        thumbnailFileName != null
-            ? toUrl()!
-            : '', // Set empty string if thumbnailFileName is null
+        networkImageURL,
         fit: BoxFit.cover,
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) {

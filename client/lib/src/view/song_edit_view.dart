@@ -33,11 +33,11 @@ class _SongEditViewState extends State<SongEditView> {
 
   @override
   Widget build(BuildContext context) {
+    int? songId = ModalRoute.of(context)?.settings.arguments as int?;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(ModalRoute.of(context)?.settings.arguments == null
-            ? "Create new song"
-            : "Edit song"),
+        title: Text(songId == null ? "Create new song" : "Edit song"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -48,26 +48,32 @@ class _SongEditViewState extends State<SongEditView> {
         ],
       ),
       body: FutureBuilder(
-        future: fetchSongDetails(
-            ModalRoute.of(context)?.settings.arguments as int?),
-        builder: (buildContext, snapshot) {
-          return SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Scaffold(
-                    body: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
+        future: fetchSongDetails(songId),
+        builder: (context, snapshot) {
+          // Only make the form after the response so it can fill in the initial values in the Form
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Scaffold(
+                      body: Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
                         child:
-                            SongEditForm(api: widget.api, song: snapshot.data)),
+                            SongEditForm(api: widget.api, song: snapshot.data),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
+                ],
+              ),
+            );
+          }
         },
       ),
     );

@@ -18,9 +18,12 @@ class MusicQueue(BaseModel):
         self.queue.pop(index)
 
     def move(self, old_index: int, new_index: int) -> None:
+        # If it moves down, we need to take into account the new index moves after we remove the new
+        if old_index < new_index:
+            new_index -= 1
+
         temp: Song = self.queue.pop(old_index)
 
-        # Note inserts before the new index, we don't need to minus 1 if it moves up
         self.queue.insert(new_index, temp)
 
     def is_empty(self) -> bool:

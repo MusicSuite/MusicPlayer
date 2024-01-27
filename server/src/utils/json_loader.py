@@ -2,7 +2,7 @@ import json
 import logging
 import os
 import os.path
-from typing import Optional
+from typing import Optional, Any
 
 from src.model.song import Song
 
@@ -10,10 +10,14 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(CURRENT_DIR, "..", "..", "data", "songs.json")
 
 
+def _filter_out_null(json_data: list[tuple[Any, Any]]) -> dict[Any, Any]:
+    return {json_entry[0]: json_entry[1] for json_entry in json_data if json_entry[1] is not None}
+
+
 def get_songs_json() -> dict:
     abs_path = os.path.abspath(FILE_PATH)
     with open(abs_path, 'r') as file:
-        songs_data = json.load(file)
+        songs_data = json.load(file, object_pairs_hook=_filter_out_null)
 
     return songs_data
 
@@ -32,7 +36,10 @@ def _write_songs_to_json(songs: list[Song]) -> None:
 
 def get_song(song_id: int) -> Optional[Song]:
     assert isinstance(song_id, int), "Must search based on ID"
-    songs = get_songs()
+    return find_song(song_id, get_songs())
+
+
+def find_song(song_id: int, songs: list[Song]) -> Optional[Song]:
     return next((song for song in songs if song.id == song_id), None)
 
 
@@ -78,3 +85,14 @@ def replace_song(song_id: int, new_song: Song) -> bool:
     _write_songs_to_json(songs)
     return True
 
+
+# def set_song_thumbnail_file_name(song_id: int, thumbnail_file_name: Optional[str]) -> bool:
+#     songs: list[Song] = get_songs()
+#     song = find_song(song_id, songs)
+#     if not song:
+#         logging.warning(f"Could not find song to change thumbnail file name")
+#         return False
+#
+#     song.thumbnail_file_name = thumbnail_file_name
+#     _write_songs_to_json(songs)
+#     return True

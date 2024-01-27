@@ -66,17 +66,18 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*DefaultApi*](doc\DefaultApi.md) | [**addQueueSongIdPost**](doc\DefaultApi.md#addqueuesongidpost) | **POST** /queue/{song_id} | Add
 [*DefaultApi*](doc\DefaultApi.md) | [**addSongsAddPost**](doc\DefaultApi.md#addsongsaddpost) | **POST** /songs/add | Add
-[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesFilenameGet**](doc\DefaultApi.md#imageimagesfilenameget) | **GET** /images/{filename} | Image
-[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesPost**](doc\DefaultApi.md#imageimagespost) | **POST** /images/ | Image
-[*DefaultApi*](doc\DefaultApi.md) | [**moveQueueOldIndexNewIndexPut**](doc\DefaultApi.md#movequeueoldindexnewindexput) | **PUT** /queue/{old_index}/{new_index} | Move
+[*DefaultApi*](doc\DefaultApi.md) | [**createImagesPost**](doc\DefaultApi.md#createimagespost) | **POST** /images | Create
+[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesFileFileNameGet**](doc\DefaultApi.md#imageimagesfilefilenameget) | **GET** /images/file/{file_name} | Image
+[*DefaultApi*](doc\DefaultApi.md) | [**imageImagesSongSongIdGet**](doc\DefaultApi.md#imageimagessongsongidget) | **GET** /images/song/{song_id} | Image
+[*DefaultApi*](doc\DefaultApi.md) | [**moveQueueIndexNewIndexPut**](doc\DefaultApi.md#movequeueindexnewindexput) | **PUT** /queue/{index}/{new_index} | Move
 [*DefaultApi*](doc\DefaultApi.md) | [**nextTrackPlayerActionsNextTrackGet**](doc\DefaultApi.md#nexttrackplayeractionsnexttrackget) | **GET** /player/actions/next_track | Next Track
 [*DefaultApi*](doc\DefaultApi.md) | [**pausePlayerActionsPauseGet**](doc\DefaultApi.md#pauseplayeractionspauseget) | **GET** /player/actions/pause | Pause
 [*DefaultApi*](doc\DefaultApi.md) | [**playPlayerActionsPlayGet**](doc\DefaultApi.md#playplayeractionsplayget) | **GET** /player/actions/play | Play
 [*DefaultApi*](doc\DefaultApi.md) | [**playerPlayerGet**](doc\DefaultApi.md#playerplayerget) | **GET** /player | Player
 [*DefaultApi*](doc\DefaultApi.md) | [**queueQueueGet**](doc\DefaultApi.md#queuequeueget) | **GET** /queue | Queue
 [*DefaultApi*](doc\DefaultApi.md) | [**removeQueueIndexDelete**](doc\DefaultApi.md#removequeueindexdelete) | **DELETE** /queue/{index} | Remove
-[*DefaultApi*](doc\DefaultApi.md) | [**removeSongsSongIdRemoveDelete**](doc\DefaultApi.md#removesongssongidremovedelete) | **DELETE** /songs/{song_id}/remove | Remove
-[*DefaultApi*](doc\DefaultApi.md) | [**renameSongsSongIdReplacePut**](doc\DefaultApi.md#renamesongssongidreplaceput) | **PUT** /songs/{song_id}/replace | Rename
+[*DefaultApi*](doc\DefaultApi.md) | [**removeSongsSongIdDelete**](doc\DefaultApi.md#removesongssongiddelete) | **DELETE** /songs/{song_id} | Remove
+[*DefaultApi*](doc\DefaultApi.md) | [**renameSongsSongIdPut**](doc\DefaultApi.md#renamesongssongidput) | **PUT** /songs/{song_id} | Rename
 [*DefaultApi*](doc\DefaultApi.md) | [**songSongsSongIdGet**](doc\DefaultApi.md#songsongssongidget) | **GET** /songs/{song_id} | Song
 [*DefaultApi*](doc\DefaultApi.md) | [**songsSongsGet**](doc\DefaultApi.md#songssongsget) | **GET** /songs | Songs
 [*DefaultApi*](doc\DefaultApi.md) | [**stopPlayerActionsStopGet**](doc\DefaultApi.md#stopplayeractionsstopget) | **GET** /player/actions/stop | Stop

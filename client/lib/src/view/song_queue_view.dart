@@ -82,8 +82,9 @@ class _SongQueueViewState extends State<SongQueueView> {
         restorationId: 'songQueueItemListView',
         buildDefaultDragHandles: !deleting,
         onReorder: (oldIndex, newIndex) {
-          widget.api.getDefaultApi().moveQueueOldIndexNewIndexPut(
-              oldIndex: oldIndex, newIndex: newIndex);
+          widget.api
+              .getDefaultApi()
+              .moveQueueIndexNewIndexPut(index: oldIndex, newIndex: newIndex);
         },
         children: List.from(
           queue.asMap().entries.map(
@@ -97,7 +98,7 @@ class _SongQueueViewState extends State<SongQueueView> {
                 dense: true,
                 title: Text("${song.title} (id=${song.id})"),
                 subtitle: Text(song.artist),
-                leading: SquareImage(song.thumbnailFileName),
+                leading: SquareImage.fromSongId(songId: song.id),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

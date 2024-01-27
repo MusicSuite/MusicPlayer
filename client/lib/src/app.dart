@@ -1,5 +1,6 @@
-// Openapi Generator last run: : 2024-01-27T00:51:30.500994
+// Openapi Generator last run: : 2024-01-27T20:45:20.539581
 import 'package:client/src/common.dart';
+import 'package:client/src/view/player_view.dart';
 import 'package:client/src/view/song_queue_view.dart';
 import 'package:client/src/utils/websocket_manager.dart';
 import 'package:flutter/material.dart';
@@ -93,10 +94,12 @@ class MyApp extends StatelessWidget {
                     return SongEditView(api: api);
                   case SongListView.routeName:
                   default:
+                    // return PlayerView(
+                    //     api: api, webSocketManager: webSocketManager);
                     return SongListView(
                         api: api, webSocketManager: webSocketManager);
-                    return SongQueueView(
-                        api: api, webSocketManager: webSocketManager);
+                    // return SongQueueView(
+                    //     api: api, webSocketManager: webSocketManager);
                     return SongEditView(api: api);
                 }
               },

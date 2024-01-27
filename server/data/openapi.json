@@ -183,18 +183,18 @@
         }
       }
     },
-    "/queue/{old_index}/{new_index}": {
+    "/queue/{index}/{new_index}": {
       "put": {
         "summary": "Move",
-        "operationId": "move_queue__old_index___new_index__put",
+        "operationId": "move_queue__index___new_index__put",
         "parameters": [
           {
-            "name": "old_index",
+            "name": "index",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
-              "title": "Old Index"
+              "title": "Index"
             }
           },
           {
@@ -288,50 +288,10 @@
             }
           }
         }
-      }
-    },
-    "/songs/add": {
-      "post": {
-        "summary": "Add",
-        "operationId": "add_songs_add_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Song"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Song"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/songs/{song_id}/remove": {
+      },
       "delete": {
         "summary": "Remove",
-        "operationId": "remove_songs__song_id__remove_delete",
+        "operationId": "remove_songs__song_id__delete",
         "parameters": [
           {
             "name": "song_id",
@@ -363,12 +323,10 @@
             }
           }
         }
-      }
-    },
-    "/songs/{song_id}/replace": {
+      },
       "put": {
         "summary": "Rename",
-        "operationId": "rename_songs__song_id__replace_put",
+        "operationId": "rename_songs__song_id__put",
         "parameters": [
           {
             "name": "song_id",
@@ -412,18 +370,56 @@
         }
       }
     },
-    "/images/{filename}": {
+    "/songs/add": {
+      "post": {
+        "summary": "Add",
+        "operationId": "add_songs_add_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Song"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Song"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/song/{song_id}": {
       "get": {
         "summary": "Image",
-        "operationId": "image_images__filename__get",
+        "operationId": "image_images_song__song_id__get",
         "parameters": [
           {
-            "name": "filename",
+            "name": "song_id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
-              "title": "Filename"
+              "type": "integer",
+              "title": "Song Id"
             }
           }
         ],
@@ -449,15 +445,52 @@
         }
       }
     },
-    "/images/": {
-      "post": {
+    "/images/file/{file_name}": {
+      "get": {
         "summary": "Image",
-        "operationId": "image_images__post",
+        "operationId": "image_images_file__file_name__get",
+        "parameters": [
+          {
+            "name": "file_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "File Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images": {
+      "post": {
+        "summary": "Create",
+        "operationId": "create_images_post",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/Body_image_images__post"
+                "$ref": "#/components/schemas/Body_create_images_post"
               }
             }
           },
@@ -468,13 +501,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "type": "object",
-                  "title": "Response Image Images  Post"
-                }
+                "schema": {}
               }
             }
           },
@@ -494,7 +521,7 @@
   },
   "components": {
     "schemas": {
-      "Body_image_images__post": {
+      "Body_create_images_post": {
         "properties": {
           "file": {
             "type": "string",
@@ -506,7 +533,7 @@
         "required": [
           "file"
         ],
-        "title": "Body_image_images__post"
+        "title": "Body_create_images_post"
       },
       "ConsolePlayer": {
         "properties": {
@@ -580,7 +607,8 @@
           },
           "thumbnail_file_name": {
             "type": "string",
-            "title": "Thumbnail File Name"
+            "title": "Thumbnail File Name",
+            "nullable": true
           }
         },
         "type": "object",
@@ -588,8 +616,7 @@
           "id",
           "title",
           "artist",
-          "duration",
-          "thumbnail_file_name"
+          "duration"
         ],
         "title": "Song"
       },

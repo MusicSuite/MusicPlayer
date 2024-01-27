@@ -33,16 +33,16 @@ async def remove(index: int) -> None:
     await broadcast_queue()
 
 
-@router.put("/queue/{old_index}/{new_index}")
-async def move(old_index: int, new_index: int) -> None:
-    if not valid_queue_index(old_index):
+@router.put("/queue/{index}/{new_index}")
+async def move(index: int, new_index: int) -> None:
+    if not valid_queue_index(index):
         return
 
     if not 0 <= new_index <= len(music_player.queue):
         logging.warning("Wrong new index")
         return
 
-    music_player.queue.move(old_index, new_index)
+    music_player.queue.move(index, new_index)
     await broadcast_queue()
 
 

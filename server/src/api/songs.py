@@ -27,13 +27,13 @@ async def add(song: Song) -> Song:
     return new_song
 
 
-@router.delete("/songs/{song_id}/remove")
+@router.delete("/songs/{song_id}")
 async def remove(song_id: int) -> None:
     if json_loader.remove_song(song_id):
         await broadcast_song_list()
 
 
-@router.put("/songs/{song_id}/replace")
+@router.put("/songs/{song_id}")
 async def rename(song_id: int, new_song: Song) -> None:
     if json_loader.replace_song(song_id, new_song):
         await broadcast_song_list()

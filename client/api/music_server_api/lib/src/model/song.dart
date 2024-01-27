@@ -31,7 +31,7 @@ abstract class Song {
   num get duration;
 
   @BuiltValueField(wireName: r'thumbnail_file_name')
-  String get thumbnailFileName;
+  String? get thumbnailFileName;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Song> get serializer => _$SongSerializer();
@@ -69,11 +69,13 @@ class _$SongSerializer implements PrimitiveSerializer<Song> {
       object.duration,
       specifiedType: const FullType(num),
     );
-    yield r'thumbnail_file_name';
-    yield serializers.serialize(
-      object.thumbnailFileName,
-      specifiedType: const FullType(String),
-    );
+    if (object.thumbnailFileName != null) {
+      yield r'thumbnail_file_name';
+      yield serializers.serialize(
+        object.thumbnailFileName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
   }
 
   @override
@@ -171,8 +173,9 @@ class _$$SongSerializer implements PrimitiveSerializer<$Song> {
         case r'thumbnail_file_name':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
           result.thumbnailFileName = valueDes;
           break;
         default:

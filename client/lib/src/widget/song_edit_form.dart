@@ -1,21 +1,31 @@
+import 'package:dio/dio.dart';
 import 'package:client/src/utils/time_parser_converter.dart';
 import 'package:client/src/widget/square_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:music_server_api/music_server_api.dart';
 
-class SongEditForm extends StatelessWidget {
-  SongEditForm({super.key, required this.api, required this.song});
+class SongEditForm extends StatefulWidget {
+  const SongEditForm({super.key, required this.api, required this.song});
 
   final MusicServerApi api;
   final Song? song;
 
+  @override
+  State<SongEditForm> createState() => _SongEditFormState();
+}
+
+class _SongEditFormState extends State<SongEditForm> {
   final _formKey = GlobalKey<FormState>();
 
   // Values of the text field
-  late String? title = song?.title;
-  late String? artist = song?.artist;
-  late num? duration = song?.duration;
-  late String? thumbnailFileName = song?.thumbnailFileName;
+  late String? title = widget.song?.title;
+  late String? artist = widget.song?.artist;
+  late num? duration = widget.song?.duration;
+  late String? thumbnailFileName = widget.song?.thumbnailFileName;
+
+  late SquareImage squareImage =
+      SquareImage.fromSongId(songId: widget.song?.id);
 
   String? _durationValidator(String? value) {
     TimeParserConverter timeParserConverter =
@@ -26,48 +36,99 @@ class SongEditForm extends StatelessWidget {
 
   void submitAction() {
     Song newSong = $Song((builder) => builder
-      ..id = song?.id ?? 0
+      ..id = widget.song?.id ?? 0
       ..title = title
-      ..duration = duration);
+      ..artist = artist
+      ..duration = duration
+      ..thumbnailFileName = thumbnailFileName);
 
-    if (song == null) {
-      api.getDefaultApi().addSongsAddPost(song: newSong);
+    if (widget.song == null) {
+      widget.api.getDefaultApi().addSongsAddPost(song: newSong);
     } else {
-      api
+      widget.api
           .getDefaultApi()
-          .renameSongsSongIdReplacePut(songId: song!.id, song: newSong);
+          .renameSongsSongIdPut(songId: widget.song!.id, song: newSong);
     }
   }
 
-  Widget formButtons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          OutlinedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text("Cancel"),
-          ),
-          const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-          ElevatedButton(
-            onPressed: () {
-              // One or more of the fields are invalid
-              if (!_formKey.currentState!.validate()) {
-                return;
-              }
+  Widget imageButtons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OutlinedButton(
+          onPressed: () {
+            thumbnailFileName = null;
+            setState(() {
+              squareImage =
+                  SquareImage.fromFromFileName(fileName: thumbnailFileName);
+            });
+          },
+          child: const Text("Remove image"),
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () {
+            _pickImage();
+          },
+          child: const Text('Pick image'),
+        ),
+      ],
+    );
+  }
 
-              // Save, so we have the newest values
-              _formKey.currentState!.save();
-              submitAction();
-              Navigator.pop(context);
-            },
-            child: Text(song == null ? 'Create' : 'Save'),
-          ),
-        ],
-      ),
+  Future _pickImage() async {
+    final XFile? selectedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    // Did not pick an image
+    if (selectedImage == null) {
+      return;
+    }
+
+    thumbnailFileName = selectedImage.name;
+    MultipartFile multipartFile = MultipartFile.fromBytes(
+      await selectedImage.readAsBytes(),
+      filename: thumbnailFileName,
+    );
+
+    var response =
+        await widget.api.getDefaultApi().createImagesPost(file: multipartFile);
+    if (response.statusCode != 200) {
+      print(response);
+      return;
+    }
+
+    setState(() {
+      squareImage = SquareImage.fromFromFileName(fileName: thumbnailFileName);
+    });
+  }
+
+  Widget formButtons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OutlinedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Cancel"),
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+          onPressed: () {
+            // One or more of the fields are invalid
+            if (!_formKey.currentState!.validate()) {
+              return;
+            }
+
+            // Save, so we have the newest values
+            _formKey.currentState!.save();
+            submitAction();
+            Navigator.pop(context);
+          },
+          child: Text(widget.song == null ? 'Create' : 'Save'),
+        ),
+      ],
     );
   }
 
@@ -78,16 +139,13 @@ class SongEditForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Flexible(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsetsDirectional.symmetric(vertical: 5),
-              child: SquareImage(thumbnailFileName),
-            ),
-          ),
+          Flexible(flex: 1, child: squareImage),
+          const SizedBox(height: 8),
+          imageButtons(context),
           TextFormField(
             initialValue: title,
             decoration: const InputDecoration(
+              isDense: true,
               border: UnderlineInputBorder(),
               labelText: 'Song title',
             ),
@@ -98,6 +156,7 @@ class SongEditForm extends StatelessWidget {
           TextFormField(
             initialValue: artist,
             decoration: const InputDecoration(
+              isDense: true,
               border: UnderlineInputBorder(),
               labelText: 'Song artist',
             ),
@@ -108,12 +167,14 @@ class SongEditForm extends StatelessWidget {
           TextFormField(
             initialValue: TimeParserConverter(duration).toString(),
             decoration: const InputDecoration(
+              isDense: true,
               hintText: "HH:MM:SS",
               labelText: 'Song duration',
             ),
             keyboardType: TextInputType.datetime,
             validator: _durationValidator,
           ),
+          const SizedBox(height: 8),
           formButtons(context),
         ],
       ),

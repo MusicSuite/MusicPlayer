@@ -72,11 +72,13 @@ class _$ConsolePlayerCurrentSongSerializer
       object.artist,
       specifiedType: const FullType(String),
     );
-    yield r'thumbnail_file_name';
-    yield serializers.serialize(
-      object.thumbnailFileName,
-      specifiedType: const FullType(String),
-    );
+    if (object.thumbnailFileName != null) {
+      yield r'thumbnail_file_name';
+      yield serializers.serialize(
+        object.thumbnailFileName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
   }
 
   @override
@@ -133,8 +135,9 @@ class _$ConsolePlayerCurrentSongSerializer
         case r'thumbnail_file_name':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
           result.thumbnailFileName = valueDes;
           break;
         default:

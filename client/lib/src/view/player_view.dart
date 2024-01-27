@@ -111,10 +111,12 @@ class _PlayerViewState extends State<PlayerView> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsetsDirectional.symmetric(
-                            horizontal: 15, vertical: 5),
+                          horizontal: 15,
+                          vertical: 5,
+                        ),
                         child: Center(
-                          child: SquareImage(
-                              consolePlayer.currentSong?.thumbnailFileName),
+                          child: SquareImage.fromSongId(
+                              songId: consolePlayer.currentSong?.id),
                         ),
                       ),
                     ),
@@ -134,7 +136,7 @@ class _PlayerViewState extends State<PlayerView> {
                 max: consolePlayer.currentSong?.duration.toDouble() ?? 0,
                 value: songPositionConverter.nrSeconds!.toDouble(),
                 onChanged: (value) {
-                  // Note: Cannot set position for LP
+                  // NOTE: Cannot set position for LP
                 }),
             Container(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),

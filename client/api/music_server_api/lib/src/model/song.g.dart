@@ -35,7 +35,7 @@ class _$$Song extends $Song {
   @override
   final num duration;
   @override
-  final String thumbnailFileName;
+  final String? thumbnailFileName;
 
   factory _$$Song([void Function($SongBuilder)? updates]) =>
       (new $SongBuilder()..update(updates))._build();
@@ -45,14 +45,12 @@ class _$$Song extends $Song {
       required this.title,
       required this.artist,
       required this.duration,
-      required this.thumbnailFileName})
+      this.thumbnailFileName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'$Song', 'id');
     BuiltValueNullFieldError.checkNotNull(title, r'$Song', 'title');
     BuiltValueNullFieldError.checkNotNull(artist, r'$Song', 'artist');
     BuiltValueNullFieldError.checkNotNull(duration, r'$Song', 'duration');
-    BuiltValueNullFieldError.checkNotNull(
-        thumbnailFileName, r'$Song', 'thumbnailFileName');
   }
 
   @override
@@ -162,8 +160,7 @@ class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
                 artist, r'$Song', 'artist'),
             duration: BuiltValueNullFieldError.checkNotNull(
                 duration, r'$Song', 'duration'),
-            thumbnailFileName: BuiltValueNullFieldError.checkNotNull(
-                thumbnailFileName, r'$Song', 'thumbnailFileName'));
+            thumbnailFileName: thumbnailFileName);
     replace(_$result);
     return _$result;
   }

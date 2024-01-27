@@ -16,7 +16,7 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
   @override
   final num duration;
   @override
-  final String thumbnailFileName;
+  final String? thumbnailFileName;
 
   factory _$ConsolePlayerCurrentSong(
           [void Function(ConsolePlayerCurrentSongBuilder)? updates]) =>
@@ -27,7 +27,7 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
       required this.title,
       required this.artist,
       required this.duration,
-      required this.thumbnailFileName})
+      this.thumbnailFileName})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         id, r'ConsolePlayerCurrentSong', 'id');
@@ -37,8 +37,6 @@ class _$ConsolePlayerCurrentSong extends ConsolePlayerCurrentSong {
         artist, r'ConsolePlayerCurrentSong', 'artist');
     BuiltValueNullFieldError.checkNotNull(
         duration, r'ConsolePlayerCurrentSong', 'duration');
-    BuiltValueNullFieldError.checkNotNull(
-        thumbnailFileName, r'ConsolePlayerCurrentSong', 'thumbnailFileName');
   }
 
   @override
@@ -154,10 +152,7 @@ class ConsolePlayerCurrentSongBuilder
                 artist, r'ConsolePlayerCurrentSong', 'artist'),
             duration: BuiltValueNullFieldError.checkNotNull(
                 duration, r'ConsolePlayerCurrentSong', 'duration'),
-            thumbnailFileName: BuiltValueNullFieldError.checkNotNull(
-                thumbnailFileName,
-                r'ConsolePlayerCurrentSong',
-                'thumbnailFileName'));
+            thumbnailFileName: thumbnailFileName);
     replace(_$result);
     return _$result;
   }

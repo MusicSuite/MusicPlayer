@@ -193,11 +193,11 @@ class DefaultApi {
     );
   }
 
-  /// Image
+  /// Create
   ///
   ///
   /// Parameters:
-  /// * [filename]
+  /// * [file]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -207,8 +207,8 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> imageImagesFilenameGet({
-    required String filename,
+  Future<Response<JsonObject>> createImagesPost({
+    required MultipartFile file,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -216,8 +216,104 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/images/{filename}'
-        .replaceAll('{' r'filename' '}', filename.toString());
+    final _path = r'/images';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[],
+        ...?extra,
+      },
+      contentType: 'multipart/form-data',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      _bodyData = FormData.fromMap(<String, dynamic>{
+        r'file': file,
+      });
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioErrorType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    JsonObject? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(JsonObject),
+            ) as JsonObject;
+    } catch (error, stackTrace) {
+      throw DioError(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioErrorType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<JsonObject>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Image
+  ///
+  ///
+  /// Parameters:
+  /// * [fileName]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Throws [DioError] if API call or serialization fails
+  Future<Response<JsonObject>> imageImagesFileFileNameGet({
+    required String fileName,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/images/file/{file_name}'
+        .replaceAll('{' r'file_name' '}', fileName.toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -274,7 +370,7 @@ class DefaultApi {
   ///
   ///
   /// Parameters:
-  /// * [file]
+  /// * [songId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -282,10 +378,10 @@ class DefaultApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltMap<String, String>] as data
+  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltMap<String, String>>> imageImagesPost({
-    required MultipartFile file,
+  Future<Response<JsonObject>> imageImagesSongSongIdGet({
+    required int songId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -293,9 +389,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/images/';
+    final _path = r'/images/song/{song_id}'
+        .replaceAll('{' r'song_id' '}', songId.toString());
     final _options = Options(
-      method: r'POST',
+      method: r'GET',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -303,38 +400,18 @@ class DefaultApi {
         'secure': <Map<String, String>>[],
         ...?extra,
       },
-      contentType: 'multipart/form-data',
       validateStatus: validateStatus,
     );
 
-    dynamic _bodyData;
-
-    try {
-      _bodyData = FormData.fromMap(<String, dynamic>{
-        r'file': file,
-      });
-    } catch (error, stackTrace) {
-      throw DioError(
-        requestOptions: _options.compose(
-          _dio.options,
-          _path,
-        ),
-        type: DioErrorType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
     final _response = await _dio.request<Object>(
       _path,
-      data: _bodyData,
       options: _options,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltMap<String, String>? _responseData;
+    JsonObject? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -342,9 +419,8 @@ class DefaultApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType: const FullType(
-                  BuiltMap, [FullType(String), FullType(String)]),
-            ) as BuiltMap<String, String>;
+              specifiedType: const FullType(JsonObject),
+            ) as JsonObject;
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -355,7 +431,7 @@ class DefaultApi {
       );
     }
 
-    return Response<BuiltMap<String, String>>(
+    return Response<JsonObject>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -371,7 +447,7 @@ class DefaultApi {
   ///
   ///
   /// Parameters:
-  /// * [oldIndex]
+  /// * [index]
   /// * [newIndex]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -382,8 +458,8 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> moveQueueOldIndexNewIndexPut({
-    required int oldIndex,
+  Future<Response<JsonObject>> moveQueueIndexNewIndexPut({
+    required int index,
     required int newIndex,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -392,8 +468,8 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/queue/{old_index}/{new_index}'
-        .replaceAll('{' r'old_index' '}', oldIndex.toString())
+    final _path = r'/queue/{index}/{new_index}'
+        .replaceAll('{' r'index' '}', index.toString())
         .replaceAll('{' r'new_index' '}', newIndex.toString());
     final _options = Options(
       method: r'PUT',
@@ -908,7 +984,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> removeSongsSongIdRemoveDelete({
+  Future<Response<JsonObject>> removeSongsSongIdDelete({
     required int songId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -917,8 +993,8 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/songs/{song_id}/remove'
-        .replaceAll('{' r'song_id' '}', songId.toString());
+    final _path =
+        r'/songs/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -986,7 +1062,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> renameSongsSongIdReplacePut({
+  Future<Response<JsonObject>> renameSongsSongIdPut({
     required int songId,
     required Song song,
     CancelToken? cancelToken,
@@ -996,8 +1072,8 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/songs/{song_id}/replace'
-        .replaceAll('{' r'song_id' '}', songId.toString());
+    final _path =
+        r'/songs/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
