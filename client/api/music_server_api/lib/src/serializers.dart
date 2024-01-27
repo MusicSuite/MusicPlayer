@@ -15,7 +15,6 @@ import 'package:music_server_api/src/date_serializer.dart';
 import 'package:music_server_api/src/model/date.dart';
 
 import 'package:music_server_api/src/model/console_player.dart';
-import 'package:music_server_api/src/model/console_player_current_song.dart';
 import 'package:music_server_api/src/model/http_validation_error.dart';
 import 'package:music_server_api/src/model/location_inner.dart';
 import 'package:music_server_api/src/model/player_state.dart';
@@ -26,12 +25,10 @@ part 'serializers.g.dart';
 
 @SerializersFor([
   ConsolePlayer,
-  ConsolePlayerCurrentSong,
   HTTPValidationError,
   LocationInner,
   PlayerState,
   Song,
-  $Song,
   ValidationError,
 ])
 Serializers serializers = (_$serializers.toBuilder()
@@ -39,7 +36,6 @@ Serializers serializers = (_$serializers.toBuilder()
         const FullType(BuiltList, [FullType(Song)]),
         () => ListBuilder<Song>(),
       )
-      ..add(Song.serializer)
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

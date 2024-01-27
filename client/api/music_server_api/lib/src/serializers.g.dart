@@ -7,12 +7,11 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add($Song.serializer)
       ..add(ConsolePlayer.serializer)
-      ..add(ConsolePlayerCurrentSong.serializer)
       ..add(HTTPValidationError.serializer)
       ..add(LocationInner.serializer)
       ..add(PlayerState.serializer)
+      ..add(Song.serializer)
       ..add(ValidationError.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(LocationInner)]),

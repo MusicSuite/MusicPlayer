@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:music_server_api/src/model/player_state.dart';
-import 'package:music_server_api/src/model/console_player_current_song.dart';
+import 'package:music_server_api/src/model/song.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -27,7 +27,7 @@ abstract class ConsolePlayer
   num get songPosition;
 
   @BuiltValueField(wireName: r'current_song')
-  ConsolePlayerCurrentSong? get currentSong;
+  Song? get currentSong;
 
   ConsolePlayer._();
 
@@ -68,7 +68,7 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
       yield r'current_song';
       yield serializers.serialize(
         object.currentSong,
-        specifiedType: const FullType(ConsolePlayerCurrentSong),
+        specifiedType: const FullType(Song),
       );
     }
   }
@@ -113,8 +113,8 @@ class _$ConsolePlayerSerializer implements PrimitiveSerializer<ConsolePlayer> {
         case r'current_song':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ConsolePlayerCurrentSong),
-          ) as ConsolePlayerCurrentSong;
+            specifiedType: const FullType(Song),
+          ) as Song;
           result.currentSong.replace(valueDes);
           break;
         default:

@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-01-27T20:45:20.539581
+// Openapi Generator last run: : 2024-01-27T22:36:35.597717
 import 'package:client/src/common.dart';
 import 'package:client/src/view/player_view.dart';
 import 'package:client/src/view/song_queue_view.dart';
@@ -20,11 +20,9 @@ import 'settings/settings_view.dart';
     pubName: 'music_server_api',
     useEnumExtension: true,
   ),
-  inputSpecFile: "",
-  inputSpec: InputSpec(path: "../server/data/openapi.json", useYml: false),
+  inputSpec: InputSpec(path: "../server/data/openapi.json"),
   generatorName: Generator.dio,
   runSourceGenOnOutput: true,
-  useNextGen: true,
   outputDirectory: 'api/music_server_api',
 )
 class MyApp extends StatelessWidget {
@@ -94,10 +92,10 @@ class MyApp extends StatelessWidget {
                     return SongEditView(api: api);
                   case SongListView.routeName:
                   default:
-                    // return PlayerView(
-                    //     api: api, webSocketManager: webSocketManager);
-                    return SongListView(
+                    return PlayerView(
                         api: api, webSocketManager: webSocketManager);
+                    // return SongListView(
+                    //     api: api, webSocketManager: webSocketManager);
                     // return SongQueueView(
                     //     api: api, webSocketManager: webSocketManager);
                     return SongEditView(api: api);

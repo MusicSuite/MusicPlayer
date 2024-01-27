@@ -34,7 +34,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> addQueueSongIdPost({
     required int songId,
     CancelToken? cancelToken,
@@ -44,8 +44,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path =
-        r'/queue/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
+    final _path = r'/queue/{song_id}'.replaceAll(
+        '{' r'song_id' '}',
+        encodeQueryParameter(_serializers, songId, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -77,10 +79,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -111,7 +113,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [Song] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<Song>> addSongsAddPost({
     required Song song,
     CancelToken? cancelToken,
@@ -141,12 +143,12 @@ class DefaultApi {
       const _type = FullType(Song);
       _bodyData = _serializers.serialize(song, specifiedType: _type);
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -172,10 +174,10 @@ class DefaultApi {
               specifiedType: const FullType(Song),
             ) as Song;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -206,7 +208,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> createImagesPost({
     required MultipartFile file,
     CancelToken? cancelToken,
@@ -237,12 +239,12 @@ class DefaultApi {
         r'file': file,
       });
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -268,10 +270,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -302,7 +304,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> imageImagesFileFileNameGet({
     required String fileName,
     CancelToken? cancelToken,
@@ -312,8 +314,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/images/file/{file_name}'
-        .replaceAll('{' r'file_name' '}', fileName.toString());
+    final _path = r'/images/file/{file_name}'.replaceAll(
+        '{' r'file_name' '}',
+        encodeQueryParameter(_serializers, fileName, const FullType(String))
+            .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -345,10 +349,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -379,7 +383,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> imageImagesSongSongIdGet({
     required int songId,
     CancelToken? cancelToken,
@@ -389,8 +393,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/images/song/{song_id}'
-        .replaceAll('{' r'song_id' '}', songId.toString());
+    final _path = r'/images/song/{song_id}'.replaceAll(
+        '{' r'song_id' '}',
+        encodeQueryParameter(_serializers, songId, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -422,10 +428,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -457,7 +463,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> moveQueueIndexNewIndexPut({
     required int index,
     required int newIndex,
@@ -469,8 +475,14 @@ class DefaultApi {
     ProgressCallback? onReceiveProgress,
   }) async {
     final _path = r'/queue/{index}/{new_index}'
-        .replaceAll('{' r'index' '}', index.toString())
-        .replaceAll('{' r'new_index' '}', newIndex.toString());
+        .replaceAll(
+            '{' r'index' '}',
+            encodeQueryParameter(_serializers, index, const FullType(int))
+                .toString())
+        .replaceAll(
+            '{' r'new_index' '}',
+            encodeQueryParameter(_serializers, newIndex, const FullType(int))
+                .toString());
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
@@ -502,10 +514,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -535,7 +547,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> nextTrackPlayerActionsNextTrackGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -576,10 +588,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -609,7 +621,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> pausePlayerActionsPauseGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -650,10 +662,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -683,7 +695,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> playPlayerActionsPlayGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -724,10 +736,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -757,7 +769,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [ConsolePlayer] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<ConsolePlayer>> playerPlayerGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -798,10 +810,10 @@ class DefaultApi {
               specifiedType: const FullType(ConsolePlayer),
             ) as ConsolePlayer;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -831,7 +843,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Song>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<Song>>> queueQueueGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -872,10 +884,10 @@ class DefaultApi {
               specifiedType: const FullType(BuiltList, [FullType(Song)]),
             ) as BuiltList<Song>;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -906,7 +918,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> removeQueueIndexDelete({
     required int index,
     CancelToken? cancelToken,
@@ -916,8 +928,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path =
-        r'/queue/{index}'.replaceAll('{' r'index' '}', index.toString());
+    final _path = r'/queue/{index}'.replaceAll(
+        '{' r'index' '}',
+        encodeQueryParameter(_serializers, index, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -949,10 +963,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -983,7 +997,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> removeSongsSongIdDelete({
     required int songId,
     CancelToken? cancelToken,
@@ -993,8 +1007,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path =
-        r'/songs/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
+    final _path = r'/songs/{song_id}'.replaceAll(
+        '{' r'song_id' '}',
+        encodeQueryParameter(_serializers, songId, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -1026,10 +1042,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -1061,7 +1077,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> renameSongsSongIdPut({
     required int songId,
     required Song song,
@@ -1072,8 +1088,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path =
-        r'/songs/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
+    final _path = r'/songs/{song_id}'.replaceAll(
+        '{' r'song_id' '}',
+        encodeQueryParameter(_serializers, songId, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'PUT',
       headers: <String, dynamic>{
@@ -1093,12 +1111,12 @@ class DefaultApi {
       const _type = FullType(Song);
       _bodyData = _serializers.serialize(song, specifiedType: _type);
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -1124,10 +1142,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -1158,7 +1176,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [Song] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<Song>> songSongsSongIdGet({
     required int songId,
     CancelToken? cancelToken,
@@ -1168,8 +1186,10 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path =
-        r'/songs/{song_id}'.replaceAll('{' r'song_id' '}', songId.toString());
+    final _path = r'/songs/{song_id}'.replaceAll(
+        '{' r'song_id' '}',
+        encodeQueryParameter(_serializers, songId, const FullType(int))
+            .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -1201,10 +1221,10 @@ class DefaultApi {
               specifiedType: const FullType(Song),
             ) as Song;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -1234,7 +1254,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Song>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<Song>>> songsSongsGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -1275,10 +1295,10 @@ class DefaultApi {
               specifiedType: const FullType(BuiltList, [FullType(Song)]),
             ) as BuiltList<Song>;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -1308,7 +1328,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<JsonObject>> stopPlayerActionsStopGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -1349,10 +1369,10 @@ class DefaultApi {
               specifiedType: const FullType(JsonObject),
             ) as JsonObject;
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

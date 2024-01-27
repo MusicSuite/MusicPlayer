@@ -12,7 +12,7 @@ environment:
 dependencies:
   dio: '^5.4.0'
   socket_io_client: 2.0.3+1
-  openapi_generator_annotations: ^4.13.1
+  openapi_generator_annotations: ^5.0.2
   image_picker: ^1.0.7
   music_server_api:
     path: ./api/music_server_api
@@ -26,7 +26,7 @@ dependencies:
   flutter_localized_locales: ^2.0.5
 
 dev_dependencies:
-  openapi_generator: ^4.13.1
+  openapi_generator: ^5.0.2
   build_runner: 
   flutter_test:
     sdk: flutter

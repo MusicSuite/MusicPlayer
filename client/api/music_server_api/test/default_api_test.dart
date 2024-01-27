@@ -8,15 +8,43 @@ void main() {
   group(DefaultApi, () {
     // Add
     //
-    //Future<JsonObject> addQueueAddPost(Song song) async
-    test('test addQueueAddPost', () async {
+    //Future<JsonObject> addQueueSongIdPost(int songId) async
+    test('test addQueueSongIdPost', () async {
       // TODO
     });
 
     // Add
     //
-    //Future<JsonObject> addSongsAddPost(Song song) async
+    //Future<Song> addSongsAddPost(Song song) async
     test('test addSongsAddPost', () async {
+      // TODO
+    });
+
+    // Create
+    //
+    //Future<JsonObject> createImagesPost(MultipartFile file) async
+    test('test createImagesPost', () async {
+      // TODO
+    });
+
+    // Image
+    //
+    //Future<JsonObject> imageImagesFileFileNameGet(String fileName) async
+    test('test imageImagesFileFileNameGet', () async {
+      // TODO
+    });
+
+    // Image
+    //
+    //Future<JsonObject> imageImagesSongsSongIdGet(int songId) async
+    test('test imageImagesSongsSongIdGet', () async {
+      // TODO
+    });
+
+    // Move
+    //
+    //Future<JsonObject> moveQueueIndexNewIndexPut(int index, int newIndex) async
+    test('test moveQueueIndexNewIndexPut', () async {
       // TODO
     });
 
@@ -34,13 +62,6 @@ void main() {
       // TODO
     });
 
-    // Peek
-    //
-    //Future<Song> peekQueuePeekGet() async
-    test('test peekQueuePeekGet', () async {
-      // TODO
-    });
-
     // Play
     //
     //Future<JsonObject> playPlayerActionsPlayGet() async
@@ -55,13 +76,6 @@ void main() {
       // TODO
     });
 
-    // Playing
-    //
-    //Future<Song> playingPlayerPlayingGet() async
-    test('test playingPlayerPlayingGet', () async {
-      // TODO
-    });
-
     // Queue
     //
     //Future<BuiltList<Song>> queueQueueGet() async
@@ -71,22 +85,29 @@ void main() {
 
     // Remove
     //
-    //Future<JsonObject> removeSongsRemoveSongIdDelete(int songId) async
-    test('test removeSongsRemoveSongIdDelete', () async {
+    //Future<JsonObject> removeQueueIndexDelete(int index) async
+    test('test removeQueueIndexDelete', () async {
+      // TODO
+    });
+
+    // Remove
+    //
+    //Future<JsonObject> removeSongsSongIdDelete(int songId) async
+    test('test removeSongsSongIdDelete', () async {
       // TODO
     });
 
     // Rename
     //
-    //Future<JsonObject> renameSongsReplacePut(BodyRenameSongsReplacePut bodyRenameSongsReplacePut) async
-    test('test renameSongsReplacePut', () async {
+    //Future<JsonObject> renameSongsSongIdPut(int songId, Song song) async
+    test('test renameSongsSongIdPut', () async {
       // TODO
     });
 
-    // Shuffle
+    // Song
     //
-    //Future<JsonObject> shuffleQueueShuffleGet() async
-    test('test shuffleQueueShuffleGet', () async {
+    //Future<Song> songSongsSongIdGet(int songId) async
+    test('test songSongsSongIdGet', () async {
       // TODO
     });
 

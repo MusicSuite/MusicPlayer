@@ -7,23 +7,18 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(ConsolePlayer, () {
-    // State state
+    // PlayerState state
     test('to test the property `state`', () async {
       // TODO
     });
 
-    // ConsolePlayerQueue queue
-    test('to test the property `queue`', () async {
-      // TODO
-    });
-
-    // int volume (default value: 60)
-    test('to test the property `volume`', () async {
-      // TODO
-    });
-
-    // int songPosition (default value: 0)
+    // num songPosition
     test('to test the property `songPosition`', () async {
+      // TODO
+    });
+
+    // Song currentSong
+    test('to test the property `currentSong`', () async {
       // TODO
     });
   });

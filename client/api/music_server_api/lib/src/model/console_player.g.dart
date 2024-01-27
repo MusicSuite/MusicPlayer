@@ -12,7 +12,7 @@ class _$ConsolePlayer extends ConsolePlayer {
   @override
   final num songPosition;
   @override
-  final ConsolePlayerCurrentSong? currentSong;
+  final Song? currentSong;
 
   factory _$ConsolePlayer([void Function(ConsolePlayerBuilder)? updates]) =>
       (new ConsolePlayerBuilder()..update(updates))._build();
@@ -73,10 +73,9 @@ class ConsolePlayerBuilder
   num? get songPosition => _$this._songPosition;
   set songPosition(num? songPosition) => _$this._songPosition = songPosition;
 
-  ConsolePlayerCurrentSongBuilder? _currentSong;
-  ConsolePlayerCurrentSongBuilder get currentSong =>
-      _$this._currentSong ??= new ConsolePlayerCurrentSongBuilder();
-  set currentSong(ConsolePlayerCurrentSongBuilder? currentSong) =>
+  SongBuilder? _currentSong;
+  SongBuilder get currentSong => _$this._currentSong ??= new SongBuilder();
+  set currentSong(SongBuilder? currentSong) =>
       _$this._currentSong = currentSong;
 
   ConsolePlayerBuilder() {

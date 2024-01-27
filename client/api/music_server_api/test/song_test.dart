@@ -17,8 +17,18 @@ void main() {
       // TODO
     });
 
+    // String artist
+    test('to test the property `artist`', () async {
+      // TODO
+    });
+
     // num duration
     test('to test the property `duration`', () async {
+      // TODO
+    });
+
+    // String thumbnailFileName
+    test('to test the property `thumbnailFileName`', () async {
       // TODO
     });
   });

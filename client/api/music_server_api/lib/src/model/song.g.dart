@@ -6,26 +6,7 @@ part of 'song.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-abstract class SongBuilder {
-  void replace(Song other);
-  void update(void Function(SongBuilder) updates);
-  int? get id;
-  set id(int? id);
-
-  String? get title;
-  set title(String? title);
-
-  String? get artist;
-  set artist(String? artist);
-
-  num? get duration;
-  set duration(num? duration);
-
-  String? get thumbnailFileName;
-  set thumbnailFileName(String? thumbnailFileName);
-}
-
-class _$$Song extends $Song {
+class _$Song extends Song {
   @override
   final int id;
   @override
@@ -37,33 +18,33 @@ class _$$Song extends $Song {
   @override
   final String? thumbnailFileName;
 
-  factory _$$Song([void Function($SongBuilder)? updates]) =>
-      (new $SongBuilder()..update(updates))._build();
+  factory _$Song([void Function(SongBuilder)? updates]) =>
+      (new SongBuilder()..update(updates))._build();
 
-  _$$Song._(
+  _$Song._(
       {required this.id,
       required this.title,
       required this.artist,
       required this.duration,
       this.thumbnailFileName})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(id, r'$Song', 'id');
-    BuiltValueNullFieldError.checkNotNull(title, r'$Song', 'title');
-    BuiltValueNullFieldError.checkNotNull(artist, r'$Song', 'artist');
-    BuiltValueNullFieldError.checkNotNull(duration, r'$Song', 'duration');
+    BuiltValueNullFieldError.checkNotNull(id, r'Song', 'id');
+    BuiltValueNullFieldError.checkNotNull(title, r'Song', 'title');
+    BuiltValueNullFieldError.checkNotNull(artist, r'Song', 'artist');
+    BuiltValueNullFieldError.checkNotNull(duration, r'Song', 'duration');
   }
 
   @override
-  $Song rebuild(void Function($SongBuilder) updates) =>
+  Song rebuild(void Function(SongBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  $SongBuilder toBuilder() => new $SongBuilder()..replace(this);
+  SongBuilder toBuilder() => new SongBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is $Song &&
+    return other is Song &&
         id == other.id &&
         title == other.title &&
         artist == other.artist &&
@@ -85,7 +66,7 @@ class _$$Song extends $Song {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'$Song')
+    return (newBuiltValueToStringHelper(r'Song')
           ..add('id', id)
           ..add('title', title)
           ..add('artist', artist)
@@ -95,35 +76,35 @@ class _$$Song extends $Song {
   }
 }
 
-class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
-  _$$Song? _$v;
+class SongBuilder implements Builder<Song, SongBuilder> {
+  _$Song? _$v;
 
   int? _id;
   int? get id => _$this._id;
-  set id(covariant int? id) => _$this._id = id;
+  set id(int? id) => _$this._id = id;
 
   String? _title;
   String? get title => _$this._title;
-  set title(covariant String? title) => _$this._title = title;
+  set title(String? title) => _$this._title = title;
 
   String? _artist;
   String? get artist => _$this._artist;
-  set artist(covariant String? artist) => _$this._artist = artist;
+  set artist(String? artist) => _$this._artist = artist;
 
   num? _duration;
   num? get duration => _$this._duration;
-  set duration(covariant num? duration) => _$this._duration = duration;
+  set duration(num? duration) => _$this._duration = duration;
 
   String? _thumbnailFileName;
   String? get thumbnailFileName => _$this._thumbnailFileName;
-  set thumbnailFileName(covariant String? thumbnailFileName) =>
+  set thumbnailFileName(String? thumbnailFileName) =>
       _$this._thumbnailFileName = thumbnailFileName;
 
-  $SongBuilder() {
-    $Song._defaults(this);
+  SongBuilder() {
+    Song._defaults(this);
   }
 
-  $SongBuilder get _$this {
+  SongBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _id = $v.id;
@@ -137,29 +118,29 @@ class $SongBuilder implements Builder<$Song, $SongBuilder>, SongBuilder {
   }
 
   @override
-  void replace(covariant $Song other) {
+  void replace(Song other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$$Song;
+    _$v = other as _$Song;
   }
 
   @override
-  void update(void Function($SongBuilder)? updates) {
+  void update(void Function(SongBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  $Song build() => _build();
+  Song build() => _build();
 
-  _$$Song _build() {
+  _$Song _build() {
     final _$result = _$v ??
-        new _$$Song._(
-            id: BuiltValueNullFieldError.checkNotNull(id, r'$Song', 'id'),
+        new _$Song._(
+            id: BuiltValueNullFieldError.checkNotNull(id, r'Song', 'id'),
             title:
-                BuiltValueNullFieldError.checkNotNull(title, r'$Song', 'title'),
+                BuiltValueNullFieldError.checkNotNull(title, r'Song', 'title'),
             artist: BuiltValueNullFieldError.checkNotNull(
-                artist, r'$Song', 'artist'),
+                artist, r'Song', 'artist'),
             duration: BuiltValueNullFieldError.checkNotNull(
-                duration, r'$Song', 'duration'),
+                duration, r'Song', 'duration'),
             thumbnailFileName: thumbnailFileName);
     replace(_$result);
     return _$result;

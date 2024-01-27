@@ -134,7 +134,7 @@ class _PlayerViewState extends State<PlayerView> {
             Slider(
                 min: 0,
                 max: consolePlayer.currentSong?.duration.toDouble() ?? 0,
-                value: songPositionConverter.nrSeconds!.toDouble(),
+                value: songPositionConverter.nrSeconds!.toInt().toDouble(),
                 onChanged: (value) {
                   // NOTE: Cannot set position for LP
                 }),

@@ -43,7 +43,7 @@ final int songId = 56; // int |
 try {
     final response = api.addQueueSongIdPost(songId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->addQueueSongIdPost: $e\n');
 }
 ```
@@ -84,7 +84,7 @@ final Song song = ; // Song |
 try {
     final response = api.addSongsAddPost(song);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->addSongsAddPost: $e\n');
 }
 ```
@@ -125,7 +125,7 @@ final MultipartFile file = BINARY_DATA_HERE; // MultipartFile |
 try {
     final response = api.createImagesPost(file);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->createImagesPost: $e\n');
 }
 ```
@@ -166,7 +166,7 @@ final String fileName = fileName_example; // String |
 try {
     final response = api.imageImagesFileFileNameGet(fileName);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->imageImagesFileFileNameGet: $e\n');
 }
 ```
@@ -207,7 +207,7 @@ final int songId = 56; // int |
 try {
     final response = api.imageImagesSongSongIdGet(songId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->imageImagesSongSongIdGet: $e\n');
 }
 ```
@@ -249,7 +249,7 @@ final int newIndex = 56; // int |
 try {
     final response = api.moveQueueIndexNewIndexPut(index, newIndex);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->moveQueueIndexNewIndexPut: $e\n');
 }
 ```
@@ -290,7 +290,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.nextTrackPlayerActionsNextTrackGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->nextTrackPlayerActionsNextTrackGet: $e\n');
 }
 ```
@@ -327,7 +327,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.pausePlayerActionsPauseGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->pausePlayerActionsPauseGet: $e\n');
 }
 ```
@@ -364,7 +364,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.playPlayerActionsPlayGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->playPlayerActionsPlayGet: $e\n');
 }
 ```
@@ -401,7 +401,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.playerPlayerGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->playerPlayerGet: $e\n');
 }
 ```
@@ -438,7 +438,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.queueQueueGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->queueQueueGet: $e\n');
 }
 ```
@@ -476,7 +476,7 @@ final int index = 56; // int |
 try {
     final response = api.removeQueueIndexDelete(index);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->removeQueueIndexDelete: $e\n');
 }
 ```
@@ -517,7 +517,7 @@ final int songId = 56; // int |
 try {
     final response = api.removeSongsSongIdDelete(songId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->removeSongsSongIdDelete: $e\n');
 }
 ```
@@ -559,7 +559,7 @@ final Song song = ; // Song |
 try {
     final response = api.renameSongsSongIdPut(songId, song);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->renameSongsSongIdPut: $e\n');
 }
 ```
@@ -601,7 +601,7 @@ final int songId = 56; // int |
 try {
     final response = api.songSongsSongIdGet(songId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->songSongsSongIdGet: $e\n');
 }
 ```
@@ -641,7 +641,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.songsSongsGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->songsSongsGet: $e\n');
 }
 ```
@@ -678,7 +678,7 @@ final api = MusicServerApi().getDefaultApi();
 try {
     final response = api.stopPlayerActionsStopGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling DefaultApi->stopPlayerActionsStopGet: $e\n');
 }
 ```

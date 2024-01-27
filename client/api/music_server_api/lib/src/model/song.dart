@@ -16,8 +16,8 @@ part 'song.g.dart';
 /// * [artist]
 /// * [duration]
 /// * [thumbnailFileName]
-@BuiltValue(instantiable: false)
-abstract class Song {
+@BuiltValue()
+abstract class Song implements Built<Song, SongBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
@@ -33,13 +33,20 @@ abstract class Song {
   @BuiltValueField(wireName: r'thumbnail_file_name')
   String? get thumbnailFileName;
 
+  Song._();
+
+  factory Song([void updates(SongBuilder b)]) = _$Song;
+
+  @BuiltValueHook(initializeBuilder: true)
+  static void _defaults(SongBuilder b) => b;
+
   @BuiltValueSerializer(custom: true)
   static Serializer<Song> get serializer => _$SongSerializer();
 }
 
 class _$SongSerializer implements PrimitiveSerializer<Song> {
   @override
-  final Iterable<Type> types = const [Song];
+  final Iterable<Type> types = const [Song, _$Song];
 
   @override
   final String wireName = r'Song';
@@ -87,47 +94,6 @@ class _$SongSerializer implements PrimitiveSerializer<Song> {
     return _serializeProperties(serializers, object,
             specifiedType: specifiedType)
         .toList();
-  }
-
-  @override
-  Song deserialize(
-    Serializers serializers,
-    Object serialized, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    return serializers.deserialize(serialized, specifiedType: FullType($Song))
-        as $Song;
-  }
-}
-
-/// a concrete implementation of [Song], since [Song] is not instantiable
-@BuiltValue(instantiable: true)
-abstract class $Song implements Song, Built<$Song, $SongBuilder> {
-  $Song._();
-
-  factory $Song([void Function($SongBuilder)? updates]) = _$$Song;
-
-  @BuiltValueHook(initializeBuilder: true)
-  static void _defaults($SongBuilder b) => b;
-
-  @BuiltValueSerializer(custom: true)
-  static Serializer<$Song> get serializer => _$$SongSerializer();
-}
-
-class _$$SongSerializer implements PrimitiveSerializer<$Song> {
-  @override
-  final Iterable<Type> types = const [$Song, _$$Song];
-
-  @override
-  final String wireName = r'$Song';
-
-  @override
-  Object serialize(
-    Serializers serializers,
-    $Song object, {
-    FullType specifiedType = FullType.unspecified,
-  }) {
-    return serializers.serialize(object, specifiedType: FullType(Song))!;
   }
 
   void _deserializeProperties(
@@ -187,12 +153,12 @@ class _$$SongSerializer implements PrimitiveSerializer<$Song> {
   }
 
   @override
-  $Song deserialize(
+  Song deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = $SongBuilder();
+    final result = SongBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

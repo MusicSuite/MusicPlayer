@@ -35,7 +35,7 @@ class _SongEditFormState extends State<SongEditForm> {
   }
 
   void submitAction() {
-    Song newSong = $Song((builder) => builder
+    Song newSong = Song((builder) => builder
       ..id = widget.song?.id ?? 0
       ..title = title
       ..artist = artist

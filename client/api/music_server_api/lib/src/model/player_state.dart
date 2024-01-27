@@ -14,7 +14,7 @@ class PlayerState extends EnumClass {
   static const PlayerState PLAYING = _$PLAYING;
   @BuiltValueEnumConst(wireName: r'PAUSED')
   static const PlayerState PAUSED = _$PAUSED;
-  @BuiltValueEnumConst(wireName: r'STOPPED')
+  @BuiltValueEnumConst(wireName: r'STOPPED', fallback: true)
   static const PlayerState STOPPED = _$STOPPED;
 
   static Serializer<PlayerState> get serializer => _$playerStateSerializer;

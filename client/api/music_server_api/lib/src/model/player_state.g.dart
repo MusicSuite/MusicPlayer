@@ -19,7 +19,7 @@ PlayerState _$valueOf(String name) {
     case 'STOPPED':
       return _$STOPPED;
     default:
-      throw new ArgumentError(name);
+      return _$STOPPED;
   }
 }
 
