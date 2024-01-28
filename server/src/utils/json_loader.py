@@ -84,15 +84,3 @@ def replace_song(song_id: int, new_song: Song) -> bool:
     songs.append(new_song)
     _write_songs_to_json(songs)
     return True
-
-
-# def set_song_thumbnail_file_name(song_id: int, thumbnail_file_name: Optional[str]) -> bool:
-#     songs: list[Song] = get_songs()
-#     song = find_song(song_id, songs)
-#     if not song:
-#         logging.warning(f"Could not find song to change thumbnail file name")
-#         return False
-#
-#     song.thumbnail_file_name = thumbnail_file_name
-#     _write_songs_to_json(songs)
-#     return True

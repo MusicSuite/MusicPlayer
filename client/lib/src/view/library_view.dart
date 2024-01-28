@@ -11,19 +11,20 @@ import '../settings/settings_view.dart';
 import 'song_edit_view.dart';
 
 /// Displays a list of SongItems.
-class SongListView extends StatefulWidget {
-  const SongListView(
+class LibraryView extends StatefulWidget {
+  const LibraryView(
       {super.key, required this.api, required this.webSocketManager});
 
-  static const routeName = '/';
+  static const routeName = '/songs';
+  static const titleName = "Library";
   final MusicServerApi api;
   final WebSocketManager webSocketManager;
 
   @override
-  State<SongListView> createState() => _SongListViewState();
+  State<LibraryView> createState() => _LibraryViewState();
 }
 
-class _SongListViewState extends State<SongListView> {
+class _LibraryViewState extends State<LibraryView> {
   late List<Song> songs = [];
   bool editing = false;
 
@@ -97,7 +98,7 @@ class _SongListViewState extends State<SongListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Songs'),
+        title: const Text(LibraryView.titleName),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -120,31 +121,30 @@ class _SongListViewState extends State<SongListView> {
           ),
         ],
       ),
-      body: ListView(
-        restorationId: 'songItemListView',
-        children: [
-          for (Song song in songs)
-            ListTile(
-              contentPadding: const EdgeInsets.only(
-                  left: 16, right: 12), // To allign the icons!
-              dense: true,
-              title: Text("${song.title} (id=${song.id})"),
-              subtitle: Text(song.artist),
-              leading: SquareImage.fromSongId(songId: song.id),
-              trailing: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: _getItemButtons(song),
-              ),
-              onTap: () {
-                if (!editing) {
-                  widget.api
-                      .getDefaultApi()
-                      .addQueueSongIdPost(songId: song.id);
-                }
-              },
-            )
-        ],
+      // Builder since this can change on the fly, the items are not immutable
+      body: ListView.builder(
+        itemCount: songs.length,
+        itemBuilder: (BuildContext context, int index) {
+          Song song = songs[index];
+          return ListTile(
+            contentPadding: const EdgeInsets.only(
+                left: 16, right: 12), // To align the icons!
+            dense: true,
+            title: Text(song.title),
+            subtitle: Text(song.artist),
+            leading: SquareImage.fromSongId(songId: song.id),
+            trailing: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: _getItemButtons(song),
+            ),
+            onTap: () {
+              if (!editing) {
+                widget.api.getDefaultApi().addQueueSongIdPost(songId: song.id);
+              }
+            },
+          );
+        },
       ),
     );
   }

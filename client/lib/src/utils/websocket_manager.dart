@@ -11,7 +11,7 @@ class WebSocketManager {
 
   WebSocketManager() {
     _isConnected = false;
-    _streamController = StreamController<String>();
+    _streamController = StreamController<String>.broadcast();
     _connectToWebSocket();
   }
 
@@ -35,15 +35,17 @@ class WebSocketManager {
   }
 
   void _handleConnectionClosed() {
-    if (_isConnected) {
-      _isConnected = false;
-      _streamController.addError('Connection lost');
-
-      Future.delayed(const Duration(seconds: 5), () {
-        _connectToWebSocket();
-        _requestStateUpdate();
-      });
+    if (!_isConnected) {
+      return;
     }
+
+    _isConnected = false;
+    // _streamController.addError('Connection lost');
+
+    Future.delayed(const Duration(seconds: 5), () {
+      _connectToWebSocket();
+      _requestStateUpdate();
+    });
   }
 
   void _requestStateUpdate() {

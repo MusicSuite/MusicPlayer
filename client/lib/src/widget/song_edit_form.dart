@@ -58,6 +58,7 @@ class _SongEditFormState extends State<SongEditForm> {
         OutlinedButton(
           onPressed: () {
             thumbnailFileName = null;
+            imageCache.clear();
             setState(() {
               squareImage =
                   SquareImage.fromFromFileName(fileName: thumbnailFileName);
@@ -68,6 +69,7 @@ class _SongEditFormState extends State<SongEditForm> {
         const SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
+            imageCache.clear();
             _pickImage();
           },
           child: const Text('Pick image'),

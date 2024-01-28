@@ -26,6 +26,12 @@
       "cwd": "api\\music_server_api",
       "request": "launch",
       "type": "dart"
+    },
+    {
+      "name": "Flutter (lib\\main.dart)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib\\main.dart"
     }
   ]
 }

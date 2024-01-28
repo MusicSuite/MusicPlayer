@@ -8,7 +8,7 @@ import '../settings/settings_view.dart';
 class SongEditView extends StatefulWidget {
   const SongEditView({super.key, required this.api});
 
-  static const routeName = '/song';
+  static const routeName = '/song_edit';
   final MusicServerApi api;
 
   @override

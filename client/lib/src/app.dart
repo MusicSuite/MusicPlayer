@@ -1,16 +1,16 @@
 // Openapi Generator last run: : 2024-01-27T22:36:35.597717
 import 'package:client/src/common.dart';
 import 'package:client/src/view/player_view.dart';
-import 'package:client/src/view/song_queue_view.dart';
+import 'package:client/src/view/queue_view.dart';
 import 'package:client/src/utils/websocket_manager.dart';
+import 'package:client/src/view/song_edit_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:music_server_api/music_server_api.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
-import 'view/song_edit_view.dart';
-import 'view/song_list_view.dart';
+import 'view/library_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   });
 
   final SettingsController settingsController;
+
   final MusicServerApi api = MusicServerApi(basePathOverride: httpServerURL);
   final WebSocketManager webSocketManager = WebSocketManager();
 
@@ -90,21 +91,78 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SongEditView.routeName:
                     return SongEditView(api: api);
-                  case SongListView.routeName:
+                  case QueueView.routeName:
+                    return QueueView(
+                        api: api, webSocketManager: webSocketManager);
+                  case LibraryView.routeName:
+                    return LibraryView(
+                        api: api, webSocketManager: webSocketManager);
+                  case PlayerView.routeName:
                   default:
                     return PlayerView(
                         api: api, webSocketManager: webSocketManager);
-                    // return SongListView(
-                    //     api: api, webSocketManager: webSocketManager);
-                    // return SongQueueView(
-                    //     api: api, webSocketManager: webSocketManager);
-                    return SongEditView(api: api);
                 }
               },
             );
           },
+
+          home: AppHomePage(api: api, webSocketManager: webSocketManager),
         );
       },
+    );
+  }
+}
+
+class AppHomePage extends StatefulWidget {
+  const AppHomePage({
+    super.key,
+    required this.api,
+    required this.webSocketManager,
+  });
+
+  final MusicServerApi api;
+  final WebSocketManager webSocketManager;
+
+  @override
+  _AppHomePageState createState() => _AppHomePageState();
+}
+
+class _AppHomePageState extends State<AppHomePage> {
+  int _currentIndex = 0;
+
+  late final List<Widget> _pages = [
+    PlayerView(api: widget.api, webSocketManager: widget.webSocketManager),
+    QueueView(api: widget.api, webSocketManager: widget.webSocketManager),
+    LibraryView(api: widget.api, webSocketManager: widget.webSocketManager),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        selectedItemColor: Colors.lightBlueAccent,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.album),
+            label: PlayerView.titleName,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.queue_music),
+            label: QueueView.titleName,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: LibraryView.titleName,
+          ),
+        ],
+      ),
     );
   }
 }

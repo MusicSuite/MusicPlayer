@@ -16,6 +16,7 @@ class PlayerView extends StatefulWidget {
       {super.key, required this.api, required this.webSocketManager});
 
   static const routeName = '/player';
+  static const titleName = 'Playing';
   final MusicServerApi api;
   final WebSocketManager webSocketManager;
 
@@ -77,7 +78,6 @@ class _PlayerViewState extends State<PlayerView> {
     });
   }
 
-  // Don't forget to cancel the timer when the widget is disposed
   @override
   void dispose() {
     _sliderTimer.cancel();
@@ -88,7 +88,7 @@ class _PlayerViewState extends State<PlayerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Player view'),
+        title: const Text(PlayerView.titleName),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
