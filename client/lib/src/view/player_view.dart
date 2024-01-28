@@ -33,6 +33,8 @@ class _PlayerViewState extends State<PlayerView> {
   late Timer _sliderTimer;
   TimeParserConverter songPositionConverter = TimeParserConverter(0);
 
+  late StreamSubscription _subscription;
+
   @override
   void initState() {
     super.initState();
@@ -60,7 +62,7 @@ class _PlayerViewState extends State<PlayerView> {
       });
     });
 
-    widget.webSocketManager.messageStream.listen((message) {
+    _subscription = widget.webSocketManager.messageStream.listen((message) {
       var parsedMessage = json.decode(message);
       if (parsedMessage["player"] == null) {
         return;
@@ -81,6 +83,7 @@ class _PlayerViewState extends State<PlayerView> {
   @override
   void dispose() {
     _sliderTimer.cancel();
+    _subscription.cancel();
     super.dispose();
   }
 

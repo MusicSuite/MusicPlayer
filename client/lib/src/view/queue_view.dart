@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
@@ -27,6 +28,8 @@ class _QueueViewState extends State<QueueView> {
   late List<Song> queue = [];
   bool deleting = false;
 
+  late StreamSubscription _subscription;
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +40,7 @@ class _QueueViewState extends State<QueueView> {
       });
     });
 
-    widget.webSocketManager.messageStream.listen((message) {
+    _subscription = widget.webSocketManager.messageStream.listen((message) {
       var parsedMessage = json.decode(message);
 
       if (parsedMessage is Map<String, dynamic> &&
@@ -69,6 +72,12 @@ class _QueueViewState extends State<QueueView> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 
   void _toggleDelete() {
@@ -138,10 +147,9 @@ class _QueueViewState extends State<QueueView> {
                         },
                         icon: const Icon(Icons.remove_from_queue),
                       )
-                    : IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.circle),
-                        color: Colors.transparent,
+                    : ReorderableDragStartListener(
+                        index: index,
+                        child: const Icon(Icons.drag_handle),
                       ),
               ],
             ),

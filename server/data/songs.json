@@ -1,16 +1,93 @@
 [
   {
-    "id": 8,
-    "title": "Bye",
-    "artist": "Hi",
-    "duration": 1.0,
-    "thumbnail_file_name": "Screenshot 2023-12-28 230340.png"
+    "id": 0,
+    "title": "Back In Black",
+    "artist": "AC/DC",
+    "duration": 1200.0,
+    "thumbnail_file_name": "AC DC - Back In Black.webp"
   },
   {
     "id": 1,
-    "title": "Hihihi",
-    "artist": "Artist",
-    "duration": 37219.0,
-    "thumbnail_file_name": "Rapunzel_Pascal.png"
+    "title": "Back To Black",
+    "artist": "Amy Winehouse",
+    "duration": 1187.0,
+    "thumbnail_file_name": "Amy Winehouse - Back To Black.webp"
+  },
+  {
+    "id": 2,
+    "title": "Whatever People Say I Am, That's What I'm Not",
+    "artist": "Arctic Monkeys",
+    "duration": 1130.0,
+    "thumbnail_file_name": "Arctic Monkeys - Whatever People Say I Am, That's What I'm Not.webp"
+  },
+  {
+    "id": 3,
+    "title": "Paul's Boutique",
+    "artist": "Beastie Boys",
+    "duration": 345.0,
+    "thumbnail_file_name": "Beastie Boys - Paul's Boutique.webp"
+  },
+  {
+    "id": 4,
+    "title": "Parallel Lines",
+    "artist": "Blondie",
+    "duration": 1380.0,
+    "thumbnail_file_name": "Blondie - Parallel Lines.webp"
+  },
+  {
+    "id": 5,
+    "title": "Blonde On Blonde",
+    "artist": "Bob Dylan",
+    "duration": 962.0,
+    "thumbnail_file_name": "Bob Dylan - Blonde On Blonde.webp"
+  },
+  {
+    "id": 6,
+    "title": "Low",
+    "artist": "David Bowie",
+    "duration": 1079.0,
+    "thumbnail_file_name": "David Bowie - Low.webp"
+  },
+  {
+    "id": 7,
+    "title": "Unknown Pleasures",
+    "artist": "Joy Division",
+    "duration": 1140.0,
+    "thumbnail_file_name": "Joy Division - Unknown Pleasures.webp"
+  },
+  {
+    "id": 8,
+    "title": "The Hounds Of Love",
+    "artist": "Kate Bush",
+    "duration": 1080.0,
+    "thumbnail_file_name": "Kate Bush - The Hounds Of Love.webp"
+  },
+  {
+    "id": 9,
+    "title": "Led Zeppelin IV",
+    "artist": "Led Zeppelin",
+    "duration": 1200.0,
+    "thumbnail_file_name": "Led Zeppelin - Led Zeppelin IV.webp"
+  },
+  {
+    "id": 10,
+    "title": "Definitely Maybe",
+    "artist": "Oasis",
+    "duration": 1262.0,
+    "thumbnail_file_name": "Oasis - Definitely Maybe.webp"
+  },
+  {
+    "id": 11,
+    "title": "Dark Side Of The Moon",
+    "artist": "Pink Floyd",
+    "duration": 1380.0,
+    "thumbnail_file_name": "Pink Floyd - Dark Side Of The Moon.webp"
+  },
+  {
+    "id": 12,
+    "title": "Bad",
+    "artist": "Michael Jackson",
+    "duration": 1010.0,
+    "thumbnail_file_name": "Bad.webp"
   }
 ]

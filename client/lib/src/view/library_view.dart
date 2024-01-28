@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
@@ -28,6 +29,8 @@ class _LibraryViewState extends State<LibraryView> {
   late List<Song> songs = [];
   bool editing = false;
 
+  late StreamSubscription _subscription;
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,7 @@ class _LibraryViewState extends State<LibraryView> {
       });
     });
 
-    widget.webSocketManager.messageStream.listen((message) {
+    _subscription = widget.webSocketManager.messageStream.listen((message) {
       var parsedMessage = json.decode(message);
 
       if (parsedMessage is Map<String, dynamic> &&
@@ -54,6 +57,12 @@ class _LibraryViewState extends State<LibraryView> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 
   void _toggleEdit() {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:client/src/common.dart';
 
 class SquareImage extends StatelessWidget {
-  const SquareImage.fromSongId({super.key, required num? songId})
+  SquareImage.fromSongId({super.key, required num? songId})
       : networkImageURL =
             songId == null ? null : "$httpServerURL/images/song/$songId";
-  const SquareImage.fromFromFileName({super.key, required String? fileName})
+  SquareImage.fromFromFileName({super.key, required String? fileName})
       : networkImageURL =
             fileName == null ? null : "$httpServerURL/images/file/$fileName";
 
